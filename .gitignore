@@ -1,0 +1,55 @@
+# ───────────────────────────────
+# OS artefacts
+# ───────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ───────────────────────────────
+# Editor / IDE
+# ───────────────────────────────
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.claude/
+
+# ───────────────────────────────
+# Logs & temp files
+# ───────────────────────────────
+*.log
+*.tmp
+*.temp
+*.bak
+*.orig
+
+# ───────────────────────────────
+# Node (if ever added)
+# ───────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnp.*
+
+# ───────────────────────────────
+# Build outputs (if ever added)
+# ───────────────────────────────
+dist/
+build/
+.cache/
+
+# ───────────────────────────────
+# Env / secrets
+# ───────────────────────────────
+.env
+.env.*
+!.env.example
