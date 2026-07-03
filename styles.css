@@ -1,5 +1,5 @@
 /* ============================================
-   अंतरिक्ष — Design System & Styles v2
+   Astro+ महासंगम — Design System & Styles v2
    Conclave, Awards & Expo 2026 | NBT Astro
    ============================================ */
 
@@ -1028,6 +1028,33 @@ body.cursor-active .cursor-glow { opacity: 0.5; }
 @keyframes title-shimmer {
   0%, 100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
+}
+
+/* Superscript '+' in hero title — styled to look intentional, not like a footnote */
+.hero-title sup,
+.hero-title .hero-title-sup {
+  font-size: 0.38em;
+  vertical-align: super;
+  line-height: 0;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  opacity: 0.85;
+}
+
+/* Superscript '+' in nav logo — tight and compact */
+.nav-logo-text sup {
+  font-size: 0.55em;
+  vertical-align: super;
+  line-height: 0;
+  font-weight: 800;
+}
+
+/* Superscript '+' in headings and body — readable but clearly raised */
+h1 sup, h2 sup, h3 sup, h4 sup, p sup {
+  font-size: 0.6em;
+  vertical-align: super;
+  line-height: 0;
+  font-weight: 700;
 }
 
 .hero-subtitle {

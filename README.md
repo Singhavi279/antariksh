@@ -1,4 +1,4 @@
-# अंतरिक्ष — Antariksh 2026
+# Astro+ महासंगम 2026
 
 **Conclave · Awards · Expo**  
 India's premier forum for Vedic Sciences, Astrology & Conscious Living.  
@@ -8,7 +8,7 @@ _An initiative by NBT Astro, presented by Times Internet._
 
 ## Overview
 
-Antariksh 2026 is a world-class B2B/B2C event platform for the Vedic Sciences community. This repository contains the production-ready static website featuring:
+Astro+ महासंगम 2026 is a world-class B2B/B2C event platform for the Vedic Sciences community. This repository contains the production-ready static website featuring:
 
 - 🪐 **Immersive hero** with canvas starfield, animated zodiac wheel, and parallax depth layers
 - 🏛️ **Multi-page SPA** — Home, Conclave, Awards, Expo, Partners, Registration, Consultation

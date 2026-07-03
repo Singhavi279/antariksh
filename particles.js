@@ -1,5 +1,5 @@
 /* ============================================================
-   अंतरिक्ष — Immersive Canvas Starfield
+   Astro+ महासंगम — Immersive Canvas Starfield
    Pure Canvas 2D · zero CDN · mouse-reactive · shooting stars
    ============================================================ */
 

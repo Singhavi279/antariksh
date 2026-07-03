@@ -1,5 +1,5 @@
 /* ============================================
-   अंतरिक्ष — Application Logic v2
+   Astro+ महासंगम — Application Logic v2
    Router, Loader, Parallax, Tilt, Scroll FX
    ============================================ */
 

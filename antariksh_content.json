@@ -4,10 +4,10 @@
     "last_updated": "2026-06-26",
     "prepared_by": "Avnish Singh — Product, NBT Astro",
     "status": "UI Mock — Localhost Only. Not for external distribution.",
-    "event_name_devanagari": "अंतरिक्ष",
-    "event_name_latin": "Antariksh",
+    "event_name_devanagari": "Astro+ महासंगम",
+    "event_name_latin": "Astro+ महासंगम",
     "event_name_note": "Working title. Final name pending confirmation. All instances reference this key — single-pass find-replace when name is locked.",
-    "event_full_title": "अंतरिक्ष Conclave, Awards & Expo 2026",
+    "event_full_title": "Astro+ महासंगम Conclave, Awards & Expo 2026",
     "edition": "Inaugural Edition",
     "organiser": "NBT Astro",
     "presented_by": "Times Internet",
@@ -39,7 +39,7 @@
 
   "global": {
     "nav": {
-      "logo_text": "अंतरिक्ष",
+      "logo_text": "Astro+ महासंगम",
       "logo_subtext": "Conclave, Awards & Expo",
       "logo_attribution": "An Initiative by NBT Astro",
       "cta_primary": {
@@ -76,7 +76,7 @@
 
     "home": {
       "hero": {
-        "h1": "अंतरिक्ष",
+        "h1": "Astro+ महासंगम",
         "h1_subtitle": "Conclave, Awards & Expo 2026",
         "tagline": "Where Vedic Wisdom Meets Modern India",
         "tagline_note": "Replaced original 'Where Mystical Sciences Meet Modern Life' — 'Mystical Sciences' frames the event as occult/fringe. 'Vedic Wisdom' is culturally grounded and brand-safe.",
@@ -94,7 +94,7 @@
       },
 
       "why_section": {
-        "section_label": "Why अंतरिक्ष",
+        "section_label": "Why Astro+ महासंगम",
         "headline": "India's Astrology Ecosystem Is Thriving — But Fragmented",
         "subheadline": "The expertise exists. The audience is growing. What's missing is a trusted, institutional platform that brings it all together.",
         "challenges": [
@@ -152,7 +152,7 @@
         "format_tag": "One Day · Multi-Format · Delhi NCR · September 2026",
         "pillars": [
           {
-            "name": "अंतरिक्ष Conclave",
+            "name": "Astro+ महासंगम Conclave",
             "time": "09:00 AM – 04:30 PM",
             "description": "India's foremost knowledge forum on astrology and Vedic sciences. Expert panels, keynote addresses, masterclasses and structured discussions across ten themes.",
             "note": "Removed 'live predictions' from original. Replaced with 'expert panels and masterclasses'. Prediction framing is a brand and legal risk per CXO guardrails.",
@@ -160,14 +160,14 @@
             "href": "/conclave"
           },
           {
-            "name": "अंतरिक्ष Awards",
+            "name": "Astro+ महासंगम Awards",
             "time": "04:30 PM – 06:30 PM",
             "description": "India's first institutional recognition programme for astrology, Vastu, numerology, tarot and palmistry. 47 categories. Jury-led. Process-audited.",
             "icon_hint": "trophy",
             "href": "/awards"
           },
           {
-            "name": "अंतरिक्ष Expo",
+            "name": "Astro+ महासंगम Expo",
             "time": "All Day",
             "description": "A curated commercial marketplace where astrology apps, wellness brands, gemstone specialists, publishers, educational institutes and spiritual tourism boards meet high-intent buyers.",
             "note": "Removed 'VR cosmic journeys' and 'aura scanning'. Replaced with realistic exhibitor category descriptions.",
@@ -175,7 +175,7 @@
             "href": "/expo"
           },
           {
-            "name": "अंतरिक्ष Consultation Zone",
+            "name": "Astro+ महासंगम Consultation Zone",
             "time": "All Day",
             "description": "Structured 1-on-1 expert access across kundali reading, Vastu consultation, tarot and numerology, and palmistry. Credentialed practitioners. Pre-bookable on arrival.",
             "icon_hint": "conversation",
@@ -262,7 +262,7 @@
       },
 
       "awards_preview": {
-        "section_label": "अंतरिक्ष Awards",
+        "section_label": "Astro+ महासंगम Awards",
         "headline": "India's First Institutional Recognition for the Vedic Sciences Ecosystem",
         "sub": "47 categories across Astrology, Vastu, Tarot & Numerology, and Palmistry. Jury-led evaluation. Process audited by a recognised knowledge partner.",
         "value_props": [
@@ -277,7 +277,7 @@
       "consultation_preview": {
         "section_label": "Consultation Zone",
         "headline": "Face-to-Face with India's Best Practitioners",
-        "sub": "The most personal part of अंतरिक्ष. Step into a structured consultation zone where credentialed experts offer direct, one-on-one guidance.",
+        "sub": "The most personal part of Astro+ महासंगम. Step into a structured consultation zone where credentialed experts offer direct, one-on-one guidance.",
         "zones": ["Kundali Consultation", "Vastu Zone", "Tarot & Numerology Zone", "Palm Reading Zone"],
         "cta": { "label": "How It Works", "href": "/consultation" }
       },
@@ -292,14 +292,14 @@
       "future_editions": {
         "section_label": "The IP Vision",
         "headline": "Delhi NCR Is Just the Beginning",
-        "body": "अंतरिक्ष launches as India's premier annual Vedic sciences conclave and recognition platform. The inaugural edition — Delhi NCR, September 2026 — establishes the benchmark for every edition that follows.",
+        "body": "Astro+ महासंगम launches as India's premier annual Vedic sciences conclave and recognition platform. The inaugural edition — Delhi NCR, September 2026 — establishes the benchmark for every edition that follows.",
         "note": "Do NOT render city rollout map or future-edition dates in UI mock. Timeline conflict between deck (half-yearly) and financial model (annual) is unresolved. Use single launch-city framing only."
       },
 
       "faqs": [
         {
           "q": "Who is this event for?",
-          "a": "अंतरिक्ष bridges ancient wisdom and modern practice. It is designed for astrology and Vastu practitioners, numerologists, tarot and palmistry experts, faith-tech brands, wellness exhibitors, corporate professionals and anyone seeking direct access to India's most credible Vedic sciences community."
+          "a": "Astro+ महासंगम bridges ancient wisdom and modern practice. It is designed for astrology and Vastu practitioners, numerologists, tarot and palmistry experts, faith-tech brands, wellness exhibitors, corporate professionals and anyone seeking direct access to India's most credible Vedic sciences community."
         },
         {
           "q": "What kind of networking can I expect?",
@@ -333,13 +333,13 @@
 
     "conclave": {
       "page_header": {
-        "h1": "अंतरिक्ष Conclave",
+        "h1": "Astro+ महासंगम Conclave",
         "sub": "India's foremost knowledge forum on astrology, Vedic sciences and conscious living.",
         "time_block": "09:00 AM – 04:30 PM",
         "date": "September 2026, Delhi NCR"
       },
 
-      "intro_para": "The Conclave is the intellectual engine of अंतरिक्ष. Over seven hours, India's leading astrologers, Vedic scholars, wellness experts, researchers and conscious living advocates take the stage for structured panels, masterclasses and keynotes — addressing the questions that matter most to the profession and its community.",
+      "intro_para": "The Conclave is the intellectual engine of Astro+ महासंगम. Over seven hours, India's leading astrologers, Vedic scholars, wellness experts, researchers and conscious living advocates take the stage for structured panels, masterclasses and keynotes — addressing the questions that matter most to the profession and its community.",
 
       "themes": [
         {
@@ -434,7 +434,7 @@
     "speakers": {
       "page_header": {
         "h1": "Speakers & Dignitaries",
-        "sub": "India's most respected voices in astrology, Vedic sciences and conscious living have been invited to participate in अंतरिक्ष 2026.",
+        "sub": "India's most respected voices in astrology, Vedic sciences and conscious living have been invited to participate in Astro+ महासंगम 2026.",
         "badge_legend": {
           "Invited": "Invitation sent. Participation not yet confirmed.",
           "Invitation Extended": "Formal invitation extended to office. Awaiting confirmation.",
@@ -535,7 +535,7 @@
 
     "awards": {
       "page_header": {
-        "h1": "अंतरिक्ष Awards 2026",
+        "h1": "Astro+ महासंगम Awards 2026",
         "sub": "India's first institutional recognition programme for the Vedic sciences and astrology ecosystem.",
         "time_block": "04:30 PM – 06:30 PM",
         "discipline_count": "4 Disciplines · 47 Categories",
@@ -838,11 +838,11 @@
     "consultation": {
       "page_header": {
         "h1": "Consultation Zone",
-        "sub": "The most personal part of अंतरिक्ष. Direct, structured, one-on-one access to India's most credible practitioners — in person.",
+        "sub": "The most personal part of Astro+ महासंगम. Direct, structured, one-on-one access to India's most credible practitioners — in person.",
         "availability": "Open all day. Included with all paid passes."
       },
 
-      "intro": "For centuries, the most meaningful guidance happened face-to-face — a practitioner, a seeker, and an honest conversation. The Consultation Zone at अंतरिक्ष is built around that principle. Verified, credentialed experts. Structured sessions. A private, calm environment designed for real guidance.",
+      "intro": "For centuries, the most meaningful guidance happened face-to-face — a practitioner, a seeker, and an honest conversation. The Consultation Zone at Astro+ महासंगम is built around that principle. Verified, credentialed experts. Structured sessions. A private, calm environment designed for real guidance.",
 
       "booths": [
         {
@@ -925,7 +925,7 @@
       },
 
       "practitioner_standards": {
-        "headline": "Who Consults at अंतरिक्ष",
+        "headline": "Who Consults at Astro+ महासंगम",
         "body": "Every practitioner in the Consultation Zone has been vetted by the NBT Astro team. We verify credentials, check for public complaints, review their professional profile, and require each practitioner to agree to our code of conduct before participating.",
         "standards": [
           "Verified identity and professional credentials",
@@ -938,12 +938,12 @@
 
     "expo": {
       "page_header": {
-        "h1": "अंतरिक्ष Expo",
+        "h1": "Astro+ महासंगम Expo",
         "sub": "India's most curated astrology and Vedic sciences commercial marketplace — brands, practitioners, educators and experiences under one roof.",
         "scale": "50+ Exhibiting Brands | All Day Access"
       },
 
-      "intro": "The Expo is where India's spiritual commerce ecosystem meets its highest-intent audience. Whether you are a digital platform seeking new users, a gemstone specialist building a premium clientele, a publishing house launching a title, or an educational institute recruiting the next generation of practitioners — the अंतरिक्ष Expo is your best channel.",
+      "intro": "The Expo is where India's spiritual commerce ecosystem meets its highest-intent audience. Whether you are a digital platform seeking new users, a gemstone specialist building a premium clientele, a publishing house launching a title, or an educational institute recruiting the next generation of practitioners — the Astro+ महासंगम Expo is your best channel.",
 
       "categories": [
         {
@@ -982,7 +982,7 @@
 
       "sponsorship": {
         "section_anchor": "sponsor",
-        "headline": "Partner with अंतरिक्ष",
+        "headline": "Partner with Astro+ महासंगम",
         "sub": "Reach India's most engaged astrology and Vedic sciences audience. Position your brand at the centre of a category-defining event IP.",
         "audience_value": "3,000+ expected attendees. 300+ practitioners and experts. 50+ exhibiting brands. An NBT Astro digital audience of millions.",
         "tiers": [
@@ -1037,7 +1037,7 @@
     "tickets": {
       "page_header": {
         "h1": "Tickets & Registration",
-        "sub": "Choose your अंतरिक्ष 2026 experience. All prices inclusive of GST.",
+        "sub": "Choose your Astro+ महासंगम 2026 experience. All prices inclusive of GST.",
         "gst_note": "All prices listed are inclusive of GST.",
         "note": "Ticket infrastructure (BookMyShow/Paytm Insider) not yet confirmed. UI should render ticket cards with 'Register Interest' CTA until ticketing is live."
       },
@@ -1065,7 +1065,7 @@
           "price_display": "₹599",
           "badge": "Most Popular",
           "inclusions": [
-            "Full access to अंतरिक्ष Expo",
+            "Full access to Astro+ महासंगम Expo",
             "All Conclave sessions (9 AM – 4:30 PM)",
             "Consultation Zone with 10-minute complimentary session",
             "Access to Awards Ceremony (standing)",
@@ -1116,7 +1116,7 @@
     "venue": {
       "page_header": {
         "h1": "Venue & Getting Here",
-        "sub": "अंतरिक्ष 2026 — Delhi NCR, September 2026",
+        "sub": "Astro+ महासंगम 2026 — Delhi NCR, September 2026",
         "note": "Venue name and address pending final confirmation. Use city + month format only in all copy until locked."
       },
       "details": {
