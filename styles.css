@@ -9,7 +9,6 @@
   --navy: #1B2A4A;
   --gold: #B8860B;
   --gold-light: #D4AF37;
-  --gold-pale: #F0D060;
   --bg-dark: #0C1220;
   --bg-cream: #FAF6EF;
   --text-primary: #1A1A2E;
@@ -21,7 +20,6 @@
   --navy-light: #243456;
   --navy-lighter: #2D4068;
   --gold-dim: rgba(184, 134, 11, 0.15);
-  --gold-glow: rgba(212, 175, 55, 0.25);
   --gold-gradient: linear-gradient(135deg, #B8860B, #D4AF37, #B8860B);
   --gold-gradient-text: linear-gradient(135deg, #D4AF37, #F0D060, #D4AF37);
   --gold-radial: radial-gradient(circle at 50% 50%, rgba(212,175,55,0.35), rgba(212,175,55,0) 60%);
@@ -30,7 +28,6 @@
   --card-border-hover: rgba(212, 175, 55, 0.45);
   --glass-bg: rgba(12, 18, 32, 0.7);
   --glass-border: rgba(255, 255, 255, 0.08);
-  --overlay: rgba(12, 18, 32, 0.92);
   --white: #FFFFFF;
   --white-muted: rgba(255, 255, 255, 0.72);
   --white-dim: rgba(255, 255, 255, 0.45);
@@ -59,27 +56,20 @@
   --radius-full: 999px;
 
   /* Shadows */
-  --shadow-sm: 0 2px 8px rgba(0,0,0,0.15);
   --shadow: 0 4px 24px rgba(0,0,0,0.2);
   --shadow-lg: 0 8px 40px rgba(0,0,0,0.3);
   --shadow-gold: 0 4px 30px rgba(184,134,11,0.2);
   --shadow-gold-lg: 0 14px 60px rgba(184,134,11,0.35);
-  --shadow-elev: 0 30px 80px -20px rgba(0,0,0,0.5);
 
   /* Motion */
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --ease-emph: cubic-bezier(0.83, 0, 0.17, 1);
   --duration: 0.3s;
-  --duration-slow: 0.6s;
-  --duration-xl: 1.2s;
 
   /* Z-index */
   --z-progress: 1300;
   --z-cursor: 1250;
-  --z-toast: 1200;
-  --z-modal: 1100;
   --z-nav: 1000;
   --z-floating: 900;
   --z-loader: 9999;
@@ -137,8 +127,6 @@ h1 { font-size: clamp(2.5rem, 5.5vw, 4rem); letter-spacing: -0.02em; }
 h2 { font-size: clamp(2rem, 4.5vw, 3.25rem); letter-spacing: -0.02em; }
 h3 { font-size: clamp(1.35rem, 2.8vw, 2rem); }
 h4 { font-size: clamp(1.1rem, 2vw, 1.4rem); }
-
-.hindi-display { font-family: var(--font-hindi); font-weight: 800; }
 
 .gradient-text {
   background: var(--gold-gradient-text);
@@ -272,7 +260,7 @@ h4 { font-size: clamp(1.1rem, 2vw, 1.4rem); }
 .grid-2 { grid-template-columns: repeat(2, 1fr); }
 .grid-3 { grid-template-columns: repeat(3, 1fr); }
 .grid-4 { grid-template-columns: repeat(4, 1fr); }
-.gap-1 { gap: 0.5rem; } .gap-2 { gap: 1rem; } .gap-3 { gap: 1.5rem; } .gap-4 { gap: 2rem; }
+.gap-3 { gap: 1.5rem; } .gap-4 { gap: 2rem; }
 
 
 /* ===== 5. SCROLL PROGRESS + CURSOR GLOW ===== */
@@ -691,17 +679,6 @@ body.cursor-active .cursor-glow { opacity: 0.5; }
 .card h3, .card h4 { margin-bottom: 0.75rem; }
 .card p { color: var(--white-dim); font-size: 0.9rem; line-height: 1.7; }
 .card-cream p { color: var(--text-muted); }
-
-.card-highlight {
-  background: rgba(8, 14, 28, 0.65);
-  border: 2px solid rgba(212,175,55,0.5);
-  border-radius: var(--radius-lg);
-  padding: 2rem;
-  position: relative;
-  box-shadow: var(--shadow-gold-lg), inset 0 1px 0 rgba(212,175,55,0.15);
-  backdrop-filter: blur(16px) saturate(1.5);
-  -webkit-backdrop-filter: blur(16px) saturate(1.5);
-}
 
 /* Discipline cards (consultation) — with SVG illustrations */
 .discipline-card { padding-top: 1.5rem; }
@@ -1299,46 +1276,127 @@ h1 sup, h2 sup, h3 sup, h4 sup, p sup {
   z-index: 1;
 }
 
-/* ===== 12. SPEAKER CARDS ===== */
+/* ===== 12. SPEAKER FLIP CARDS ===== */
+
+/* Outer wrapper — sets perspective for the 3D scene */
 .speaker-card {
-  background: rgba(8, 14, 28, 0.6);
-  border: 1px solid rgba(212,175,55,0.14);
-  border-radius: var(--radius-lg);
-  padding: 1.75rem;
-  text-align: center;
-  transition: transform 0.5s var(--ease-out), border-color var(--duration) var(--ease), box-shadow var(--duration) var(--ease);
+  perspective: 900px;
+  height: 260px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  overflow: visible;
+  padding: 0;
   position: relative;
-  overflow: hidden;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
 }
 
-.speaker-card::before {
+/* The flipping element */
+.speaker-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.65s cubic-bezier(0.4, 0.2, 0.2, 1);
+  border-radius: var(--radius-lg);
+}
+
+/* Trigger flip on hover (desktop) or .flipped class (touch) */
+.speaker-card:hover .speaker-card-inner,
+.speaker-card.flipped .speaker-card-inner {
+  transform: rotateY(180deg);
+}
+
+/* Shared face styles */
+.speaker-card-front,
+.speaker-card-back {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-lg);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.75rem 1.5rem;
+  overflow: hidden;
+}
+
+/* ── FRONT FACE ── */
+.speaker-card-front {
+  background: rgba(8, 14, 28, 0.72);
+  border: 1px solid rgba(212,175,55,0.18);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+}
+
+/* Subtle mandala watermark on front */
+.speaker-card-front::before {
   content: '';
   position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 60%;
-  height: 60%;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-100 -100 200 200'><g fill='none' stroke='%23D4AF37' stroke-width='0.5' opacity='0.3'><circle r='90'/><circle r='70'/><circle r='50'/><circle r='30'/><path d='M0,-90 L25,-25 L90,0 L25,25 L0,90 L-25,25 L-90,0 L-25,-25 Z'/></g></svg>");
+  top: -30%;
+  left: -30%;
+  width: 70%;
+  height: 70%;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-100 -100 200 200'><g fill='none' stroke='%23D4AF37' stroke-width='0.5' opacity='0.3'><circle r='90'/><circle r='70'/><circle r='50'/><path d='M0,-90 L25,-25 L90,0 L25,25 L0,90 L-25,25 L-90,0 L-25,-25 Z'/></g></svg>");
   background-size: contain;
   background-repeat: no-repeat;
   opacity: 0.06;
   pointer-events: none;
-  transition: transform 0.8s var(--ease-out), opacity 0.4s var(--ease);
 }
 
-.speaker-card:hover {
-  border-color: var(--card-border-hover);
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-gold);
+/* Flip hint indicator */
+.speaker-card-front::after {
+  content: '↻';
+  position: absolute;
+  bottom: 0.75rem;
+  right: 0.9rem;
+  font-size: 0.7rem;
+  color: var(--gold-light);
+  opacity: 0.4;
+  letter-spacing: 0.05em;
+  transition: opacity 0.3s var(--ease);
 }
 
-.speaker-card:hover::before {
-  transform: rotate(45deg) scale(1.2);
-  opacity: 0.12;
+.speaker-card:hover .speaker-card-front::after { opacity: 0; }
+
+/* ── BACK FACE ── */
+.speaker-card-back {
+  background: linear-gradient(145deg, rgba(27,42,74,0.92) 0%, rgba(8,14,28,0.95) 100%);
+  border: 1px solid rgba(212,175,55,0.45);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.35), inset 0 1px 0 rgba(212,175,55,0.15);
+  transform: rotateY(180deg);
+  gap: 0.6rem;
 }
 
+/* Gold top-edge accent line on back */
+.speaker-card-back::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 20%;
+  right: 20%;
+  height: 2px;
+  background: var(--gold-gradient);
+  border-radius: 0 0 2px 2px;
+}
+
+/* Radial glow on back */
+.speaker-card-back::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 60%;
+  background: radial-gradient(ellipse at top, rgba(212,175,55,0.12), transparent 70%);
+  pointer-events: none;
+}
+
+/* ── AVATAR ── */
 .speaker-avatar {
   width: 80px;
   height: 80px;
@@ -1352,11 +1410,13 @@ h1 sup, h2 sup, h3 sup, h4 sup, p sup {
   font-size: 1.5rem;
   font-weight: 700;
   color: var(--gold-light);
-  border: 2px solid var(--card-border);
+  border: 2px solid rgba(212,175,55,0.2);
   position: relative;
-  transition: transform 0.5s var(--ease-spring);
+  flex-shrink: 0;
+  transition: transform 0.4s var(--ease-spring), border-color 0.3s var(--ease);
 }
 
+/* Dashed ring — always visible on front, animated on hover */
 .speaker-avatar::after {
   content: '';
   position: absolute;
@@ -1364,17 +1424,59 @@ h1 sup, h2 sup, h3 sup, h4 sup, p sup {
   border-radius: 50%;
   border: 1px dashed rgba(212,175,55,0.3);
   opacity: 0;
-  transition: opacity 0.4s var(--ease), transform 0.6s linear;
+  transition: opacity 0.4s var(--ease);
 }
 
-.speaker-card:hover .speaker-avatar { transform: scale(1.08); }
 .speaker-card:hover .speaker-avatar::after { opacity: 1; animation: spin-slow 8s linear infinite; }
+.speaker-card-back .speaker-avatar {
+  width: 60px;
+  height: 60px;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  border-color: rgba(212,175,55,0.4);
+}
 
-.speaker-card h4 { font-size: 1rem; margin-bottom: 0.35rem; }
-.speaker-card .speaker-title { font-size: 0.8rem; color: var(--white-dim); margin-bottom: 0.75rem; line-height: 1.5; }
-.speaker-card .badge { margin-top: 0.5rem; }
+/* ── FRONT TEXT ── */
+.speaker-card-front h4 {
+  font-size: 1rem;
+  color: var(--white);
+  margin-bottom: 0.3rem;
+}
 
-/* Chief Guest Card */
+.speaker-card-front .speaker-discipline {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  opacity: 0.8;
+}
+
+/* ── BACK TEXT ── */
+.speaker-card-back h4 {
+  font-size: 0.95rem;
+  color: var(--gold-light);
+  margin-bottom: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.speaker-card-back .speaker-title {
+  font-size: 0.78rem;
+  color: var(--white-muted);
+  line-height: 1.55;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.speaker-card-back .badge {
+  position: relative;
+  z-index: 1;
+  margin-top: 0.25rem;
+}
+
+/* Chief Guest Card — not a flip card, keep as is but refresh */
 .chief-guest-card {
   background: linear-gradient(135deg, rgba(27,42,74,0.5), rgba(27,42,74,0.3));
   border: 1px solid rgba(212, 175, 55, 0.2);
@@ -2339,18 +2441,6 @@ h1 sup, h2 sup, h3 sup, h4 sup, p sup {
   to { opacity: 0; transform: translateY(-10px); }
 }
 
-@keyframes heroOrbFloat {
-  0%   { transform: translate(-50%, -50%) scale(1)    translate3d(0,    0,    0); }
-  33%  { transform: translate(-50%, -50%) scale(1.08) translate3d(20px, -15px, 0); }
-  66%  { transform: translate(-50%, -50%) scale(0.95) translate3d(-10px, 20px, 0); }
-  100% { transform: translate(-50%, -50%) scale(1.04) translate3d(15px,  10px, 0); }
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-}
-
 @keyframes shimmer {
   0% { background-position: -200% center; }
   100% { background-position: 200% center; }
@@ -2639,9 +2729,10 @@ h1 sup, h2 sup, h3 sup, h4 sup, p sup {
 
 .loader-title {
   display: flex;
+  align-items: baseline;
   gap: 0.05em;
-  font-family: var(--font-hindi);
-  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-family: var(--font-heading), var(--font-hindi); /* Latin Astro + Devanagari महासंगम */
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
   font-weight: 800;
   letter-spacing: 0.02em;
   filter: drop-shadow(0 0 25px rgba(212,175,55,0.5));
@@ -2657,12 +2748,30 @@ h1 sup, h2 sup, h3 sup, h4 sup, p sup {
   background-clip: text;
   line-height: 1.4;
   padding: 0.1em 0.05em;
-  animation: loader-char-in 0.4s var(--ease-out) forwards;
-  animation-delay: calc(0.1s + var(--d) * 0.06s);
+  animation: loader-char-in 0.5s var(--ease-out) forwards;
+  animation-delay: calc(0.15s + var(--d) * 0.1s); /* Slower stagger — 0.1s per char across 12 chars = 1.2s total */
 }
 
 @keyframes loader-char-in {
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* The + in Astro+ — flex children ignore vertical-align, use position offset instead */
+.loader-char-sup {
+  -webkit-text-fill-color: var(--gold-light);
+  color: var(--gold-light);
+  font-size: 0.52em;
+  position: relative;
+  top: -0.52em;     /* visually raised above the baseline */
+  line-height: 1;
+  padding: 0 0.04em 0 0.02em;
+  font-weight: 900;
+}
+
+/* Space between Astro+ and महासंगम */
+.loader-char-space {
+  padding: 0;
+  width: 0.3em;
 }
 
 .loader-sub {
@@ -2920,11 +3029,14 @@ body::after {
   .timeline { padding-left: 2.25rem; }
   .eval-stages { padding-left: 2.5rem; }
   /* Remove expensive blur compositing on mobile cards */
-  .card, .card-cream, .speaker-card, .pricing-card, .jury-card,
-  .card-glass, .routing-card, .step-card {
+  .card, .card-cream, .pricing-card, .jury-card,
+  .card-glass, .routing-card, .step-card,
+  .speaker-card-front, .speaker-card-back {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
   }
+  /* Flip card height — slightly smaller on mobile */
+  .speaker-card { height: 230px; }
   /* Stop grain texture animation on mobile */
   body::after { animation: none; }
   /* Hide loader — dismissed via JS before paint; CSS guard prevents flicker */

@@ -11,7 +11,7 @@
   const REVEAL_THRESHOLD = 0.12;
   const COUNTER_DURATION = 2000;
   const TILT_MAX = 8;
-  const LOADER_MIN_MS = 800;
+  const LOADER_MIN_MS = 2400;
   const prefersReducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const isDesktop = () => window.innerWidth >= 1024 && matchMedia('(hover: hover)').matches;
   const isMobileDevice = window.innerWidth < 768;
@@ -58,8 +58,30 @@
     setupHeroConstellation();
     setupTimelineDraw();
     setupFloatingOrbs();
+    setupSpeakerCardFlip();
 
     handleRoute();
+  }
+
+  // ===== SPEAKER CARD FLIP (touch / click for non-hover devices) =====
+  function setupSpeakerCardFlip() {
+    // On touch-only devices hover doesn't fire — use click to toggle .flipped
+    // On pointer devices the CSS :hover handles it, but click also works as a toggle
+    document.addEventListener('click', function (e) {
+      const card = e.target.closest('.speaker-card');
+      if (!card || !card.querySelector('.speaker-card-inner')) return;
+
+      // If a hover device, let CSS handle it unless it's a real click intent
+      if (matchMedia('(hover: hover)').matches) return;
+
+      card.classList.toggle('flipped');
+
+      // Auto-unflip after 3.5 s on touch so it doesn't stay stuck
+      if (card.classList.contains('flipped')) {
+        clearTimeout(card._flipTimer);
+        card._flipTimer = setTimeout(() => card.classList.remove('flipped'), 3500);
+      }
+    });
   }
 
   // ===== LOADER =====
@@ -88,7 +110,7 @@
     }
 
     requestAnimationFrame(tick);
-    setTimeout(dismissLoader, 4000); // Safety net
+    setTimeout(dismissLoader, 6000); // Safety net
   }
 
   function dismissLoader() {
