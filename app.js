@@ -11,7 +11,7 @@
   const REVEAL_THRESHOLD = 0.12;
   const COUNTER_DURATION = 2000;
   const TILT_MAX = 8;
-  const LOADER_MIN_MS = 2400;
+  const LOADER_MIN_MS = 4000;
   const prefersReducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const isDesktop = () => window.innerWidth >= 1024 && matchMedia('(hover: hover)').matches;
   const isMobileDevice = window.innerWidth < 768;
@@ -31,6 +31,7 @@
   const scrollProgress = document.getElementById('scrollProgress');
   const cursorGlow = document.getElementById('cursorGlow');
   const heroWheel = document.getElementById('heroWheel');
+  let wheelCX = 0, wheelCY = 0; // mouse-driven offset (home hero only, desktop)
   const heroConstellation = document.getElementById('heroConstellation');
   const pages = document.querySelectorAll('[data-page]');
   const navLinks = document.querySelectorAll('.nav-link');
@@ -52,9 +53,9 @@
     setupCounters();
     setupCursorGlow();
     setupCardTilt();
-    setupButtonRipple();
     setupMagneticButtons();
-    setupHeroParallax();
+    setupWheelCursorTilt();
+    setupWheelEnergize();
     setupHeroConstellation();
     setupTimelineDraw();
     setupFloatingOrbs();
@@ -94,7 +95,7 @@
 
     function tick() {
       const elapsed = performance.now() - start;
-      // Power-curve: fast ramp-up, smooth finish — no artificial stalling at 99%
+      // Power-curve: fast ramp-up, smooth finish
       const t = Math.min(1, elapsed / LOADER_MIN_MS);
       const progress = Math.round(Math.pow(t, 0.65) * 100);
       if (loaderFill) loaderFill.style.width = progress + '%';
@@ -110,7 +111,7 @@
     }
 
     requestAnimationFrame(tick);
-    setTimeout(dismissLoader, 6000); // Safety net
+    setTimeout(dismissLoader, 8000); // Safety net
   }
 
   function dismissLoader() {
@@ -118,7 +119,7 @@
     pageLoader.style.pointerEvents = 'none';
     pageLoader.classList.add('hidden');
     document.body.classList.remove('loading');
-    setTimeout(() => { pageLoader.style.display = 'none'; }, 500);
+    setTimeout(() => { pageLoader.style.display = 'none'; }, 600);
   }
 
   // ===== ROUTER =====
@@ -173,17 +174,24 @@
 
       if (pageNames.includes(hash)) {
         e.preventDefault();
-        if (window.location.hash === '#' + hash) {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
+        const currentPage = window.location.hash.replace('#', '') || 'home';
+
+        if (currentPage === hash) {
+          // Already on the target page — scroll directly (no page switch, no double-scroll)
+          const el = scrollTarget && document.getElementById(scrollTarget);
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          } else {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
         } else {
           window.location.hash = hash;
-        }
-
-        if (scrollTarget) {
-          setTimeout(() => {
-            const el = document.getElementById(scrollTarget);
-            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }, 400);
+          if (scrollTarget) {
+            setTimeout(() => {
+              const el = document.getElementById(scrollTarget);
+              if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 400);
+          }
         }
       } else if (document.getElementById(hash)) {
         // Anchor within current page
@@ -225,7 +233,11 @@
             el.style.transform = `${baseTransform} translate3d(0, ${y}px, 0)`;
           }
         });
+
+        renderWheel(scrollY);
       }
+
+      updateWheelZone();
 
       ticking = false;
     }
@@ -237,6 +249,26 @@
       }
     }, { passive: true });
     update();
+  }
+
+  // ===== ZODIAC WHEEL — site-wide scroll drift/rotation + section tint =====
+  function renderWheel(scrollY) {
+    if (!heroWheel) return;
+    const drift = scrollY * 0.05;
+    const rotate = scrollY * 0.015;
+    heroWheel.style.transform =
+      `translate(-50%, -50%) translate3d(${wheelCX}px, ${(wheelCY - drift).toFixed(1)}px, 0) rotate(${rotate.toFixed(2)}deg)`;
+  }
+
+  function updateWheelZone() {
+    if (!heroWheel) return;
+    const el = document.elementFromPoint(window.innerWidth / 2, window.innerHeight / 2);
+    const zoneEl = el && el.closest('.hero, .page-hero, .section');
+    let zone = 'dark';
+    if (zoneEl && (zoneEl.classList.contains('hero') || zoneEl.classList.contains('page-hero'))) {
+      zone = 'hero';
+    }
+    if (document.body.dataset.wheelZone !== zone) document.body.dataset.wheelZone = zone;
   }
 
   // ===== REVEAL ON SCROLL =====
@@ -362,10 +394,18 @@
     document.body.style.overflow = '';
   }
 
-  // ===== CURSOR GLOW =====
+  // ===== CURSOR GLOW + FEATHER IMAGE =====
   function setupCursorGlow() {
-    if (!cursorGlow || prefersReducedMotion) return;
+    if (prefersReducedMotion) return;
     if (!isDesktop()) return;
+
+    const peacock = document.getElementById('peacockCursor');
+    if (!cursorGlow && !peacock) return;
+
+    // Hotspot is set to the upper-left tip of the feather plume (6px, 6px)
+    // so that pointing and clicking feels natural, instant, and sensitive.
+    const OFFSET_X = 6;
+    const OFFSET_Y = 6;
 
     let raf = null;
     let tx = 0, ty = 0, cx = 0, cy = 0;
@@ -376,19 +416,28 @@
       if (!document.body.classList.contains('cursor-active')) {
         document.body.classList.add('cursor-active');
       }
-      if (!raf) raf = requestAnimationFrame(animateGlow);
+      // Update feather position instantly on mousemove for zero latency and high precision
+      if (peacock) {
+        peacock.style.transform =
+          `translate3d(${tx - OFFSET_X}px, ${ty - OFFSET_Y}px, 0) rotate(-10deg)`;
+      }
+      if (!raf) raf = requestAnimationFrame(animateCursor);
     });
 
     document.addEventListener('mouseleave', () => {
       document.body.classList.remove('cursor-active');
     });
 
-    function animateGlow() {
+    function animateCursor() {
       cx += (tx - cx) * 0.18;
       cy += (ty - cy) * 0.18;
-      cursorGlow.style.transform = `translate3d(${cx}px, ${cy}px, 0) translate(-50%, -50%)`;
-      if (Math.abs(tx - cx) > 0.5 || Math.abs(ty - cy) > 0.5) {
-        raf = requestAnimationFrame(animateGlow);
+
+      if (cursorGlow) {
+        cursorGlow.style.transform = `translate3d(${cx}px, ${cy}px, 0) translate(-50%, -50%)`;
+      }
+
+      if (Math.abs(tx - cx) > 0.3 || Math.abs(ty - cy) > 0.3) {
+        raf = requestAnimationFrame(animateCursor);
       } else {
         raf = null;
       }
@@ -398,7 +447,7 @@
   // ===== CARD TILT + cursor-tracked highlight =====
   function setupCardTilt() {
     if (!isDesktop() || prefersReducedMotion) return;
-    const tiltSelector = '.card, .card-cream, .speaker-card, .chief-guest-card, .pricing-card, .routing-card, .step-card, .sponsor-tier, .jury-card, .consult-price-card';
+    const tiltSelector = '.card, .speaker-card, .pricing-card, .routing-card, .step-card, .sponsor-tier, .jury-card, .consult-price-card';
     document.querySelectorAll(tiltSelector).forEach(card => {
       let raf = null;
       let targetRx = 0, targetRy = 0;
@@ -450,24 +499,6 @@
   }
 
   // ===== BUTTON RIPPLE =====
-  function setupButtonRipple() {
-    document.addEventListener('click', (e) => {
-      const btn = e.target.closest('.btn');
-      if (!btn) return;
-      if (prefersReducedMotion) return;
-
-      const rect = btn.getBoundingClientRect();
-      const size = Math.max(rect.width, rect.height);
-      const ripple = document.createElement('span');
-      ripple.className = 'ripple';
-      ripple.style.width = ripple.style.height = size + 'px';
-      ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
-      ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
-      btn.appendChild(ripple);
-      setTimeout(() => ripple.remove(), 700);
-    });
-  }
-
   // ===== MAGNETIC BUTTON PHYSICS =====
   function setupMagneticButtons() {
     if (prefersReducedMotion || !isDesktop()) return;
@@ -491,31 +522,21 @@
     });
   }
 
-  // ===== HERO PARALLAX (mouse-tilt on wheel) =====
-  function setupHeroParallax() {
+  // ===== WHEEL CURSOR TILT (site-wide mouse reactivity) =====
+  function setupWheelCursorTilt() {
     if (!heroWheel || prefersReducedMotion) return;
-
-    const hero = document.getElementById('hero');
-    if (!hero) return;
 
     let tx = 0, ty = 0, cx = 0, cy = 0;
     let raf = null;
-    let rect = null;
 
-    hero.addEventListener('mouseenter', () => {
-      rect = hero.getBoundingClientRect();
-    });
-
-    hero.addEventListener('mousemove', (e) => {
+    document.addEventListener('mousemove', (e) => {
       if (!isDesktop()) return;
-      if (!rect) rect = hero.getBoundingClientRect();
-      tx = ((e.clientX - rect.left) / rect.width - 0.5) * 20;
-      ty = ((e.clientY - rect.top) / rect.height - 0.5) * 20;
+      tx = (e.clientX / window.innerWidth - 0.5) * 20;
+      ty = (e.clientY / window.innerHeight - 0.5) * 20;
       if (!raf) raf = requestAnimationFrame(animate);
-    });
+    }, { passive: true });
 
-    hero.addEventListener('mouseleave', () => {
-      rect = null;
+    document.addEventListener('mouseleave', () => {
       tx = 0; ty = 0;
       if (!raf) raf = requestAnimationFrame(animate);
     });
@@ -523,13 +544,36 @@
     function animate() {
       cx += (tx - cx) * 0.08;
       cy += (ty - cy) * 0.08;
-      heroWheel.style.transform = `translate(-50%, -50%) translate3d(${cx}px, ${cy}px, 0)`;
+      wheelCX = cx;
+      wheelCY = cy;
+      renderWheel(window.scrollY);
       if (Math.abs(tx - cx) > 0.1 || Math.abs(ty - cy) > 0.1) {
         raf = requestAnimationFrame(animate);
       } else {
         raf = null;
       }
     }
+  }
+
+  // ===== WHEEL HOVER-ENERGIZE (boosts glow/breathe while hovering interactive content) =====
+  const WHEEL_ENERGIZE_SELECTOR = '.card, .btn, .pillar-tab, .routing-card, .pricing-card';
+
+  function setupWheelEnergize() {
+    if (!heroWheel || prefersReducedMotion) return;
+
+    document.addEventListener('mouseover', (e) => {
+      if (e.target.closest(WHEEL_ENERGIZE_SELECTOR)) {
+        document.body.classList.add('wheel-energized');
+      }
+    });
+
+    document.addEventListener('mouseout', (e) => {
+      const leavingEnergized = e.target.closest(WHEEL_ENERGIZE_SELECTOR);
+      const enteringEnergized = e.relatedTarget && e.relatedTarget.closest && e.relatedTarget.closest(WHEEL_ENERGIZE_SELECTOR);
+      if (leavingEnergized && !enteringEnergized) {
+        document.body.classList.remove('wheel-energized');
+      }
+    });
   }
 
   // ===== HERO CONSTELLATION =====

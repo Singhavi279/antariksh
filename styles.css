@@ -10,9 +10,6 @@
   --gold: #B8860B;
   --gold-light: #D4AF37;
   --bg-dark: #0C1220;
-  --bg-cream: #FAF6EF;
-  --text-primary: #1A1A2E;
-  --text-muted: #6B6B80;
 
   /* Extended palette */
   --bg-darker: #080E1A;
@@ -39,8 +36,8 @@
   --font-body: 'Inter', sans-serif;
   --font-hindi: 'Noto Sans Devanagari', sans-serif;
 
-  /* Spacing — responsive scale */
-  --section-py: clamp(4rem, 8vw, 7rem);
+  /* Spacing — responsive scale (reduced by 60% for prod deploy) */
+  --section-py: clamp(1.6rem, 3.2vw, 2.8rem);
   --section-px: clamp(1.25rem, 4vw, 2rem);
   --container: 1200px;
   --container-xl: 1400px;
@@ -90,7 +87,7 @@ html {
 
 body {
   font-family: var(--font-body);
-  background: var(--bg-dark);
+  background: var(--bg-deep);
   color: var(--white-muted);
   line-height: 1.7;
   overflow-x: hidden;
@@ -164,13 +161,6 @@ h4 { font-size: clamp(1.1rem, 2vw, 1.4rem); }
 .reveal.visible .section-label::before,
 .section-header .section-label::before { width: 48px; }
 
-.subheadline {
-  font-size: clamp(1rem, 2vw, 1.2rem);
-  color: var(--white-muted);
-  max-width: 700px;
-  line-height: 1.7;
-}
-
 .body-text { color: var(--white-dim); line-height: 1.8; font-size: 0.95rem; }
 
 /* ===== 4. LAYOUT ===== */
@@ -189,27 +179,19 @@ h4 { font-size: clamp(1.1rem, 2vw, 1.4rem); }
   overflow: hidden;
 }
 
+/* Dark surfaces are translucent so the fixed starfield shows through site-wide */
 .section--dark {
   background:
     radial-gradient(ellipse 80% 60% at 90% 50%, rgba(27,42,74,0.3) 0%, transparent 60%),
     radial-gradient(ellipse 60% 40% at 10% 60%, rgba(20,10,50,0.2) 0%, transparent 60%),
-    var(--bg-dark);
+    rgba(12, 18, 32, 0.42);
 }
 .section--darker {
   background:
     radial-gradient(ellipse 70% 50% at 85% 40%, rgba(27,42,74,0.25) 0%, transparent 55%),
-    var(--bg-darker);
+    rgba(8, 14, 26, 0.55);
 }
-.section--cream {
-  background: var(--bg-cream);
-  color: var(--text-primary);
-}
-.section--cream .subheadline,
-.section--cream .body-text { color: var(--text-muted); }
-.section--cream h2,
-.section--cream h3,
-.section--cream h4 { color: var(--text-primary); }
-.section--navy { background: var(--navy); }
+.section--navy { background: rgba(27, 42, 74, 0.5); }
 
 /* Mandala background watermark on dark sections */
 .section--dark::before,
@@ -251,15 +233,44 @@ h4 { font-size: clamp(1.1rem, 2vw, 1.4rem); }
 .section-header {
   text-align: center;
   max-width: 800px;
-  margin: 0 auto 3.5rem;
+  margin: 0 auto 1.5rem;
 }
+
+/* Section label now stands alone as the heading — give it a touch more presence */
+.section-header .section-label { font-size: 0.95rem; }
 
 .section-header .section-label { justify-content: center; }
 
-.grid { display: grid; gap: var(--gap); }
-.grid-2 { grid-template-columns: repeat(2, 1fr); }
-.grid-3 { grid-template-columns: repeat(3, 1fr); }
-.grid-4 { grid-template-columns: repeat(4, 1fr); }
+/* ===== UNIVERSAL CENTERED & RESPONSIVE GRID / CARD LAYOUTS ===== */
+.grid, .grid-2, .grid-3, .grid-4,
+.stats-row, .steps-grid, .expo-grid, .sponsor-tiers,
+.ticket-grid, .category-grid, .jury-grid, .consult-pricing {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--gap);
+}
+
+/* 2-column layouts */
+.grid-2 > *, .stats-row > *, .ticket-grid > *, .sponsor-tiers > *, .expo-grid > * {
+  flex: 1 1 calc(50% - var(--gap));
+  min-width: min(100%, 280px);
+  max-width: 580px;
+}
+
+/* 3-column layouts */
+.grid-3 > *, .pricing-grid-3 > *, .consult-pricing > * {
+  flex: 1 1 calc(33.333% - var(--gap));
+  min-width: min(100%, 260px);
+  max-width: 440px;
+}
+
+/* 4-column layouts & speaker cards */
+.grid-4 > *, .steps-grid > *, .category-grid > *, .jury-grid > * {
+  flex: 1 1 calc(25% - var(--gap));
+  min-width: min(100%, 220px);
+  max-width: 360px;
+}
 .gap-3 { gap: 1.5rem; } .gap-4 { gap: 2rem; }
 
 
@@ -293,10 +304,50 @@ h4 { font-size: clamp(1.1rem, 2vw, 1.4rem); }
   will-change: transform;
 }
 
-body.cursor-active .cursor-glow { opacity: 0.5; }
+body.cursor-active .cursor-glow { opacity: 0.45; }
+
+/* ── Real Peacock Feather Cursor ── */
+.peacock-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 1260;
+  opacity: 0;
+  transition: opacity 0.25s var(--ease);
+  will-change: transform;
+  /* Feather tip (top-left of plume) is the hotspot */
+  transform-origin: 0 0;
+}
+
+.peacock-cursor img {
+  display: block;
+  /* No filter — let the real colours show through */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+body.cursor-active .peacock-cursor { opacity: 1; }
+
+/* Hide the default cursor on desktop when feather is active */
+@media (hover: hover) and (pointer: fine) {
+  body.cursor-active,
+  body.cursor-active *,
+  body.cursor-active a,
+  body.cursor-active button,
+  body.cursor-active input,
+  body.cursor-active select,
+  body.cursor-active textarea,
+  body.cursor-active [role="button"] {
+    cursor: none !important;
+  }
+}
 
 @media (hover: none), (max-width: 1023px) {
   .cursor-glow { display: none; }
+  .peacock-cursor { display: none; }
 }
 
 /* ===== 6. NAVIGATION ===== */
@@ -551,19 +602,8 @@ body.cursor-active .cursor-glow { opacity: 0.5; }
 .btn-sm { padding: 0.5rem 1.25rem; font-size: 0.8rem; }
 .btn-lg { padding: 1rem 2.25rem; font-size: 1rem; }
 
-/* Click ripple */
-.btn .ripple {
-  position: absolute;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.4);
-  transform: scale(0);
-  animation: ripple-out 0.6s ease-out;
-  pointer-events: none;
-}
-
-@keyframes ripple-out {
-  to { transform: scale(4); opacity: 0; }
-}
+/* Press feedback — CSS-driven, replaces the old JS ripple */
+.btn:active { transform: scale(0.96); transition-duration: 0.08s; }
 
 .cta-group {
   display: flex;
@@ -578,10 +618,10 @@ body.cursor-active .cursor-glow { opacity: 0.5; }
   border: 1px solid rgba(212,175,55,0.14);
   border-radius: var(--radius-lg);
   padding: 2rem;
+  text-align: center;
   transition: transform 0.5s var(--ease-out), border-color var(--duration) var(--ease), box-shadow var(--duration) var(--ease);
   position: relative;
   overflow: hidden;
-  /* preserve-3d only applied via JS .has-tilt class to avoid forcing GPU layers on all cards */
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
@@ -612,6 +652,7 @@ body.cursor-active .cursor-glow { opacity: 0.5; }
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg);
   padding: 2rem;
+  text-align: center;
   transition: all var(--duration) var(--ease);
   position: relative;
   overflow: hidden;
@@ -623,41 +664,6 @@ body.cursor-active .cursor-glow { opacity: 0.5; }
   transform: translateY(-4px);
 }
 
-.card-cream {
-  background: var(--white);
-  border: 1px solid rgba(0,0,0,0.06);
-  border-radius: var(--radius-lg);
-  padding: 2rem;
-  color: var(--text-primary);
-  transition: all var(--duration) var(--ease);
-  position: relative;
-  overflow: hidden;
-}
-
-.card-cream::after {
-  content: '';
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  padding: 1.5px;
-  background: var(--gold-gradient);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0;
-  transition: opacity 0.4s var(--ease);
-  pointer-events: none;
-}
-
-.card-cream:hover {
-  border-color: transparent;
-  box-shadow: var(--shadow-gold);
-  transform: translateY(-6px);
-}
-
-.card-cream:hover::after { opacity: 1; }
-
 .card-icon {
   width: 54px;
   height: 54px;
@@ -666,19 +672,39 @@ body.cursor-active .cursor-glow { opacity: 0.5; }
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1.25rem;
+  margin: 0 auto 1.25rem;
   font-size: 1.4rem;
   color: var(--gold-light);
   transition: transform 0.5s var(--ease-spring), background 0.3s var(--ease);
   position: relative;
 }
 
-.card:hover .card-icon,
-.card-cream:hover .card-icon { transform: rotate(8deg) scale(1.1); }
+.card:hover .card-icon { transform: rotate(8deg) scale(1.1); }
+
+/* Line icons — stroke inherits currentColor */
+.icon {
+  width: 1em;
+  height: 1em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.card-icon .icon { width: 26px; height: 26px; }
+.pillar-tab-icon .icon { width: 24px; height: 24px; display: block; }
+.venue-tba-icon .icon { width: 48px; height: 48px; }
+h4 .icon {
+  width: 1.05em;
+  height: 1.05em;
+  vertical-align: -0.15em;
+  margin-right: 0.4em;
+  color: var(--gold-light);
+}
 
 .card h3, .card h4 { margin-bottom: 0.75rem; }
 .card p { color: var(--white-dim); font-size: 0.9rem; line-height: 1.7; }
-.card-cream p { color: var(--text-muted); }
 
 /* Discipline cards (consultation) — with SVG illustrations */
 .discipline-card { padding-top: 1.5rem; }
@@ -686,7 +712,7 @@ body.cursor-active .cursor-glow { opacity: 0.5; }
 .discipline-illus {
   width: 88px;
   height: 88px;
-  margin-bottom: 1.25rem;
+  margin: 0 auto 1.25rem;
   color: var(--gold-light);
   display: flex;
   align-items: center;
@@ -724,18 +750,6 @@ body.cursor-active .cursor-glow { opacity: 0.5; }
   white-space: nowrap;
 }
 
-.badge-invited {
-  background: rgba(212, 175, 55, 0.12);
-  color: var(--gold-light);
-  border: 1px solid rgba(212, 175, 55, 0.25);
-}
-
-.badge-invitation-extended {
-  background: rgba(239, 68, 68, 0.1);
-  color: #F87171;
-  border: 1px solid rgba(239, 68, 68, 0.2);
-}
-
 .badge-popular {
   background: var(--gold-gradient);
   color: var(--bg-dark);
@@ -770,14 +784,14 @@ body.cursor-active .cursor-glow { opacity: 0.5; }
   text-align: center;
   position: relative;
   overflow: hidden;
-  padding: 8rem 2rem 4rem;
+  padding: 6rem 2rem 2.5rem;
   background:
     radial-gradient(ellipse 140% 80% at 50% 0%,   rgba(27,42,74,0.95) 0%, transparent 55%),
     radial-gradient(ellipse 80%  60% at 80% 70%,  rgba(10,6,22,0.85)  0%, transparent 50%),
     radial-gradient(ellipse 60%  50% at 20% 80%,  rgba(27,42,74,0.65) 0%, transparent 55%),
     radial-gradient(ellipse 100% 40% at 50% 100%, rgba(8,5,18,0.95)   0%, transparent 60%),
     radial-gradient(ellipse 50%  30% at 65% 35%,  rgba(40,20,80,0.25) 0%, transparent 50%),
-    #050912;
+    rgba(5, 9, 18, 0.35);
   isolation: isolate;
 }
 
@@ -860,9 +874,29 @@ body.cursor-active .cursor-glow { opacity: 0.5; }
   to   { opacity: 1; }
 }
 
-/* Zodiac wheel — 3 stacked SVG layers with mouse-tilt */
+/* Zodiac wheel — fixed site-wide layer, 3 stacked SVG layers, scroll-reactive */
+:root {
+  --wheel-color: var(--gold-light);
+  --wheel-opacity-zone: 0.9;      /* set by JS per section type (hero/cream/dark) */
+  --wheel-opacity-responsive: 1;  /* trimmed at small breakpoints */
+  --wheel-glow-1: 60px;
+  --wheel-glow-2: 120px;
+  --wheel-breathe-max: 1.035;
+}
+
+/* Section-type tinting — toggled via body[data-wheel-zone] from scroll detection in app.js */
+body[data-wheel-zone="hero"]  { --wheel-color: var(--gold-light); --wheel-opacity-zone: 0.9; }
+body[data-wheel-zone="dark"]  { --wheel-color: var(--gold-light); --wheel-opacity-zone: 0.22; }
+
+/* Hover-energize — brief boost while the cursor is over interactive content (set in app.js) */
+body.wheel-energized {
+  --wheel-glow-1: 95px;
+  --wheel-glow-2: 175px;
+  --wheel-breathe-max: 1.09;
+}
+
 .hero-wheel-wrap {
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   width: clamp(460px, 75vw, 980px);
@@ -870,17 +904,47 @@ body.cursor-active .cursor-glow { opacity: 0.5; }
   transform: translate(-50%, -50%);
   pointer-events: none;
   will-change: transform;
-  z-index: 1;
-  transition: transform 0.4s var(--ease-out);
-  filter: drop-shadow(0 0 30px rgba(212,175,55,0.25)) drop-shadow(0 0 80px rgba(212,175,55,0.1));
+  z-index: 0;
+  opacity: calc(var(--wheel-opacity-zone) * var(--wheel-opacity-responsive));
+  transition: opacity 0.6s var(--ease-out);
+  animation: wheel-glow-pulse 7s ease-in-out infinite;
 }
 
-.hero-wheel-wrap > svg {
+/* Breathing scale lives on a child so it never fights the JS-driven translate/rotate
+   transform on .hero-wheel-wrap (scroll drift + cursor tilt) */
+.hero-wheel-breathe {
+  position: absolute;
+  inset: 0;
+  transform-origin: center;
+  transition: transform 0.5s var(--ease-out);
+  animation: wheel-breathe-scale 8s ease-in-out infinite;
+}
+
+@keyframes wheel-glow-pulse {
+  0%, 100% {
+    filter:
+      drop-shadow(0 0 calc(var(--wheel-glow-1) * 0.7) rgba(212,175,55,0.25))
+      drop-shadow(0 0 calc(var(--wheel-glow-2) * 0.7) rgba(212,175,55,0.1));
+  }
+  50% {
+    filter:
+      drop-shadow(0 0 var(--wheel-glow-1) rgba(212,175,55,0.42))
+      drop-shadow(0 0 var(--wheel-glow-2) rgba(212,175,55,0.18));
+  }
+}
+
+@keyframes wheel-breathe-scale {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(var(--wheel-breathe-max)); }
+}
+
+.hero-wheel-breathe > svg {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  color: var(--gold-light);
+  color: var(--wheel-color);
+  transition: color 0.6s var(--ease-out);
 }
 
 .hero-wheel-outer { opacity: 0.85; animation: spin-slow 120s linear infinite; }
@@ -973,7 +1037,7 @@ body.cursor-active .cursor-glow { opacity: 0.5; }
 
 .hero-title {
   font-family: var(--font-hindi);
-  font-size: clamp(4rem, 14vw, 14rem); /* Tighter clamp — prevents overflow on mid-mobile */
+  font-size: clamp(2.75rem, 8.5vw, 7.5rem); /* Kept small enough that the whole hero fits one desktop screen */
   font-weight: 800;
   background: linear-gradient(135deg,
     #9A6C00 0%,
@@ -1058,7 +1122,7 @@ h1 sup, h2 sup, h3 sup, h4 sup, p sup {
 .hero-tagline {
   font-size: clamp(1rem, 2.2vw, 1.4rem);
   color: var(--white-muted);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   font-weight: 400;
   letter-spacing: 0.02em;
 }
@@ -1069,7 +1133,7 @@ h1 sup, h2 sup, h3 sup, h4 sup, p sup {
   gap: 0.6rem;
   flex-wrap: wrap;
   justify-content: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   font-size: 0.85rem;
 }
 
@@ -1099,7 +1163,7 @@ h1 sup, h2 sup, h3 sup, h4 sup, p sup {
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  margin-bottom: 3rem;
+  margin-bottom: 1.5rem;
   flex-wrap: wrap;
 }
 
@@ -1109,7 +1173,7 @@ h1 sup, h2 sup, h3 sup, h4 sup, p sup {
   gap: 1rem;
   justify-content: center;
   flex-wrap: wrap;
-  margin-top: 1rem;
+  margin-top: 0.75rem;
 }
 
 .pillar-tab {
@@ -1118,7 +1182,7 @@ h1 sup, h2 sup, h3 sup, h4 sup, p sup {
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
-  padding: 1rem 1.5rem;
+  padding: 0.75rem 1.25rem;
   background: rgba(255,255,255,0.04);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius);
@@ -1217,10 +1281,11 @@ h1 sup, h2 sup, h3 sup, h4 sup, p sup {
 
 /* ===== 11. STATS ===== */
 .stats-row {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: var(--gap);
-  margin-top: 3rem;
+  margin-top: 1.5rem;
 }
 
 .stat-item {
@@ -1476,42 +1541,6 @@ h1 sup, h2 sup, h3 sup, h4 sup, p sup {
   margin-top: 0.25rem;
 }
 
-/* Chief Guest Card — not a flip card, keep as is but refresh */
-.chief-guest-card {
-  background: linear-gradient(135deg, rgba(27,42,74,0.5), rgba(27,42,74,0.3));
-  border: 1px solid rgba(212, 175, 55, 0.2);
-  border-radius: var(--radius-lg);
-  padding: 2.5rem 2rem;
-  text-align: center;
-  transition: all var(--duration) var(--ease);
-  position: relative;
-  overflow: hidden;
-}
-
-.chief-guest-card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at center top, rgba(212,175,55,0.1), transparent 70%);
-  opacity: 0;
-  transition: opacity 0.4s var(--ease);
-}
-
-.chief-guest-card:hover {
-  border-color: var(--gold);
-  box-shadow: var(--shadow-gold-lg);
-  transform: translateY(-4px);
-}
-
-.chief-guest-card:hover::after { opacity: 1; }
-
-.chief-guest-card .speaker-avatar {
-  width: 100px;
-  height: 100px;
-  font-size: 2rem;
-  border: 2px solid rgba(212, 175, 55, 0.3);
-}
-
 /* ===== 13. TIMELINE ===== */
 .timeline {
   position: relative;
@@ -1598,12 +1627,14 @@ h1 sup, h2 sup, h3 sup, h4 sup, p sup {
 
 /* ===== 14. PRICING CARDS ===== */
 .pricing-grid {
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: var(--gap-lg);
-  align-items: start;
+  align-items: stretch;
 }
 
-.pricing-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.pricing-grid-3 { display: flex; flex-wrap: wrap; justify-content: center; }
 
 .pricing-card {
   background: rgba(6, 10, 22, 0.65);
@@ -1887,6 +1918,8 @@ h1 sup, h2 sup, h3 sup, h4 sup, p sup {
   padding: 2rem;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
   gap: 0.75rem;
   transition: all var(--duration) var(--ease);
   position: relative;
@@ -1915,8 +1948,9 @@ h1 sup, h2 sup, h3 sup, h4 sup, p sup {
 
 /* ===== 19. CONSULTATION STEPS ===== */
 .steps-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: var(--gap);
   counter-reset: step;
 }
@@ -1968,8 +2002,12 @@ h1 sup, h2 sup, h3 sup, h4 sup, p sup {
 .step-card:hover .step-number::before { opacity: 1; animation: spin-slow 8s linear infinite; }
 
 /* ===== 20. EXPO + SPONSOR + TICKETS ===== */
-.expo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap); }
-.sponsor-tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap); }
+.expo-grid, .sponsor-tiers {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--gap);
+}
 
 .sponsor-tier {
   background: var(--card-bg);
@@ -2014,10 +2052,11 @@ h1 sup, h2 sup, h3 sup, h4 sup, p sup {
 .sponsor-tier-detail { font-size: 0.88rem; color: var(--white-dim); line-height: 1.6; }
 
 .ticket-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: var(--gap-lg);
-  align-items: start;
+  align-items: stretch;
 }
 
 /* ===== 21. EVAL STAGES ===== */
@@ -2076,8 +2115,9 @@ h1 sup, h2 sup, h3 sup, h4 sup, p sup {
 
 /* ===== 22. CATEGORY PILLS ===== */
 .category-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 0.75rem;
 }
 
@@ -2212,7 +2252,7 @@ h1 sup, h2 sup, h3 sup, h4 sup, p sup {
 
 /* ===== 26. FOOTER ===== */
 .footer {
-  background: var(--bg-darker);
+  background: rgba(8, 14, 26, 0.7);
   border-top: 1px solid var(--glass-border);
   padding: 3.5rem 0 2rem;
   position: relative;
@@ -2370,22 +2410,6 @@ h1 sup, h2 sup, h3 sup, h4 sup, p sup {
 .page.exiting { animation: pageOut 0.3s var(--ease) forwards; }
 
 /* ===== 29. SECTION DIVIDERS ===== */
-.divider-angle { position: relative; }
-
-.divider-angle::after {
-  content: '';
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-  width: 100%;
-  height: 60px;
-  background: var(--bg-cream);
-  clip-path: polygon(0 100%, 100% 0, 100% 100%);
-  z-index: 1;
-}
-
-.divider-angle-reverse::after { clip-path: polygon(0 0, 0 100%, 100% 100%); }
-
 .gold-line {
   width: 60px;
   height: 3px;
@@ -2441,11 +2465,6 @@ h1 sup, h2 sup, h3 sup, h4 sup, p sup {
   to { opacity: 0; transform: translateY(-10px); }
 }
 
-@keyframes shimmer {
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
-}
-
 /* ===== 31. REVEAL ON SCROLL — variants ===== */
 .reveal {
   opacity: 0;
@@ -2498,7 +2517,7 @@ h1 sup, h2 sup, h3 sup, h4 sup, p sup {
     radial-gradient(ellipse 100% 80% at 50% 0%,   rgba(27,42,74,0.9) 0%, transparent 55%),
     radial-gradient(ellipse 60%  40% at 80% 70%,  rgba(10,6,22,0.7)  0%, transparent 50%),
     radial-gradient(ellipse 100% 35% at 50% 100%, rgba(6,4,14,0.8)   0%, transparent 60%),
-    #060a18;
+    rgba(6, 10, 24, 0.4);
   position: relative;
   overflow: hidden;
 }
@@ -2565,8 +2584,9 @@ h1 sup, h2 sup, h3 sup, h4 sup, p sup {
 
 /* ===== 33. JURY CARDS ===== */
 .jury-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: var(--gap);
 }
 
@@ -2625,11 +2645,11 @@ h1 sup, h2 sup, h3 sup, h4 sup, p sup {
   align-items: center;
   justify-content: center;
   z-index: var(--z-loader);
-  transition: opacity 0.4s var(--ease-out), visibility 0.4s var(--ease-out);
+  transition: opacity 0.5s var(--ease-out), visibility 0.5s var(--ease-out);
   overflow: hidden;
 }
 
-/* Lightweight simulated starry texture without stacked gradients */
+/* Lightweight simulated starry texture */
 .page-loader::before {
   content: '';
   position: absolute;
@@ -2638,7 +2658,9 @@ h1 sup, h2 sup, h3 sup, h4 sup, p sup {
     radial-gradient(1.5px 1.5px at 15% 20%, rgba(212,175,55,0.8), transparent),
     radial-gradient(1.5px 1.5px at 75% 35%, rgba(255,255,255,0.7), transparent),
     radial-gradient(2px 2px at 35% 75%, rgba(212,175,55,0.85), transparent),
-    radial-gradient(1.5px 1.5px at 85% 80%, rgba(255,255,255,0.65), transparent);
+    radial-gradient(1.5px 1.5px at 85% 80%, rgba(255,255,255,0.65), transparent),
+    radial-gradient(1px 1px at 55% 10%, rgba(212,175,55,0.6), transparent),
+    radial-gradient(1px 1px at 25% 55%, rgba(255,255,255,0.5), transparent);
   background-size: 400px 400px;
   opacity: 0.6;
   pointer-events: none;
@@ -2655,123 +2677,182 @@ h1 sup, h2 sup, h3 sup, h4 sup, p sup {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  gap: 0.8rem;
   z-index: 1;
 }
 
-.loader-orbit {
-  position: relative;
-  width: clamp(220px, 35vw, 320px);
-  height: clamp(220px, 35vw, 320px);
-}
-
-.loader-wheel {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  color: var(--gold-light);
-}
-
-.loader-wheel-outer circle.loader-ring-1 {
-  stroke-dasharray: 100;
-  stroke-dashoffset: 100;
-  animation: loader-draw 0.7s var(--ease-out) forwards, spin-slow 25s linear infinite 0.7s;
-  transform-origin: center;
-}
-
-@keyframes loader-draw {
-  to { stroke-dashoffset: 0; }
-}
-
-.loader-wheel-inner {
-  opacity: 0;
-  transform-origin: center;
-  animation: loader-bloom 0.5s var(--ease-spring) 0.15s forwards;
-}
-
-@keyframes loader-bloom {
-  from { opacity: 0; transform: scale(0.6); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-.loader-wheel-glyphs {
-  fill: var(--gold-light);
-  opacity: 0;
-  transform-origin: center;
-  animation: loader-glyphs-in 0.4s var(--ease-out) 0.3s forwards, spin-slow 40s linear infinite 0.7s;
-}
-
-@keyframes loader-glyphs-in {
-  from { opacity: 0; transform: scale(0.85); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-.loader-orbit::after {
-  content: '';
+/* ── Divine glow — expanding radial behind the Trimurti ── */
+.loader-divine-glow {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 45%;
-  height: 45%;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(circle, rgba(255,220,80,0.5) 0%, rgba(212,175,55,0.25) 40%, transparent 70%);
+  width: 600px;
+  height: 600px;
+  transform: translate(-50%, -55%);
   border-radius: 50%;
-  filter: blur(16px);
+  background: radial-gradient(circle, rgba(255,220,80,0.35) 0%, rgba(212,175,55,0.15) 35%, rgba(184,134,11,0.05) 60%, transparent 80%);
+  filter: blur(30px);
   opacity: 0;
-  animation: loader-glow 0.5s var(--ease-out) 0.2s forwards;
+  animation: divine-glow 1.2s var(--ease-out) 1.8s forwards;
+  pointer-events: none;
 }
 
-@keyframes loader-glow {
-  from { opacity: 0; }
-  to { opacity: 0.85; }
+@keyframes divine-glow {
+  0%   { opacity: 0; transform: translate(-50%, -55%) scale(0.3); }
+  60%  { opacity: 0.9; }
+  100% { opacity: 0.7; transform: translate(-50%, -55%) scale(1); }
 }
 
-.loader-title {
+/* ── Light burst — brief white-gold flash ── */
+.loader-burst {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 800px;
+  height: 800px;
+  transform: translate(-50%, -55%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,240,180,0.6) 0%, rgba(212,175,55,0.2) 30%, transparent 65%);
+  opacity: 0;
+  animation: light-burst 0.6s var(--ease-out) 2.3s forwards;
+  pointer-events: none;
+}
+
+@keyframes light-burst {
+  0%   { opacity: 0; transform: translate(-50%, -55%) scale(0.4); }
+  30%  { opacity: 0.75; }
+  100% { opacity: 0; transform: translate(-50%, -55%) scale(1.3); }
+}
+
+/* ── Trimurti container ── */
+.loader-trimurti {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(0.5rem, 2vw, 1.5rem);
+  position: relative;
+  z-index: 2;
+  margin-bottom: 0.5rem;
+}
+
+/* ── Individual deity ── */
+.loader-deity {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0;
+  transform: translateY(40px);
+  animation: deity-rise 0.9s var(--ease-out) forwards;
+  animation-delay: calc(0.3s + var(--d) * 0.55s);
+}
+
+.loader-deity img {
+  width: clamp(140px, 25vw, 220px);
+  height: auto;
+  filter: drop-shadow(0 0 12px rgba(212,175,55,0.3));
+  transition: filter 0.6s ease;
+}
+
+/* Center deity (Vishnu) — slightly larger for prominence */
+.loader-deity--center img {
+  width: clamp(170px, 30vw, 260px);
+}
+
+.loader-deity-label {
+  font-family: var(--font-hindi), sans-serif;
+  font-size: clamp(0.65rem, 1.5vw, 0.85rem);
+  font-weight: 600;
+  color: var(--gold-light);
+  opacity: 0;
+  letter-spacing: 0.08em;
+  animation: fadeSlideUp 0.5s var(--ease-out) forwards;
+  animation-delay: calc(1.2s + var(--d) * 0.55s);
+}
+
+@keyframes deity-rise {
+  0%   { opacity: 0; transform: translateY(40px) scale(0.92); }
+  60%  { opacity: 1; }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Post-burst glow intensify on deity images */
+.page-loader:not(.hidden) .loader-deity img {
+  animation: deity-glow-intensify 1s ease 2.3s forwards;
+}
+
+@keyframes deity-glow-intensify {
+  0%   { filter: drop-shadow(0 0 12px rgba(212,175,55,0.3)); }
+  50%  { filter: drop-shadow(0 0 30px rgba(212,175,55,0.7)) drop-shadow(0 0 60px rgba(255,220,80,0.3)); }
+  100% { filter: drop-shadow(0 0 18px rgba(212,175,55,0.45)); }
+}
+
+/* ── Title — lotus petal opening ── */
+.loader-title.loader-lotus {
   display: flex;
   align-items: baseline;
-  gap: 0.05em;
-  font-family: var(--font-heading), var(--font-hindi); /* Latin Astro + Devanagari महासंगम */
-  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  gap: 0;
+  font-family: var(--font-heading), var(--font-hindi);
+  font-size: clamp(1.8rem, 4.5vw, 3.2rem);
   font-weight: 800;
   letter-spacing: 0.02em;
-  filter: drop-shadow(0 0 25px rgba(212,175,55,0.5));
+  filter: drop-shadow(0 0 20px rgba(212,175,55,0.4));
+  overflow: visible;
 }
 
-.loader-char {
+.loader-petal {
   display: inline-block;
-  opacity: 0;
-  transform: translateY(12px);
   background: var(--gold-gradient-text);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   line-height: 1.4;
-  padding: 0.1em 0.05em;
-  animation: loader-char-in 0.5s var(--ease-out) forwards;
-  animation-delay: calc(0.15s + var(--d) * 0.1s); /* Slower stagger — 0.1s per char across 12 chars = 1.2s total */
+  padding: 0.05em 0.02em;
+  opacity: 0;
 }
 
-@keyframes loader-char-in {
-  to { opacity: 1; transform: translateY(0); }
+/* Left half petals: start pushed right (toward center), animate to natural position */
+.loader-petal--left {
+  animation: lotus-open-left 0.7s var(--ease-out) forwards;
+  animation-delay: calc(2.6s + var(--p) * 0.06s);
 }
 
-/* The + in Astro+ — flex children ignore vertical-align, use position offset instead */
-.loader-char-sup {
+/* Right half petals: start pushed left (toward center), animate to natural position */
+.loader-petal--right {
+  animation: lotus-open-right 0.7s var(--ease-out) forwards;
+  animation-delay: calc(2.6s + var(--p) * 0.06s);
+}
+
+@keyframes lotus-open-left {
+  0%   { opacity: 0; transform: translateX(30px) scale(0.7); }
+  40%  { opacity: 1; }
+  100% { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+@keyframes lotus-open-right {
+  0%   { opacity: 0; transform: translateX(-30px) scale(0.7); }
+  40%  { opacity: 1; }
+  100% { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+/* The + superscript */
+.loader-petal-sup {
   -webkit-text-fill-color: var(--gold-light);
   color: var(--gold-light);
   font-size: 0.52em;
   position: relative;
-  top: -0.52em;     /* visually raised above the baseline */
+  top: -0.52em;
   line-height: 1;
   padding: 0 0.04em 0 0.02em;
   font-weight: 900;
 }
 
 /* Space between Astro+ and महासंगम */
-.loader-char-space {
-  padding: 0;
+.loader-petal-space {
   width: 0.3em;
+  padding: 0;
+  opacity: 1; /* space is always visible, no animation needed */
+  animation: none;
 }
 
 .loader-sub {
@@ -2780,7 +2861,7 @@ h1 sup, h2 sup, h3 sup, h4 sup, p sup {
   text-transform: uppercase;
   color: var(--white-dim);
   opacity: 0;
-  animation: fadeSlideUp 0.4s var(--ease-out) 0.2s forwards;
+  animation: fadeSlideUp 0.5s var(--ease-out) 3.2s forwards;
 }
 
 .loader-meter {
@@ -2791,7 +2872,7 @@ h1 sup, h2 sup, h3 sup, h4 sup, p sup {
   overflow: hidden;
   margin-top: 0.25rem;
   opacity: 0;
-  animation: fadeSlideUp 0.3s var(--ease-out) 0.1s forwards;
+  animation: fadeSlideUp 0.4s var(--ease-out) 3.3s forwards;
 }
 
 .loader-meter-fill {
@@ -2809,12 +2890,20 @@ h1 sup, h2 sup, h3 sup, h4 sup, p sup {
   color: var(--gold-light);
   letter-spacing: 0.1em;
   opacity: 0;
-  animation: fadeSlideUp 0.3s var(--ease-out) 0.15s forwards;
+  animation: fadeSlideUp 0.4s var(--ease-out) 3.35s forwards;
 }
 
-/* ===== 34b. THREE.JS HERO CANVAS ===== */
-#heroGL {
-  position: absolute;
+/* Responsive — smaller deities on mobile */
+@media (max-width: 480px) {
+  .loader-trimurti { gap: 0.2rem; }
+  .loader-deity img { width: 105px; }
+  .loader-deity--center img { width: 130px; }
+  .loader-title.loader-lotus { font-size: 1.5rem; }
+}
+
+/* ===== 34b. SITE-WIDE STARFIELD CANVAS ===== */
+#siteStars {
+  position: fixed;
   inset: 0;
   width: 100%;
   height: 100%;
@@ -2824,7 +2913,10 @@ h1 sup, h2 sup, h3 sup, h4 sup, p sup {
   transition: opacity 0.8s ease-out;
 }
 
-#heroGL.gl-ready { opacity: 1; }
+#siteStars.gl-ready { opacity: 1; }
+
+/* Content sits above the fixed canvas (nav/menu/cta are already fixed with higher z) */
+main, .footer { position: relative; z-index: 1; }
 
 /* ===== 34c. GRAIN TEXTURE OVERLAY ===== */
 body::after {
@@ -2851,44 +2943,24 @@ body::after {
 
 @media (prefers-reduced-motion: reduce) {
   body::after { animation: none; }
-  #heroGL { display: none; }
+  #siteStars { display: none; }
   .hero-orb { display: none; }
   .hero-title sup, .hero-title .hero-title-sup { animation: none; opacity: 1; }
 }
 
 /* ===== 35. MISC ===== */
-.section-cta { text-align: center; margin-top: 3rem; }
+.section-cta { text-align: center; margin-top: 1.5rem; }
 
 .audience-tag {
   font-size: 0.82rem;
   color: var(--gold-light);
   font-weight: 500;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   text-align: center;
 }
 
 .tier-divider { text-align: center; padding: 3rem 0 1rem; }
 .tier-divider h3 { font-size: 1.25rem; color: var(--white-muted); }
-
-.badge-legend {
-  display: flex;
-  gap: 2rem;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 3rem;
-  padding: 1rem 1.5rem;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius);
-}
-
-.badge-legend-item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.8rem;
-  color: var(--white-dim);
-}
 
 .practitioner-standards { margin-top: 2rem; }
 
@@ -2912,8 +2984,9 @@ body::after {
 }
 
 .consult-pricing {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: var(--gap);
   margin-top: 2rem;
 }
@@ -2960,13 +3033,199 @@ body::after {
   pointer-events: none;
 }
 
+/* ===== 35b. HOMEPAGE REDESIGN — breaks up the post-hero card wall ===== */
+
+/* Why section — problem/solution row list + hook statement, replaces two 4-card grids */
+.ps-hook {
+  text-align: center;
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 700;
+  color: var(--white);
+  margin: -0.5rem auto 2.5rem;
+  max-width: 640px;
+}
+
+.ps-list {
+  border-top: 1px solid rgba(184,134,11,0.18);
+  margin-bottom: 1.5rem;
+}
+
+.ps-row {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.75rem 0;
+  border-bottom: 1px solid rgba(184,134,11,0.18);
+}
+
+.ps-side {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.ps-side h4 { margin-bottom: 0.35rem; font-size: 1.05rem; }
+.ps-side p { font-size: 0.9rem; color: var(--white-dim); }
+.ps-solution p { color: var(--white-muted); }
+
+.ps-connector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background: rgba(184,134,11,0.08);
+  color: var(--gold);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.ps-link {
+  display: inline-block;
+  margin-top: 0.6rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--gold);
+  text-decoration: none;
+}
+.ps-link:hover { text-decoration: underline; }
+
+/* Event at a Glance — horizontal connected journey, replaces 4 pillar cards */
+.journey-strip {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 0.5rem;
+  margin-bottom: 3rem;
+}
+
+.journey-strip::before {
+  content: '';
+  position: absolute;
+  top: 2.75rem;
+  left: 8%;
+  right: 8%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212,175,55,0.4) 15%, rgba(212,175,55,0.4) 85%, transparent);
+  z-index: 0;
+}
+
+.journey-stop {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  text-align: center;
+  padding: 0 0.5rem;
+}
+
+.journey-dot {
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 50%;
+  background: var(--bg-darker);
+  border: 2px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  color: var(--gold-light);
+  transition: transform 0.4s var(--ease-spring), background 0.3s var(--ease);
+}
+
+.journey-dot .icon { width: 22px; height: 22px; }
+.journey-stop:hover .journey-dot { transform: scale(1.12); background: var(--gold-dim); }
+.journey-time { font-size: 0.72rem; color: var(--gold-light); margin-bottom: 0.35rem; letter-spacing: 0.04em; }
+.journey-stop h4 { margin-bottom: 0.4rem; }
+.journey-stop p { font-size: 0.82rem; color: var(--white-dim); }
+
+/* Horizontal scroll-snap chip strip — reused by Who Attends / Conclave preview / Consultation preview */
+.chip-scroll {
+  display: flex;
+  gap: 1.25rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 0.5rem 0.25rem 1.5rem;
+}
+
+.chip-scroll::-webkit-scrollbar { height: 5px; }
+.chip-scroll::-webkit-scrollbar-thumb { background: rgba(212,175,55,0.3); border-radius: 3px; }
+
+.chip {
+  scroll-snap-align: start;
+  flex: 0 0 auto;
+  width: 240px;
+}
+
+.chip--sm { width: 160px; text-align: center; }
+.chip--sm .card-icon { margin-left: auto; margin-right: auto; }
+
+/* Marquee — Who Attends continuous flow. Track holds two identical sets;
+   translating it by -50% and looping lands seamlessly on the duplicate. */
+.marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+}
+
+.marquee-track {
+  display: flex;
+  gap: 1rem;
+  width: max-content;
+  animation: marquee-flow 45s linear infinite;
+}
+
+.marquee:hover .marquee-track { animation-play-state: paused; }
+
+.marquee .chip { width: 240px; }
+
+@keyframes marquee-flow {
+  from { transform: translateX(0); }
+  to   { transform: translateX(calc(-50% - 0.5rem)); } /* -0.5rem = half the inter-set gap */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+}
+
+/* Awards preview — compact divided row, replaces 3 boxed value-prop cards */
+.value-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.value-item {
+  flex: 1 1 220px;
+  text-align: center;
+  padding: 0 1.5rem;
+  border-right: 1px solid rgba(212,175,55,0.15);
+}
+.value-item:last-child { border-right: none; }
+.value-item .card-icon { margin: 0 auto 1rem; }
+.value-item h4 { margin-bottom: 0.5rem; font-size: 1rem; }
+.value-item p { font-size: 0.85rem; color: var(--white-dim); }
+
+@media (max-width: 767px) {
+  .ps-row { grid-template-columns: 1fr; gap: 1rem; text-align: left; }
+  .ps-connector { display: none; }
+  .journey-strip { flex-direction: column; gap: 2rem; }
+  .journey-strip::before { display: none; }
+  .value-item { flex: 1 1 100%; border-right: none; border-bottom: 1px solid rgba(212,175,55,0.15); padding: 1.25rem 0; }
+  .value-item:last-child { border-bottom: none; }
+}
+
 /* ===== 36. RESPONSIVE — 5-TIER ===== */
 
 /* XL: ≥1440 */
 @media (min-width: 1440px) {
   :root {
     --container: var(--container-xl);
-    --section-py: 8rem;
+    --section-py: 3.2rem;
   }
   .hero { padding: 9rem 2rem 5rem; }
   .hero-wheel-wrap { width: clamp(500px, 55vw, 820px); height: clamp(500px, 55vw, 820px); }
@@ -2994,7 +3253,7 @@ body::after {
   .expo-grid { grid-template-columns: repeat(2, 1fr); }
   .steps-grid { grid-template-columns: repeat(2, 1fr); }
   .footer-links { gap: 2rem; }
-  .hero-wheel-wrap { width: 80vw; height: 80vw; opacity: 0.7; }
+  .hero-wheel-wrap { width: 80vw; height: 80vw; --wheel-opacity-responsive: 0.7; }
   .hero-scroll-cue { bottom: 1rem; }
   .section--dark::before,
   .section--darker::before,
@@ -3003,7 +3262,7 @@ body::after {
 
 /* S: 480–767 — tablet portrait / large mobile */
 @media (max-width: 767px) {
-  :root { --section-py: clamp(3rem, 10vw, 5rem); }
+  :root { --section-py: clamp(1.2rem, 4vw, 2rem); }
   .grid-2 { grid-template-columns: 1fr; }
   .grid-3 { grid-template-columns: 1fr; }
   .grid-4 { grid-template-columns: 1fr; }
@@ -3024,12 +3283,11 @@ body::after {
   .cta-group .btn { width: 100%; }
   .venue-schedule { grid-template-columns: 1fr 1fr; }
   .consult-pricing { grid-template-columns: 1fr; max-width: 400px; margin: 2rem auto 0; }
-  .badge-legend { flex-direction: column; gap: 0.75rem; }
-  .hero-wheel-wrap { width: 100vw; height: 100vw; opacity: 0.5; }
+  .hero-wheel-wrap { width: 100vw; height: 100vw; --wheel-opacity-responsive: 0.5; }
   .timeline { padding-left: 2.25rem; }
   .eval-stages { padding-left: 2.5rem; }
   /* Remove expensive blur compositing on mobile cards */
-  .card, .card-cream, .pricing-card, .jury-card,
+  .card, .pricing-card, .jury-card,
   .card-glass, .routing-card, .step-card,
   .speaker-card-front, .speaker-card-back {
     backdrop-filter: none;
@@ -3053,7 +3311,7 @@ body::after {
 /* XS: ≤479 — small mobile */
 @media (max-width: 479px) {
   :root {
-    --section-py: 2.75rem;
+    --section-py: 1.1rem;
     --section-px: 1rem;
   }
   .hero-title { font-size: clamp(2.75rem, 13vw, 4rem); }
@@ -3110,5 +3368,6 @@ body::after {
   }
   .hero-constellation { display: none; }
   .cursor-glow { display: none; }
+  .peacock-cursor { display: none; }
   .reveal { opacity: 1; transform: none; }
 }

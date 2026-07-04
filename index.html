@@ -19,16 +19,40 @@
     <link rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap">
   </noscript>
+  <link rel="icon" type="image/png" href="assets/favicon-feather.png">
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
+
+  <!-- Site-wide starfield (fixed, behind all content) -->
+  <canvas id="siteStars" aria-hidden="true"></canvas>
+
+  <!-- Site-wide zodiac wheel — fixed, scroll-reactive, tints per section -->
+  <div class="hero-wheel-wrap" id="heroWheel">
+    <div class="hero-wheel-breathe">
+      <svg class="hero-wheel-outer" viewBox="-110 -110 220 220" aria-hidden="true">
+        <use href="#svg-zodiac-wheel" />
+      </svg>
+      <svg class="hero-wheel-mid" viewBox="-110 -110 220 220" aria-hidden="true">
+        <use href="#svg-mandala" x="-80" y="-80" width="160" height="160" />
+      </svg>
+      <svg class="hero-wheel-inner" viewBox="-110 -110 220 220" aria-hidden="true">
+        <use href="#svg-yantra" x="-50" y="-50" width="100" height="100" />
+      </svg>
+    </div>
+  </div>
 
   <!-- Scroll Progress Bar -->
   <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
   <!-- Cursor Glow (desktop only) -->
   <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+
+  <!-- Peacock Feather Cursor (desktop only) -->
+  <div class="peacock-cursor" id="peacockCursor" aria-hidden="true">
+    <img src="assets/feather-cursor.png" alt="" width="52" height="68" draggable="false">
+  </div>
 
   <!-- ========== SVG SPRITE ========== -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -160,6 +184,37 @@
         </g>
       </symbol>
 
+      <!-- ── Line icon set (stroke: currentColor via .icon class) ── -->
+      <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="10" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M9 21h6"/></symbol>
+      <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M7 4h10v5a5 5 0 0 1-10 0Z"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4M12 14v4M8 21h8"/></symbol>
+      <symbol id="i-chat" viewBox="0 0 24 24"><path d="M20 5H4v11h4v4l5-4h7Z"/><path d="M8 10.5h8"/></symbol>
+      <symbol id="i-booth" viewBox="0 0 24 24"><path d="M4 4h16l1.5 4h-19Z"/><path d="M5 8v12h14V8M10 20v-6h4v6"/></symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 5-3.5 8-7 10-3.5-2-7-5-7-10V6Z"/><path d="M9 11.5l2 2 4-4"/></symbol>
+      <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 1 0-6l2-2a4 4 0 0 1 6 6l-1 1"/><path d="M14 10a4 4 0 0 1 0 6l-2 2a4 4 0 0 1-6-6l1-1"/></symbol>
+      <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+      <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 6c-2-1.5-5-2-8-2v14c3 0 6 .5 8 2 2-1.5 5-2 8-2V4c-3 0-6 .5-8 2Z"/><path d="M12 6v14"/></symbol>
+      <symbol id="i-venn" viewBox="0 0 24 24"><circle cx="9" cy="12" r="5.5"/><circle cx="15" cy="12" r="5.5"/></symbol>
+      <symbol id="i-lotus" viewBox="0 0 24 24"><path d="M12 20c-1.6-2.2-2-5.5 0-8.5 2 3 1.6 6.3 0 8.5Z"/><path d="M12 20c-4.2 0-7.3-2.4-8.3-6 3.1 0 5.7 1.1 7 3.2M12 20c4.2 0 7.3-2.4 8.3-6-3.1 0-5.7 1.1-7 3.2"/></symbol>
+      <symbol id="i-medal" viewBox="0 0 24 24"><circle cx="12" cy="14.5" r="5"/><path d="M8.5 10.5 5.5 3M15.5 10.5l3-7.5M5.5 3h13"/></symbol>
+      <symbol id="i-megaphone" viewBox="0 0 24 24"><path d="M4 10v4h3l7 5V5l-7 5Z"/><path d="M17 9a5 5 0 0 1 0 6"/></symbol>
+      <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.6 5.6 5.4.9-4 4 1 6-5-3-5 3 1-6-4-4 5.4-.9Z"/></symbol>
+      <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11l8-7 8 7"/><path d="M6 10v10h12V10M10 20v-5h4v5"/></symbol>
+      <symbol id="i-cards" viewBox="0 0 24 24"><rect x="4" y="5" width="9" height="14" rx="1.5"/><path d="M15 5.5l4.5 1.4-3.7 12.4-1.8-.5"/></symbol>
+      <symbol id="i-chip" viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M9 7V4M15 7V4M9 20v-3M15 20v-3M7 9H4M7 15H4M20 9h-3M20 15h-3"/></symbol>
+      <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20S5 15.5 3 11a5 5 0 0 1 9-3 5 5 0 0 1 9 3c-2 4.5-9 9-9 9Z"/></symbol>
+      <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></symbol>
+      <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5Z"/></symbol>
+      <symbol id="i-scales" viewBox="0 0 24 24"><path d="M12 4v16M8 20h8M5 7h14"/><path d="M5 7l-2.5 5h5L5 7ZM19 7l-2.5 5h5L19 7Z"/></symbol>
+      <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 4v16h16"/><path d="M7 15l4-4 3 2 5-6"/></symbol>
+      <symbol id="i-coins" viewBox="0 0 24 24"><ellipse cx="12" cy="6.5" rx="7" ry="3"/><path d="M5 6.5V12c0 1.7 3.1 3 7 3s7-1.3 7-3V6.5"/><path d="M5 12v5.5c0 1.7 3.1 3 7 3s7-1.3 7-3V12"/></symbol>
+      <symbol id="i-infinity" viewBox="0 0 24 24"><path d="M12 12c-2-2.7-3.5-4-5.5-4a4 4 0 0 0 0 8c2 0 3.5-1.3 5.5-4 2 2.7 3.5 4 5.5 4a4 4 0 0 0 0-8c-2 0-3.5 1.3-5.5 4Z"/></symbol>
+      <symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 17.5h2"/></symbol>
+      <symbol id="i-gem" viewBox="0 0 24 24"><path d="M7 4h10l4 5-9 11L3 9Z"/><path d="M3 9h18M7 4l5 5 5-5M12 9v11"/></symbol>
+      <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M19 4C9 5 4 10 4 16a4.5 4.5 0 0 0 4.5 4.5C14 20.5 19 14 19 4Z"/><path d="M6 18C9 13 13 9 17 6"/></symbol>
+      <symbol id="i-cap" viewBox="0 0 24 24"><path d="M2 9l10-5 10 5-10 5Z"/><path d="M6 11.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-4.5M22 9v5"/></symbol>
+      <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+      <symbol id="i-news" viewBox="0 0 24 24"><path d="M4 5h13v15H6a2 2 0 0 1-2-2Z"/><path d="M17 9h3v9a2 2 0 0 1-2 2M7 9h7M7 12.5h7M7 16h4"/></symbol>
+
       <!-- Vastu compass (8 directions) -->
       <symbol id="svg-vastu" viewBox="-50 -50 100 100">
         <g fill="none" stroke="currentColor" stroke-width="1">
@@ -183,45 +238,48 @@
     </defs>
   </svg>
 
-  <!-- ========== IMMERSIVE LOADER ========== -->
+  <!-- ========== CINEMATIC TRIMURTI LOADER ========== -->
   <div class="page-loader" id="pageLoader">
     <div class="loader-stage">
-      <div class="loader-orbit">
-        <svg class="loader-wheel" viewBox="-110 -110 220 220" aria-hidden="true">
-          <g class="loader-wheel-outer">
-            <circle cx="0" cy="0" r="100" fill="none" stroke="currentColor" stroke-width="0.8" pathLength="100"
-              class="loader-ring-1" />
-            <circle cx="0" cy="0" r="86" fill="none" stroke="currentColor" stroke-width="0.5" stroke-dasharray="2 3"
-              opacity="0.6" />
-          </g>
-          <g class="loader-wheel-inner">
-            <use href="#svg-mandala" x="-60" y="-60" width="120" height="120" />
-          </g>
-          <g class="loader-wheel-glyphs">
-            <circle cx="0" cy="-93" r="2" />
-            <circle cx="0" cy="-93" r="2" transform="rotate(30)" />
-            <circle cx="0" cy="-93" r="2" transform="rotate(60)" />
-            <circle cx="0" cy="-93" r="2" transform="rotate(90)" />
-            <circle cx="0" cy="-93" r="2" transform="rotate(120)" />
-            <circle cx="0" cy="-93" r="2" transform="rotate(150)" />
-            <circle cx="0" cy="-93" r="2" transform="rotate(180)" />
-            <circle cx="0" cy="-93" r="2" transform="rotate(210)" />
-            <circle cx="0" cy="-93" r="2" transform="rotate(240)" />
-            <circle cx="0" cy="-93" r="2" transform="rotate(270)" />
-            <circle cx="0" cy="-93" r="2" transform="rotate(300)" />
-            <circle cx="0" cy="-93" r="2" transform="rotate(330)" />
-          </g>
-        </svg>
+
+      <!-- Divine glow behind the deities -->
+      <div class="loader-divine-glow" aria-hidden="true"></div>
+
+      <!-- Light burst flash -->
+      <div class="loader-burst" aria-hidden="true"></div>
+
+      <!-- Trimurti — Brahma · Vishnu · Mahesh -->
+      <div class="loader-trimurti">
+        <div class="loader-deity" style="--d:0">
+          <img src="assets/brahma.png" alt="" width="220" height="220" draggable="false">
+          <span class="loader-deity-label">ब्रह्मा</span>
+        </div>
+        <div class="loader-deity loader-deity--center" style="--d:1">
+          <img src="assets/vishnu.png" alt="" width="260" height="260" draggable="false">
+          <span class="loader-deity-label">विष्णु</span>
+        </div>
+        <div class="loader-deity" style="--d:2">
+          <img src="assets/mahesh.png" alt="" width="220" height="220" draggable="false">
+          <span class="loader-deity-label">महेश</span>
+        </div>
       </div>
-      <div class="loader-title">
-        <span class="loader-char" style="--d:0">A</span><span class="loader-char" style="--d:1">s</span><span
-          class="loader-char" style="--d:2">t</span><span class="loader-char" style="--d:3">r</span><span
-          class="loader-char" style="--d:4">o</span><span class="loader-char loader-char-sup"
-          style="--d:5">+</span><span class="loader-char loader-char-space" style="--d:6"> </span><span
-          class="loader-char" style="--d:7">म</span><span class="loader-char" style="--d:8">हा</span><span
-          class="loader-char" style="--d:9">सं</span><span class="loader-char" style="--d:10">ग</span><span
-          class="loader-char" style="--d:11">म</span>
+
+      <!-- Title — lotus petal opening animation -->
+      <div class="loader-title loader-lotus">
+        <span class="loader-petal loader-petal--left" style="--p:5">A</span><span
+          class="loader-petal loader-petal--left" style="--p:4">s</span><span
+          class="loader-petal loader-petal--left" style="--p:3">t</span><span
+          class="loader-petal loader-petal--left" style="--p:2">r</span><span
+          class="loader-petal loader-petal--left" style="--p:1">o</span><span
+          class="loader-petal loader-petal--left loader-petal-sup" style="--p:0">+</span><span
+          class="loader-petal loader-petal-space">&nbsp;</span><span
+          class="loader-petal loader-petal--right" style="--p:0">म</span><span
+          class="loader-petal loader-petal--right" style="--p:1">हा</span><span
+          class="loader-petal loader-petal--right" style="--p:2">सं</span><span
+          class="loader-petal loader-petal--right" style="--p:3">ग</span><span
+          class="loader-petal loader-petal--right" style="--p:4">म</span>
       </div>
+
       <div class="loader-sub">Conclave · Awards · Expo · 2026</div>
       <div class="loader-meter">
         <div class="loader-meter-fill" id="loaderFill"></div>
@@ -240,18 +298,18 @@
 
       <div class="nav-links" id="navLinks">
         <a href="#conclave" class="nav-link" data-page="conclave">Conclave</a>
-        <a href="#speakers" class="nav-link" data-page="speakers">Speakers</a>
+        <a href="#home" class="nav-link" data-scroll="speakers">Speakers</a>
         <a href="#awards" class="nav-link" data-page="awards">Awards</a>
         <a href="#consultation" class="nav-link" data-page="consultation">Consultation</a>
         <a href="#expo" class="nav-link" data-page="expo">Expo & Sponsorship</a>
-        <a href="#tickets" class="nav-link" data-page="tickets">Tickets</a>
-        <a href="#venue" class="nav-link" data-page="venue">Venue</a>
-        <a href="#contact" class="nav-link" data-page="contact">Contact</a>
+        <a href="#home" class="nav-link" data-scroll="tickets">Tickets</a>
+        <a href="#home" class="nav-link" data-scroll="venue">Venue</a>
+        <a href="#home" class="nav-link" data-scroll="contact">Contact</a>
       </div>
 
       <div class="nav-ctas">
         <a href="#awards" class="btn btn-primary btn-sm" data-scroll="nominate">Nominate Now</a>
-        <a href="#tickets" class="btn btn-secondary btn-sm">Book Tickets</a>
+        <a href="#home" class="btn btn-secondary btn-sm" data-scroll="tickets">Book Tickets</a>
       </div>
 
       <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu">
@@ -264,16 +322,16 @@
   <div class="mobile-menu" id="mobileMenu">
     <a href="#home" class="nav-link mobile-link" data-page="home">Home</a>
     <a href="#conclave" class="nav-link mobile-link" data-page="conclave">Conclave</a>
-    <a href="#speakers" class="nav-link mobile-link" data-page="speakers">Speakers</a>
+    <a href="#home" class="nav-link mobile-link" data-scroll="speakers">Speakers</a>
     <a href="#awards" class="nav-link mobile-link" data-page="awards">Awards</a>
     <a href="#consultation" class="nav-link mobile-link" data-page="consultation">Consultation</a>
     <a href="#expo" class="nav-link mobile-link" data-page="expo">Expo & Sponsorship</a>
-    <a href="#tickets" class="nav-link mobile-link" data-page="tickets">Tickets</a>
-    <a href="#venue" class="nav-link mobile-link" data-page="venue">Venue</a>
-    <a href="#contact" class="nav-link mobile-link" data-page="contact">Contact</a>
+    <a href="#home" class="nav-link mobile-link" data-scroll="tickets">Tickets</a>
+    <a href="#home" class="nav-link mobile-link" data-scroll="venue">Venue</a>
+    <a href="#home" class="nav-link mobile-link" data-scroll="contact">Contact</a>
     <div class="nav-ctas">
       <a href="#awards" class="btn btn-primary" data-scroll="nominate">Nominate Now</a>
-      <a href="#tickets" class="btn btn-secondary">Book Tickets</a>
+      <a href="#home" class="btn btn-secondary" data-scroll="tickets">Book Tickets</a>
     </div>
   </div>
 
@@ -286,20 +344,8 @@
 
       <!-- HERO -->
       <div class="hero" id="hero">
-        <canvas id="heroGL" aria-hidden="true"></canvas>
         <div class="hero-bg" data-parallax="0.15">
           <div class="hero-nebula"></div>
-        </div>
-        <div class="hero-wheel-wrap" data-parallax="0.35" id="heroWheel">
-          <svg class="hero-wheel-outer" viewBox="-110 -110 220 220" aria-hidden="true">
-            <use href="#svg-zodiac-wheel" />
-          </svg>
-          <svg class="hero-wheel-mid" viewBox="-110 -110 220 220" aria-hidden="true">
-            <use href="#svg-mandala" x="-80" y="-80" width="160" height="160" />
-          </svg>
-          <svg class="hero-wheel-inner" viewBox="-110 -110 220 220" aria-hidden="true">
-            <use href="#svg-yantra" x="-50" y="-50" width="100" height="100" />
-          </svg>
         </div>
         <canvas class="hero-constellation" id="heroConstellation" aria-hidden="true"></canvas>
         <div class="hero-content" data-parallax="-0.08">
@@ -315,26 +361,26 @@
           </p>
           <div class="hero-ctas reveal" data-reveal="fade-up">
             <a href="#awards" class="btn btn-primary btn-lg btn-shine" data-scroll="nominate">Nominate Your Practice</a>
-            <a href="#tickets" class="btn btn-secondary btn-lg">Register Interest</a>
+            <a href="#home" class="btn btn-secondary btn-lg" data-scroll="tickets">Register Interest</a>
           </div>
           <div class="pillar-tabs">
             <a href="#conclave" class="pillar-tab reveal" data-reveal="scale" style="--d:1">
-              <span class="pillar-tab-icon">🎙️</span>
+              <span class="pillar-tab-icon"><svg class="icon" aria-hidden="true"><use href="#i-mic" /></svg></span>
               <span class="pillar-tab-label">Conclave</span>
               <span class="pillar-tab-trace"></span>
             </a>
             <a href="#awards" class="pillar-tab reveal" data-reveal="scale" style="--d:2">
-              <span class="pillar-tab-icon">🏆</span>
+              <span class="pillar-tab-icon"><svg class="icon" aria-hidden="true"><use href="#i-trophy" /></svg></span>
               <span class="pillar-tab-label">Awards</span>
               <span class="pillar-tab-trace"></span>
             </a>
             <a href="#consultation" class="pillar-tab reveal" data-reveal="scale" style="--d:3">
-              <span class="pillar-tab-icon">💬</span>
+              <span class="pillar-tab-icon"><svg class="icon" aria-hidden="true"><use href="#i-chat" /></svg></span>
               <span class="pillar-tab-label">Consultation</span>
               <span class="pillar-tab-trace"></span>
             </a>
             <a href="#expo" class="pillar-tab reveal" data-reveal="scale" style="--d:4">
-              <span class="pillar-tab-icon">🏢</span>
+              <span class="pillar-tab-icon"><svg class="icon" aria-hidden="true"><use href="#i-booth" /></svg></span>
               <span class="pillar-tab-label">Expo Arena</span>
               <span class="pillar-tab-trace"></span>
             </a>
@@ -347,77 +393,92 @@
       </div>
 
       <!-- WHY SECTION -->
-      <div class="section section--cream divider-angle-reverse" id="why">
+      <div class="section section--darker" id="why">
         <div class="container">
           <div class="section-header reveal" data-reveal="fade-up">
-            <p class="section-label" style="color: var(--gold);">Why Astro<sup>+</sup> महासंगम</p>
-            <h2 style="color: var(--text-primary);">India's Astrology Ecosystem Is Thriving — But Fragmented</h2>
-            <p class="subheadline" style="margin: 1rem auto 0;">The expertise exists. The audience is growing. What's
-              missing is a trusted, institutional platform that brings it all together.</p>
+            <p class="section-label">Why Astro<sup>+</sup> महासंगम</p>
           </div>
 
-          <div class="grid grid-2 gap-4" style="margin-bottom: 3rem;">
-            <div class="card-cream reveal reveal-delay-1">
-              <div class="card-icon" style="background: rgba(184,134,11,0.1);">🛡️</div>
-              <h4>A Trust Gap at the Centre</h4>
-              <p>The market is growing rapidly, but unverified practitioners and inconsistent quality have made it
-                difficult for genuine seekers to find credible experts. Trust is the sector's biggest unsolved problem.
-              </p>
-            </div>
-            <div class="card-cream reveal reveal-delay-2">
-              <div class="card-icon" style="background: rgba(184,134,11,0.1);">🔗</div>
-              <h4>A Fragmented Ecosystem</h4>
-              <p>Astrologers, Vastu masters, Tarot readers, and numerologists work in parallel universes with no shared
-                platform for collaboration, peer learning, or industry standards.</p>
-            </div>
-            <div class="card-cream reveal reveal-delay-1">
-              <div class="card-icon" style="background: rgba(184,134,11,0.1);">👤</div>
-              <h4>A Missing Physical Layer</h4>
-              <p>A sector that thrives on personal guidance and human trust has moved almost entirely digital — losing
-                the high-trust, face-to-face interactions that practitioners and seekers both value most.</p>
-            </div>
-            <div class="card-cream reveal reveal-delay-2">
-              <div class="card-icon" style="background: rgba(184,134,11,0.1);">📖</div>
-              <h4>No Structured Knowledge Transfer</h4>
-              <p>Deep Vedic knowledge is being displaced by short-form content. There is no institutional mechanism for
-                advanced practitioners to mentor emerging talent.</p>
-            </div>
-          </div>
+          <p class="ps-hook reveal">Five disciplines. Zero shared platform.
+            <span class="gradient-text">Until now.</span></p>
 
-          <div class="gold-line"></div>
-          <div class="section-header reveal">
-            <h3 style="color: var(--text-primary); margin-bottom: 0.5rem;">How Astro<sup>+</sup> महासंगम Solves This
-            </h3>
-          </div>
+          <div class="ps-list">
+            <div class="ps-row reveal">
+              <div class="ps-side ps-problem">
+                <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-shield" /></svg></div>
+                <div>
+                  <h4>A Trust Gap at the Centre</h4>
+                  <p>Unverified practitioners make it hard for genuine seekers to find credible experts.</p>
+                </div>
+              </div>
+              <div class="ps-connector" aria-hidden="true">→</div>
+              <div class="ps-side ps-solution">
+                <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-trophy" /></svg></div>
+                <div>
+                  <h4>Trust Through Recognition</h4>
+                  <p>Jury-led awards set the credibility benchmark the sector lacks.</p>
+                  <a href="#awards" class="ps-link">Explore Awards →</a>
+                </div>
+              </div>
+            </div>
 
-          <div class="grid grid-2 gap-4">
-            <div class="card-cream reveal reveal-delay-1">
-              <h4>🏆 Building Trust Through Recognition</h4>
-              <p>The NBT Astro Awards recognise excellence across astrology, Vastu, numerology, tarot and palmistry —
-                creating a credibility benchmark the sector currently lacks.</p>
-              <a href="#awards" class="btn btn-sm btn-ghost"
-                style="margin-top: 1rem; color: var(--gold); border-color: var(--gold);">Explore Awards →</a>
+            <div class="ps-row reveal">
+              <div class="ps-side ps-problem">
+                <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-link" /></svg></div>
+                <div>
+                  <h4>A Fragmented Ecosystem</h4>
+                  <p>Five disciplines, zero shared platform for collaboration or standards.</p>
+                </div>
+              </div>
+              <div class="ps-connector" aria-hidden="true">→</div>
+              <div class="ps-side ps-solution">
+                <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-venn" /></svg></div>
+                <div>
+                  <h4>One Shared Platform</h4>
+                  <p>Practitioners, seekers, brands and institutions — in structured dialogue at last.</p>
+                  <a href="#conclave" class="ps-link">Explore Conclave →</a>
+                </div>
+              </div>
             </div>
-            <div class="card-cream reveal reveal-delay-2">
-              <h4>🤝 A Shared Platform for the Ecosystem</h4>
-              <p>The Conclave and Expo bring together practitioners, seekers, brands, institutions, and industry leaders
-                for structured dialogue, commerce, and partnership.</p>
-              <a href="#conclave" class="btn btn-sm btn-ghost"
-                style="margin-top: 1rem; color: var(--gold); border-color: var(--gold);">Explore Conclave →</a>
+
+            <div class="ps-row reveal">
+              <div class="ps-side ps-problem">
+                <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-user" /></svg></div>
+                <div>
+                  <h4>A Missing Physical Layer</h4>
+                  <p>A trust-driven sector has gone almost entirely digital — losing the face-to-face moments that
+                    build it.</p>
+                </div>
+              </div>
+              <div class="ps-connector" aria-hidden="true">→</div>
+              <div class="ps-side ps-solution">
+                <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-lotus" /></svg></div>
+                <div>
+                  <h4>In-Person Guidance, Revived</h4>
+                  <p>Credentialed experts. Structured 1-on-1 sessions. Face to face.</p>
+                  <a href="#consultation" class="ps-link">Consultation Zone →</a>
+                </div>
+              </div>
             </div>
-            <div class="card-cream reveal reveal-delay-1">
-              <h4>🙏 Reconnecting Through In-Person Guidance</h4>
-              <p>The Consultation Zone revives the power of direct, personal guidance — with credentialed practitioners
-                available for structured 1-on-1 sessions across multiple disciplines.</p>
-              <a href="#consultation" class="btn btn-sm btn-ghost"
-                style="margin-top: 1rem; color: var(--gold); border-color: var(--gold);">Consultation Zone →</a>
-            </div>
-            <div class="card-cream reveal reveal-delay-2">
-              <h4>📚 Reviving the Guru-Shishya Tradition</h4>
-              <p>Curated masterclasses and structured learning tracks give advanced practitioners the space to transfer
-                deep knowledge to the next generation of India's Vedic science community.</p>
-              <a href="#conclave" class="btn btn-sm btn-ghost"
-                style="margin-top: 1rem; color: var(--gold); border-color: var(--gold);">View Agenda →</a>
+
+            <div class="ps-row reveal">
+              <div class="ps-side ps-problem">
+                <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-book" /></svg></div>
+                <div>
+                  <h4>No Structured Knowledge Transfer</h4>
+                  <p>Deep Vedic scholarship is losing ground to short-form content, with no mechanism to mentor the
+                    next generation.</p>
+                </div>
+              </div>
+              <div class="ps-connector" aria-hidden="true">→</div>
+              <div class="ps-side ps-solution">
+                <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-book" /></svg></div>
+                <div>
+                  <h4>The Guru-Shishya Tradition</h4>
+                  <p>Masterclasses where senior practitioners pass deep knowledge to the next generation.</p>
+                  <a href="#conclave" class="ps-link">View Agenda →</a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -428,7 +489,6 @@
         <div class="container">
           <div class="section-header reveal">
             <p class="section-label">Event at a Glance</p>
-            <h2>Four Pillars. One Transformative Day.</h2>
             <p class="page-meta" style="margin-top: 1rem;">
               <span>One Day</span><span class="dot"></span>
               <span>Multi-Format</span><span class="dot"></span>
@@ -437,34 +497,30 @@
             </p>
           </div>
 
-          <div class="grid grid-4">
-            <div class="card reveal reveal-delay-1" style="cursor:pointer;" onclick="navigateTo('conclave')">
-              <div class="card-icon">🎙️</div>
-              <h4>Astro<sup>+</sup> महासंगम Conclave</h4>
-              <p style="font-size:0.78rem; color:var(--gold-light); margin-bottom:0.5rem;">09:00 AM – 04:30 PM</p>
-              <p>India's foremost knowledge forum on astrology and Vedic sciences. Expert panels, keynote addresses,
-                masterclasses and structured discussions across ten themes.</p>
+          <div class="journey-strip">
+            <div class="journey-stop reveal reveal-delay-1" style="cursor:pointer;" onclick="navigateTo('conclave')">
+              <div class="journey-dot"><svg class="icon" aria-hidden="true"><use href="#i-mic" /></svg></div>
+              <div class="journey-time">09:00 AM – 04:30 PM</div>
+              <h4>Conclave</h4>
+              <p>Panels, keynotes and masterclasses across ten themes.</p>
             </div>
-            <div class="card reveal reveal-delay-2" style="cursor:pointer;" onclick="navigateTo('awards')">
-              <div class="card-icon">🏆</div>
-              <h4>Astro<sup>+</sup> महासंगम Awards</h4>
-              <p style="font-size:0.78rem; color:var(--gold-light); margin-bottom:0.5rem;">04:30 PM – 06:30 PM</p>
-              <p>India's first institutional recognition programme for astrology, Vastu, numerology, tarot and
-                palmistry. 47 categories. Jury-led. Process-audited.</p>
+            <div class="journey-stop reveal reveal-delay-2" style="cursor:pointer;" onclick="navigateTo('awards')">
+              <div class="journey-dot"><svg class="icon" aria-hidden="true"><use href="#i-trophy" /></svg></div>
+              <div class="journey-time">04:30 PM – 06:30 PM</div>
+              <h4>Awards</h4>
+              <p>47 categories. Jury-led. Process-audited.</p>
             </div>
-            <div class="card reveal reveal-delay-3" style="cursor:pointer;" onclick="navigateTo('expo')">
-              <div class="card-icon">🏪</div>
-              <h4>Astro<sup>+</sup> महासंगम Expo</h4>
-              <p style="font-size:0.78rem; color:var(--gold-light); margin-bottom:0.5rem;">All Day</p>
-              <p>A curated commercial marketplace where astrology apps, wellness brands, gemstone specialists,
-                publishers and educational institutes meet high-intent buyers.</p>
+            <div class="journey-stop reveal reveal-delay-3" style="cursor:pointer;" onclick="navigateTo('expo')">
+              <div class="journey-dot"><svg class="icon" aria-hidden="true"><use href="#i-booth" /></svg></div>
+              <div class="journey-time">All Day</div>
+              <h4>Expo</h4>
+              <p>50+ curated brands meet high-intent buyers.</p>
             </div>
-            <div class="card reveal reveal-delay-4" style="cursor:pointer;" onclick="navigateTo('consultation')">
-              <div class="card-icon">💬</div>
+            <div class="journey-stop reveal reveal-delay-4" style="cursor:pointer;" onclick="navigateTo('consultation')">
+              <div class="journey-dot"><svg class="icon" aria-hidden="true"><use href="#i-chat" /></svg></div>
+              <div class="journey-time">All Day</div>
               <h4>Consultation Zone</h4>
-              <p style="font-size:0.78rem; color:var(--gold-light); margin-bottom:0.5rem;">All Day</p>
-              <p>Structured 1-on-1 expert access across kundali reading, Vastu consultation, tarot and numerology, and
-                palmistry. Credentialed practitioners.</p>
+              <p>1-on-1 sessions with credentialed practitioners.</p>
             </div>
           </div>
 
@@ -494,69 +550,120 @@
         <div class="container">
           <div class="section-header reveal">
             <p class="section-label">Who Attends</p>
-            <h2>One Platform. Every Stakeholder in the Ecosystem.</h2>
           </div>
-          <div class="grid grid-3">
-            <div class="card reveal reveal-delay-1">
-              <h4>Practitioners & Experts</h4>
-              <p>Astrologers, Vastu consultants, numerologists, tarot readers and palmists — the professionals whose
-                credibility and reputation this platform is designed to elevate.</p>
-            </div>
-            <div class="card reveal reveal-delay-2">
-              <h4>Spiritual Creators & Educators</h4>
-              <p>High-reach content creators, YouTube educators, podcast hosts and social media voices who shape how
-                millions of Indians engage with Vedic sciences daily.</p>
-            </div>
-            <div class="card reveal reveal-delay-3">
-              <h4>B2B Brands & Faith-Tech Companies</h4>
-              <p>Astrology apps, wellness brands, gemstone specialists, publishers and educational institutes seeking
-                qualified, high-intent audience access and category visibility.</p>
-            </div>
-            <div class="card reveal reveal-delay-1">
-              <h4>Corporate Seekers & Decision-Makers</h4>
-              <p>Urban professionals and business leaders who actively invest in Vastu, astrology and life-coaching
-                guidance for personal and organisational decisions.</p>
-            </div>
-            <div class="card reveal reveal-delay-2">
-              <h4>Gen Z & Millennial Explorers</h4>
-              <p>A digitally native generation seeking meaningful in-person guidance — using astrology, tarot and
-                mindfulness as frameworks for self-understanding and wellbeing.</p>
-            </div>
-            <div class="card reveal reveal-delay-3">
-              <h4>Institutions & Tourism Boards</h4>
-              <p>Temples, spiritual trusts, AYUSH institutions, pilgrimage tourism operators and state tourism boards
-                looking to engage a high-intent, culturally aligned audience.</p>
+          <div class="marquee reveal">
+            <div class="marquee-track">
+              <!-- Set A -->
+              <div class="card chip">
+                <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-star" /></svg></div>
+                <h4>Practitioners & Experts</h4>
+                <p>Astrologers, Vastu consultants, numerologists, tarot readers, palmists.</p>
+              </div>
+              <div class="card chip">
+                <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-megaphone" /></svg></div>
+                <h4>Spiritual Creators & Educators</h4>
+                <p>The voices shaping how millions engage with Vedic sciences daily.</p>
+              </div>
+              <div class="card chip">
+                <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-phone" /></svg></div>
+                <h4>B2B Brands & Faith-Tech</h4>
+                <p>Apps, wellness brands and institutes seeking high-intent audiences.</p>
+              </div>
+              <div class="card chip">
+                <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-chart" /></svg></div>
+                <h4>Corporate Decision-Makers</h4>
+                <p>Professionals who invest in guidance for life and business decisions.</p>
+              </div>
+              <div class="card chip">
+                <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-compass" /></svg></div>
+                <h4>Gen Z & Millennial Explorers</h4>
+                <p>A digital-native generation seeking meaning, in person.</p>
+              </div>
+              <div class="card chip">
+                <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-pin" /></svg></div>
+                <h4>Institutions & Tourism Boards</h4>
+                <p>Temples, trusts, AYUSH bodies and spiritual tourism operators.</p>
+              </div>
+              <!-- Set B (duplicate for seamless loop) -->
+              <div class="card chip" aria-hidden="true">
+                <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-star" /></svg></div>
+                <h4>Practitioners & Experts</h4>
+                <p>Astrologers, Vastu consultants, numerologists, tarot readers, palmists.</p>
+              </div>
+              <div class="card chip" aria-hidden="true">
+                <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-megaphone" /></svg></div>
+                <h4>Spiritual Creators & Educators</h4>
+                <p>The voices shaping how millions engage with Vedic sciences daily.</p>
+              </div>
+              <div class="card chip" aria-hidden="true">
+                <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-phone" /></svg></div>
+                <h4>B2B Brands & Faith-Tech</h4>
+                <p>Apps, wellness brands and institutes seeking high-intent audiences.</p>
+              </div>
+              <div class="card chip" aria-hidden="true">
+                <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-chart" /></svg></div>
+                <h4>Corporate Decision-Makers</h4>
+                <p>Professionals who invest in guidance for life and business decisions.</p>
+              </div>
+              <div class="card chip" aria-hidden="true">
+                <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-compass" /></svg></div>
+                <h4>Gen Z & Millennial Explorers</h4>
+                <p>A digital-native generation seeking meaning, in person.</p>
+              </div>
+              <div class="card chip" aria-hidden="true">
+                <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-pin" /></svg></div>
+                <h4>Institutions & Tourism Boards</h4>
+                <p>Temples, trusts, AYUSH bodies and spiritual tourism operators.</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- FEATURED GUESTS PREVIEW -->
-      <div class="section section--dark">
+      <!-- SPEAKERS & DIGNITARIES -->
+      <div class="section section--dark" id="speakers">
         <div class="container">
           <div class="section-header reveal">
-            <p class="section-label">Expected on Stage</p>
-            <h2>Voices That Define the Industry</h2>
-            <p class="subheadline" style="margin: 0.75rem auto 0;">Some of India's most respected voices in astrology,
-              Vedic sciences and wellness have been invited to participate.</p>
+            <p class="section-label">Speakers &amp; Dignitaries</p>
           </div>
 
-          <div class="grid grid-3">
-            <div class="chief-guest-card reveal reveal-delay-1">
-              <div class="speaker-avatar"
-                style="width:100px;height:100px;font-size:2rem;border:2px solid rgba(212,175,55,0.3);">GS</div>
-              <h4>Shri Gajendra Singh Shekhawat</h4>
-              <p class="speaker-title">Union Minister of Culture and Tourism, Government of India</p>
-              <span class="badge badge-invitation-extended">⚠️ Invitation Extended</span>
+          <!-- Chief Guests -->
+          <div class="grid grid-2" style="max-width:640px; margin:0 auto 1.5rem;">
+            <div class="speaker-card reveal reveal-delay-1">
+              <div class="speaker-card-inner">
+                <div class="speaker-card-front">
+                  <div class="speaker-avatar">GS</div>
+                  <h4>Shri Gajendra Singh Shekhawat</h4>
+                  <span class="speaker-discipline">Chief Guest</span>
+                </div>
+                <div class="speaker-card-back">
+                  <div class="speaker-avatar">GS</div>
+                  <h4>Shri Gajendra Singh Shekhawat</h4>
+                  <p class="speaker-title">Union Minister of Culture and Tourism, Government of India</p>
+                  <span class="badge badge-discipline">Chief Guest</span>
+                </div>
+              </div>
             </div>
-            <div class="chief-guest-card reveal reveal-delay-2">
-              <div class="speaker-avatar"
-                style="width:100px;height:100px;font-size:2rem;border:2px solid rgba(212,175,55,0.3);">RG</div>
-              <h4>Smt. Rekha Gupta</h4>
-              <p class="speaker-title">Chief Minister of Delhi</p>
-              <span class="badge badge-invitation-extended">⚠️ Invitation Extended</span>
+            <div class="speaker-card reveal reveal-delay-2">
+              <div class="speaker-card-inner">
+                <div class="speaker-card-front">
+                  <div class="speaker-avatar">RG</div>
+                  <h4>Smt. Rekha Gupta</h4>
+                  <span class="speaker-discipline">Chief Guest</span>
+                </div>
+                <div class="speaker-card-back">
+                  <div class="speaker-avatar">RG</div>
+                  <h4>Smt. Rekha Gupta</h4>
+                  <p class="speaker-title">Chief Minister of Delhi</p>
+                  <span class="badge badge-discipline">Chief Guest</span>
+                </div>
+              </div>
             </div>
-            <div class="speaker-card reveal reveal-delay-3">
+          </div>
+
+          <!-- Confirmed Speakers -->
+          <div class="grid grid-4">
+            <div class="speaker-card reveal">
               <div class="speaker-card-inner">
                 <div class="speaker-card-front">
                   <div class="speaker-avatar">HY</div>
@@ -568,14 +675,144 @@
                   <h4>Hansaji Yogendra</h4>
                   <p class="speaker-title">Bharat Gaurav Awardee | Director, The Yoga Institute</p>
                   <span class="badge badge-discipline">Yoga &amp; Wellness</span>
-                  <span class="badge badge-invited">Invited</span>
                 </div>
               </div>
             </div>
-          </div>
-
-          <div class="section-cta reveal">
-            <a href="#speakers" class="btn btn-secondary">View All Invited Speakers →</a>
+            <div class="speaker-card reveal">
+              <div class="speaker-card-inner">
+                <div class="speaker-card-front">
+                  <div class="speaker-avatar">JM</div>
+                  <h4>Dr. Jai Madaan</h4>
+                  <span class="speaker-discipline">Astrology &amp; Vastu</span>
+                </div>
+                <div class="speaker-card-back">
+                  <div class="speaker-avatar">JM</div>
+                  <h4>Dr. Jai Madaan</h4>
+                  <p class="speaker-title">Astrologer, Vastu Expert &amp; Spiritual Guide</p>
+                  <span class="badge badge-discipline">Astrology &amp; Vastu</span>
+                </div>
+              </div>
+            </div>
+            <div class="speaker-card reveal">
+              <div class="speaker-card-inner">
+                <div class="speaker-card-front">
+                  <div class="speaker-avatar">MK</div>
+                  <h4>Munisha Khatwani</h4>
+                  <span class="speaker-discipline">Astrology &amp; Tarot</span>
+                </div>
+                <div class="speaker-card-back">
+                  <div class="speaker-avatar">MK</div>
+                  <h4>Munisha Khatwani</h4>
+                  <p class="speaker-title">Astrologer, Tarot Expert &amp; Spiritual Coach</p>
+                  <span class="badge badge-discipline">Astrology &amp; Tarot</span>
+                </div>
+              </div>
+            </div>
+            <div class="speaker-card reveal">
+              <div class="speaker-card-inner">
+                <div class="speaker-card-front">
+                  <div class="speaker-avatar">KB</div>
+                  <h4>Dr. Khushdeep Bansal</h4>
+                  <span class="speaker-discipline">Vastu</span>
+                </div>
+                <div class="speaker-card-back">
+                  <div class="speaker-avatar">KB</div>
+                  <h4>Dr. Khushdeep Bansal</h4>
+                  <p class="speaker-title">Vastu Expert &amp; Researcher</p>
+                  <span class="badge badge-discipline">Vastu</span>
+                </div>
+              </div>
+            </div>
+            <div class="speaker-card reveal">
+              <div class="speaker-card-inner">
+                <div class="speaker-card-front">
+                  <div class="speaker-avatar">PS</div>
+                  <h4>Prem Kumar Sharma</h4>
+                  <span class="speaker-discipline">Astrology, Vastu &amp; Numerology</span>
+                </div>
+                <div class="speaker-card-back">
+                  <div class="speaker-avatar">PS</div>
+                  <h4>Prem Kumar Sharma</h4>
+                  <p class="speaker-title">Astrologer, Numerologist &amp; Vastu Expert</p>
+                  <span class="badge badge-discipline">Astrology, Vastu &amp; Numerology</span>
+                </div>
+              </div>
+            </div>
+            <div class="speaker-card reveal">
+              <div class="speaker-card-inner">
+                <div class="speaker-card-front">
+                  <div class="speaker-avatar">PG</div>
+                  <h4>Pankit Goyal</h4>
+                  <span class="speaker-discipline">Vedic Astrology</span>
+                </div>
+                <div class="speaker-card-back">
+                  <div class="speaker-avatar">PG</div>
+                  <h4>Pankit Goyal</h4>
+                  <p class="speaker-title">Expert in Vedic Astrology and Occult Sciences</p>
+                  <span class="badge badge-discipline">Vedic Astrology</span>
+                </div>
+              </div>
+            </div>
+            <div class="speaker-card reveal">
+              <div class="speaker-card-inner">
+                <div class="speaker-card-front">
+                  <div class="speaker-avatar">AP</div>
+                  <h4>Arun Pandit</h4>
+                  <span class="speaker-discipline">Astrology &amp; Numerology</span>
+                </div>
+                <div class="speaker-card-back">
+                  <div class="speaker-avatar">AP</div>
+                  <h4>Arun Pandit</h4>
+                  <p class="speaker-title">Astrologer, Numerologist &amp; Vastu Consultant</p>
+                  <span class="badge badge-discipline">Astrology &amp; Numerology</span>
+                </div>
+              </div>
+            </div>
+            <div class="speaker-card reveal">
+              <div class="speaker-card-inner">
+                <div class="speaker-card-front">
+                  <div class="speaker-avatar">SS</div>
+                  <h4>Sheetal Shaparia</h4>
+                  <span class="speaker-discipline">Numerology &amp; Tarot</span>
+                </div>
+                <div class="speaker-card-back">
+                  <div class="speaker-avatar">SS</div>
+                  <h4>Sheetal Shaparia</h4>
+                  <p class="speaker-title">Numerologist &amp; Tarot Expert</p>
+                  <span class="badge badge-discipline">Numerology &amp; Tarot</span>
+                </div>
+              </div>
+            </div>
+            <div class="speaker-card reveal">
+              <div class="speaker-card-inner">
+                <div class="speaker-card-front">
+                  <div class="speaker-avatar">DB</div>
+                  <h4>Devina Badhwar</h4>
+                  <span class="speaker-discipline">Tarot</span>
+                </div>
+                <div class="speaker-card-back">
+                  <div class="speaker-avatar">DB</div>
+                  <h4>Devina Badhwar</h4>
+                  <p class="speaker-title">Tarot Reader &amp; Spiritual Coach</p>
+                  <span class="badge badge-discipline">Tarot</span>
+                </div>
+              </div>
+            </div>
+            <div class="speaker-card reveal">
+              <div class="speaker-card-inner">
+                <div class="speaker-card-front">
+                  <div class="speaker-avatar">SK</div>
+                  <h4>Sidhharrth S Kumaar</h4>
+                  <span class="speaker-discipline">Numerology &amp; Energy Healing</span>
+                </div>
+                <div class="speaker-card-back">
+                  <div class="speaker-avatar">SK</div>
+                  <h4>Sidhharrth S Kumaar</h4>
+                  <p class="speaker-title">Astro-Numerologist &amp; Energy Healer</p>
+                  <span class="badge badge-discipline">Numerology &amp; Energy Healing</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -585,18 +822,17 @@
         <div class="container">
           <div class="section-header reveal">
             <p class="section-label">From the Conclave</p>
-            <h2>Conversations India's Astrology Sector Needs to Have</h2>
           </div>
-          <div class="grid grid-3">
-            <div class="card-glass reveal reveal-delay-1">
+          <div class="chip-scroll reveal">
+            <div class="card-glass chip">
               <h4>Algorithms vs. Ancient Wisdom</h4>
               <p>AI, Apps and the Battle Between Digital & Physical Astrology</p>
             </div>
-            <div class="card-glass reveal reveal-delay-2">
+            <div class="card-glass chip">
               <h4>Cosmic Wellbeing</h4>
               <p>Mental Health, Meaning & Human Flourishing</p>
             </div>
-            <div class="card-glass reveal reveal-delay-3">
+            <div class="card-glass chip">
               <h4>The Ethics of the Boom</h4>
               <p>Trust, Accountability & Responsibility in Digital Astrology</p>
             </div>
@@ -612,22 +848,22 @@
         <div class="container">
           <div class="section-header reveal">
             <p class="section-label">Astro<sup>+</sup> महासंगम Awards</p>
-            <h2 class="gradient-text">India's First Institutional Recognition for the Vedic Sciences Ecosystem</h2>
-            <p class="subheadline" style="margin: 1rem auto 0;">47 categories across Astrology, Vastu, Tarot &
-              Numerology, and Palmistry. Jury-led evaluation. Process audited by a recognised knowledge partner.</p>
           </div>
-          <div class="grid grid-3" style="margin-bottom: 2rem;">
-            <div class="card reveal reveal-delay-1">
-              <h4>🏅 Establish Your Standing</h4>
-              <p>Establish your practice as a credible, recognised name in the industry.</p>
+          <div class="value-row reveal">
+            <div class="value-item">
+              <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-medal" /></svg></div>
+              <h4>Establish Your Standing</h4>
+              <p>Be recognised among the sector's most credible names.</p>
             </div>
-            <div class="card reveal reveal-delay-2">
-              <h4>🤝 Build Client Confidence</h4>
-              <p>A vetted mark of excellence that builds client confidence and professional standing.</p>
+            <div class="value-item">
+              <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-shield" /></svg></div>
+              <h4>Build Client Confidence</h4>
+              <p>A vetted mark of excellence clients can trust.</p>
             </div>
-            <div class="card reveal reveal-delay-3">
-              <h4>📣 Get Seen</h4>
-              <p>Nomination itself opens doors — an NBT Astro feature, social amplification, and event visibility.</p>
+            <div class="value-item">
+              <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-megaphone" /></svg></div>
+              <h4>Get Seen</h4>
+              <p>NBT Astro features, social amplification, event visibility.</p>
             </div>
           </div>
           <div class="cta-group" style="justify-content: center;">
@@ -642,25 +878,22 @@
         <div class="container">
           <div class="section-header reveal">
             <p class="section-label">Consultation Zone</p>
-            <h2>Face-to-Face with India's Best Practitioners</h2>
-            <p class="subheadline" style="margin: 0.75rem auto 0;">The most personal part of Astro<sup>+</sup> महासंगम.
-              Step into a structured consultation zone where credentialed experts offer direct, one-on-one guidance.</p>
           </div>
-          <div class="grid grid-4">
-            <div class="card reveal reveal-delay-1">
-              <div class="card-icon">⭐</div>
+          <div class="chip-scroll reveal">
+            <div class="card chip chip--sm">
+              <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#svg-kundali" /></svg></div>
               <h4>Kundali Consultation</h4>
             </div>
-            <div class="card reveal reveal-delay-2">
-              <div class="card-icon">🏠</div>
+            <div class="card chip chip--sm">
+              <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-home" /></svg></div>
               <h4>Vastu Zone</h4>
             </div>
-            <div class="card reveal reveal-delay-3">
-              <div class="card-icon">🃏</div>
+            <div class="card chip chip--sm">
+              <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-cards" /></svg></div>
               <h4>Tarot & Numerology</h4>
             </div>
-            <div class="card reveal reveal-delay-4">
-              <div class="card-icon">✋</div>
+            <div class="card chip chip--sm">
+              <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#svg-palm" /></svg></div>
               <h4>Palm Reading Zone</h4>
             </div>
           </div>
@@ -675,13 +908,122 @@
         <div class="container">
           <div class="section-header reveal">
             <p class="section-label">Expo & Sponsorship</p>
-            <h2>India's Largest Astrology & Spiritual Commerce Marketplace</h2>
-            <p class="subheadline" style="margin: 0.75rem auto 0;">50+ exhibiting brands. Apps, wellness products,
-              gemstones, publishers, institutes and tourism boards — all in one curated commercial floor.</p>
           </div>
           <div class="section-cta reveal">
             <a href="#expo" class="btn btn-primary btn-lg" data-scroll="sponsor">Partner With Us →</a>
           </div>
+        </div>
+      </div>
+
+      <!-- TICKETS -->
+      <div class="section section--darker" id="tickets">
+        <div class="container">
+          <div class="section-header reveal">
+            <p class="section-label">Tickets</p>
+          </div>
+          <div class="ticket-grid">
+            <div class="pricing-card reveal" style="opacity:0.75;">
+              <div class="pricing-tier">Free Entry</div>
+              <div class="pricing-price">Free</div>
+              <div class="pricing-price-note">No charge</div>
+              <div class="pricing-inclusions">
+                <div class="pricing-inclusion">Access to Expo &amp; Commercial Marketplace</div>
+                <div class="pricing-inclusion">Access to Consultation Zone (without complimentary session)</div>
+              </div>
+              <div style="margin-bottom:1rem;">
+                <div class="pricing-exclusion">Conclave &amp; Conference sessions</div>
+                <div class="pricing-exclusion">Complimentary consultation session</div>
+                <div class="pricing-exclusion">Musical evening</div>
+              </div>
+              <a href="#home" class="btn btn-ghost" data-scroll="contact">Register Free</a>
+            </div>
+            <div class="pricing-card pricing-card--featured reveal">
+              <span class="badge badge-popular">Most Popular</span>
+              <div class="pricing-tier">General Pass</div>
+              <div class="pricing-price">₹599</div>
+              <div class="pricing-price-note">Inclusive of GST</div>
+              <div class="pricing-inclusions">
+                <div class="pricing-inclusion">Full access to Astro<sup>+</sup> महासंगम Expo</div>
+                <div class="pricing-inclusion">All Conclave sessions (9 AM – 4:30 PM)</div>
+                <div class="pricing-inclusion">Consultation Zone with 10-min complimentary session</div>
+                <div class="pricing-inclusion">Access to Awards Ceremony (standing)</div>
+                <div class="pricing-inclusion">Welcome kit</div>
+              </div>
+              <div style="margin-bottom:1rem;">
+                <div class="pricing-exclusion">Musical evening / Bhajan Concert</div>
+                <div class="pricing-exclusion">VIP Lounge access</div>
+              </div>
+              <a href="#home" class="btn btn-primary" data-scroll="contact">Register Interest</a>
+            </div>
+            <div class="pricing-card reveal">
+              <div class="pricing-tier">General + Musical Evening</div>
+              <div class="pricing-price">₹1,599</div>
+              <div class="pricing-price-note">Inclusive of GST</div>
+              <div class="pricing-inclusions">
+                <div class="pricing-inclusion">Everything in General Pass</div>
+                <div class="pricing-inclusion">Musical Evening &amp; Bhajan Concert access</div>
+                <div class="pricing-inclusion">Priority zone entry</div>
+              </div>
+              <div style="margin-bottom:1rem;">
+                <div class="pricing-exclusion">VIP Lounge access</div>
+              </div>
+              <a href="#home" class="btn btn-secondary" data-scroll="contact">Register Interest</a>
+            </div>
+            <div class="pricing-card reveal">
+              <span class="badge badge-premium">Premium</span>
+              <div class="pricing-tier">VIP Pass</div>
+              <div class="pricing-price">₹2,999</div>
+              <div class="pricing-price-note">Inclusive of GST</div>
+              <div class="pricing-inclusions">
+                <div class="pricing-inclusion">Full access to all zones</div>
+                <div class="pricing-inclusion">VIP Lounge with dedicated seating</div>
+                <div class="pricing-inclusion">Front-row seating for Conclave sessions</div>
+                <div class="pricing-inclusion">Reserved seating for Musical Evening</div>
+                <div class="pricing-inclusion">Priority consultation booking</div>
+                <div class="pricing-inclusion">Welcome kit + VIP welcome gift</div>
+              </div>
+              <a href="#home" class="btn btn-secondary" data-scroll="contact">Register Interest</a>
+            </div>
+          </div>
+          <p class="body-text reveal" style="text-align:center; margin-top:2rem; font-size:0.82rem; opacity:0.6;">
+            Ticketing opens soon — register your interest and be first to know when booking goes live. All prices
+            inclusive of GST; tickets non-refundable except on event cancellation.</p>
+        </div>
+      </div>
+
+      <!-- VENUE -->
+      <div class="section section--dark" id="venue">
+        <div class="container container--sm">
+          <div class="section-header reveal">
+            <p class="section-label" style="justify-content:center;">Venue</p>
+          </div>
+          <div class="venue-tba reveal">
+            <div class="venue-tba-icon"><svg class="icon" aria-hidden="true"><use href="#i-pin" /></svg></div>
+            <h2>Venue To Be Announced</h2>
+            <p class="body-text" style="margin-top:1rem;">Delhi NCR, India · September 2026</p>
+            <p class="body-text" style="margin-top:0.5rem; font-size:0.82rem;">Detailed venue, parking and transit
+              details will be updated here once confirmed.</p>
+          </div>
+          <div class="venue-schedule reveal" style="margin-top:1.5rem;">
+            <div class="venue-time-block">
+              <div class="block-label">Gates Open</div>
+              <div class="block-time">08:30 AM</div>
+            </div>
+            <div class="venue-time-block">
+              <div class="block-label">Conclave</div>
+              <div class="block-time">09:00 AM – 04:30 PM</div>
+            </div>
+            <div class="venue-time-block">
+              <div class="block-label">Awards Ceremony</div>
+              <div class="block-time">04:30 PM – 06:00 PM</div>
+            </div>
+            <div class="venue-time-block">
+              <div class="block-label">Bhajan &amp; Musical Evening</div>
+              <div class="block-time">06:00 PM onwards</div>
+            </div>
+          </div>
+          <p class="body-text reveal" style="text-align:center; margin-top:2rem; font-size:0.85rem;">♿ Fully accessible
+            venue. Detailed accessibility information to follow.</p>
         </div>
       </div>
 
@@ -690,10 +1032,6 @@
         <div class="container">
           <div class="ip-vision reveal">
             <p class="section-label" style="justify-content: center;">The IP Vision</p>
-            <h2>Delhi NCR Is Just the Beginning</h2>
-            <p class="subheadline" style="margin: 1rem auto 0; text-align: center;">Astro<sup>+</sup> महासंगम launches
-              as India's premier annual Vedic sciences conclave and recognition platform. The inaugural edition — Delhi
-              NCR, September 2026 — establishes the benchmark for every edition that follows.</p>
           </div>
         </div>
       </div>
@@ -703,7 +1041,6 @@
         <div class="container">
           <div class="section-header reveal">
             <p class="section-label">Frequently Asked Questions</p>
-            <h2>Everything You Need to Know</h2>
           </div>
           <div class="faq-list">
             <div class="faq-item reveal">
@@ -712,10 +1049,9 @@
                 <span class="faq-icon">+</span>
               </button>
               <div class="faq-answer">
-                <p>Astro<sup>+</sup> महासंगम bridges ancient wisdom and modern practice. It is designed for astrology
-                  and Vastu practitioners, numerologists, tarot and palmistry experts, faith-tech brands, wellness
-                  exhibitors, corporate professionals and anyone seeking direct access to India's most credible Vedic
-                  sciences community.</p>
+                <p>Practitioners across all five Vedic disciplines, faith-tech brands, wellness exhibitors, corporate
+                  professionals — and anyone seeking direct access to India's most credible Vedic sciences community.
+                </p>
               </div>
             </div>
             <div class="faq-item reveal">
@@ -724,9 +1060,8 @@
                 <span class="faq-icon">+</span>
               </button>
               <div class="faq-answer">
-                <p>The event brings together senior practitioners, institutional leaders, emerging creators, B2B brands
-                  and high-intent consumers under one roof — creating a rare convergence of supply and demand across the
-                  entire ecosystem.</p>
+                <p>Senior practitioners, institutional leaders, creators, B2B brands and high-intent consumers — a rare
+                  convergence of the entire ecosystem under one roof.</p>
               </div>
             </div>
             <div class="faq-item reveal">
@@ -735,9 +1070,8 @@
                 <span class="faq-icon">+</span>
               </button>
               <div class="faq-answer">
-                <p>Yes. The Consultation Zone features dedicated practitioner pods for kundali reading, Vastu, tarot &
-                  numerology, and palm reading. General pass holders receive a complimentary introductory session, with
-                  options to book extended time on-site.</p>
+                <p>Yes. Practitioner pods cover kundali, Vastu, tarot & numerology, and palm reading. Paid passes
+                  include a complimentary session; extended time can be booked on-site.</p>
               </div>
             </div>
             <div class="faq-item reveal">
@@ -746,9 +1080,8 @@
                 <span class="faq-icon">+</span>
               </button>
               <div class="faq-answer">
-                <p>The Expo floor includes astrology apps and digital platforms, gemstone and crystal specialists,
-                  Ayurveda and wellness brands, spiritual tourism operators, astrology education institutes, puja
-                  products, and publishing houses.</p>
+                <p>Astrology apps, gemstone specialists, Ayurveda and wellness brands, spiritual tourism, education
+                  institutes, puja products and publishers.</p>
               </div>
             </div>
             <div class="faq-item reveal">
@@ -757,9 +1090,8 @@
                 <span class="faq-icon">+</span>
               </button>
               <div class="faq-answer">
-                <p>We offer curated packages across multiple tiers — from stall bookings to title sponsorship. Reach us
-                  via the Partner With Us form and our team will share the commercial deck with full inventory and
-                  pricing.</p>
+                <p>Packages run from stall bookings to title sponsorship. Use the Partner With Us form and our team will
+                  share the commercial deck.</p>
               </div>
             </div>
             <div class="faq-item reveal">
@@ -768,44 +1100,96 @@
                 <span class="faq-icon">+</span>
               </button>
               <div class="faq-answer">
-                <p>The NBT Astro Awards is India's first structured, jury-led recognition programme for the Vedic
-                  sciences ecosystem — spanning 47 categories across astrology, Vastu, numerology, tarot and palmistry.
-                  Nominations are open to individuals and organisations. Paid nomination does not guarantee shortlisting
-                  or award.</p>
+                <p>India's first jury-led recognition programme for the Vedic sciences — 47 categories, open to
+                  individuals and organisations. Paid nomination does not guarantee shortlisting or award.</p>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- CONTACT ROUTING -->
-      <div class="section section--dark">
+      <!-- CONTACT -->
+      <div class="section section--dark" id="contact">
         <div class="container">
           <div class="section-header reveal">
             <p class="section-label">Get in Touch</p>
-            <h2>Reach the Right Person, Faster</h2>
           </div>
-          <div class="grid grid-4">
+          <div class="grid grid-4" style="margin-bottom:1.5rem;">
             <div class="routing-card reveal reveal-delay-1">
-              <h4>🎤 Speaking & Programme</h4>
-              <p>Interested in speaking, moderating or participating in a panel at the Conclave?</p>
-              <a href="#contact" class="btn btn-sm btn-ghost">Send Inquiry →</a>
+              <h4><svg class="icon" aria-hidden="true"><use href="#i-mic" /></svg>Speaking & Programme</h4>
+              <p>Speak, moderate or join a Conclave panel.</p>
+              <a href="mailto:chandan.bharti@timesinternet.in" style="font-size:0.82rem; color:var(--gold-light);">chandan.bharti@timesinternet.in</a>
             </div>
             <div class="routing-card reveal reveal-delay-2">
-              <h4>🤝 Sponsorship & Exhibitor</h4>
-              <p>Looking to sponsor the event or book an Expo stall? Our team will share the full commercial deck.</p>
-              <a href="#contact" class="btn btn-sm btn-ghost">Request Deck →</a>
+              <h4><svg class="icon" aria-hidden="true"><use href="#i-venn" /></svg>Sponsorship & Exhibitor</h4>
+              <p>Sponsor the event or book an Expo stall.</p>
+              <a href="mailto:chandan.bharti@timesinternet.in" style="font-size:0.82rem; color:var(--gold-light);">chandan.bharti@timesinternet.in</a>
             </div>
             <div class="routing-card reveal reveal-delay-3">
-              <h4>🏆 Award Nominations</h4>
-              <p>Questions about the nomination process, categories or fee structure?</p>
-              <a href="#contact" class="btn btn-sm btn-ghost">Nomination Inquiry →</a>
+              <h4><svg class="icon" aria-hidden="true"><use href="#i-trophy" /></svg>Award Nominations</h4>
+              <p>Process, categories or fee questions.</p>
+              <a href="mailto:chandan.bharti@timesinternet.in" style="font-size:0.82rem; color:var(--gold-light);">chandan.bharti@timesinternet.in</a>
             </div>
             <div class="routing-card reveal reveal-delay-4">
-              <h4>📰 Media & Press</h4>
-              <p>Press accreditation, media partnership enquiries and editorial requests.</p>
-              <a href="#contact" class="btn btn-sm btn-ghost">Press Inquiry →</a>
+              <h4><svg class="icon" aria-hidden="true"><use href="#i-news" /></svg>Media & Press</h4>
+              <p>Accreditation, partnerships and editorial requests.</p>
+              <a href="mailto:chandan.bharti@timesinternet.in" style="font-size:0.82rem; color:var(--gold-light);">chandan.bharti@timesinternet.in</a>
             </div>
+          </div>
+
+          <p class="body-text reveal" style="text-align:center; margin-bottom:1.5rem;">
+            Prefer to call? Reach us at
+            <a href="tel:+919902241943" style="color:var(--gold-light); font-weight:600;">+91 99022 41943</a>
+          </p>
+
+          <div class="container--sm" style="margin:0 auto;">
+            <div class="section-header reveal">
+              <p class="section-label" style="justify-content:center;">Send a Message</p>
+            </div>
+            <form id="contactForm" class="reveal" onsubmit="return handleFormSubmit(event)">
+              <div class="grid grid-2 gap-3">
+                <div class="form-group">
+                  <label class="form-label" for="contactName">Full Name *</label>
+                  <input type="text" id="contactName" class="form-input" placeholder="Your full name" required>
+                  <div class="form-error">Please enter your name</div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="contactEmail">Email Address *</label>
+                  <input type="email" id="contactEmail" class="form-input" placeholder="you@example.com" required>
+                  <div class="form-error">Please enter a valid email</div>
+                </div>
+              </div>
+              <div class="grid grid-2 gap-3">
+                <div class="form-group">
+                  <label class="form-label" for="contactPhone">Phone Number</label>
+                  <input type="tel" id="contactPhone" class="form-input" placeholder="+91 XXXXX XXXXX">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="contactDept">I'm Reaching Out About *</label>
+                  <select id="contactDept" class="form-select" required>
+                    <option value="">Select a department</option>
+                    <option value="speaking">Speaking & Programme</option>
+                    <option value="sponsorship">Sponsorship & Exhibitor</option>
+                    <option value="nominations">Award Nominations</option>
+                    <option value="tickets">Tickets & Registration</option>
+                    <option value="media">Media & Press</option>
+                    <option value="general">General Inquiry</option>
+                  </select>
+                  <div class="form-error">Please select a department</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="contactOrg">Organisation / Practice Name</label>
+                <input type="text" id="contactOrg" class="form-input" placeholder="Your organisation or practice">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="contactMsg">Message *</label>
+                <textarea id="contactMsg" class="form-textarea" placeholder="Tell us what you're looking for..."
+                  required></textarea>
+                <div class="form-error">Please enter a message</div>
+              </div>
+              <button type="submit" class="btn btn-primary btn-lg" style="width:100%;">Send Message</button>
+            </form>
           </div>
         </div>
       </div>
@@ -822,19 +1206,18 @@
           <p class="hero-subtitle">India's foremost knowledge forum on astrology, Vedic sciences and conscious living.
           </p>
           <div class="page-meta">
-            <span>🕘 09:00 AM – 04:30 PM</span><span class="dot"></span>
-            <span>📍 Delhi NCR</span><span class="dot"></span>
-            <span>📅 September 2026</span>
+            <span>09:00 AM – 04:30 PM</span><span class="dot"></span>
+            <span>Delhi NCR</span><span class="dot"></span>
+            <span>September 2026</span>
           </div>
         </div>
       </div>
 
       <div class="section section--dark">
         <div class="container container--sm">
-          <p class="body-text reveal" style="text-align:center; margin-bottom: 3rem;">The Conclave is the intellectual
-            engine of Astro<sup>+</sup> महासंगम. Over seven hours, India's leading astrologers, Vedic scholars, wellness
-            experts, researchers and conscious living advocates take the stage for structured panels, masterclasses and
-            keynotes — addressing the questions that matter most to the profession and its community.</p>
+          <p class="body-text reveal" style="text-align:center; margin-bottom: 1.5rem;">Seven hours. India's leading
+            astrologers, scholars and wellness experts on one stage — panels, masterclasses and keynotes on the
+            questions that matter most to the profession.</p>
         </div>
       </div>
 
@@ -843,89 +1226,77 @@
         <div class="container">
           <div class="section-header reveal">
             <p class="section-label">Ten Themes</p>
-            <h2>The Conversations That Matter</h2>
           </div>
           <div class="grid grid-2 gap-4">
             <div class="card reveal">
-              <div class="card-icon">🧠</div>
+              <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-chip" /></svg></div>
               <h4>Algorithms vs. Ancient Wisdom</h4>
               <p style="font-size:0.82rem; color:var(--gold-light); margin-bottom:0.5rem;">AI, Apps and the Battle
                 Between Digital & Physical Astrology</p>
-              <p>How is artificial intelligence reshaping the practice of astrology? This session examines whether
-                technology can genuinely complement human intuition and traditional practice.</p>
+              <p>Can technology genuinely complement human intuition?</p>
             </div>
             <div class="card reveal">
-              <div class="card-icon">💖</div>
+              <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-heart" /></svg></div>
               <h4>Cosmic Wellbeing</h4>
               <p style="font-size:0.82rem; color:var(--gold-light); margin-bottom:0.5rem;">Mental Health, Meaning &
                 Human Flourishing</p>
-              <p>Astrology and traditional wisdom are increasingly sought as frameworks for navigating uncertainty,
-                stress and identity. This session explores how practitioners can ethically support emotional wellbeing.
-              </p>
+              <p>Supporting emotional wellbeing — ethically.</p>
             </div>
             <div class="card reveal">
-              <div class="card-icon">🌍</div>
+              <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-globe" /></svg></div>
               <h4>Truth & Tradition</h4>
               <p style="font-size:0.82rem; color:var(--gold-light); margin-bottom:0.5rem;">Vedic vs. Western Astrology
               </p>
-              <p>Two living traditions of astronomical wisdom — one rooted in sidereal calculation and Sanskrit
-                scholarship, one in tropical systems and psychological interpretation.</p>
+              <p>Two living traditions, one honest comparison.</p>
             </div>
             <div class="card reveal">
-              <div class="card-icon">❤️</div>
+              <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-heart" /></svg></div>
               <h4>Cosmic Chemistry</h4>
               <p style="font-size:0.82rem; color:var(--gold-light); margin-bottom:0.5rem;">Astrology, Compatibility &
                 the Timing of Relationships</p>
-              <p>How do Vedic and allied sciences interpret attraction, compatibility and the timing of love and
-                partnership?</p>
+              <p>Attraction, compatibility and the timing of love.</p>
             </div>
             <div class="card reveal">
-              <div class="card-icon">⭐</div>
+              <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-star" /></svg></div>
               <h4>The Ultimate Alignment</h4>
               <p style="font-size:0.82rem; color:var(--gold-light); margin-bottom:0.5rem;">Uniting Astrology, Vastu,
                 Tarot, Palmistry & Numerology</p>
-              <p>Five distinct disciplines with shared philosophical roots. What happens when India's Vedic sciences
-                stop operating in silos?</p>
+              <p>What happens when five disciplines stop working in silos?</p>
             </div>
             <div class="card reveal">
-              <div class="card-icon">🧭</div>
+              <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-compass" /></svg></div>
               <h4>Identity & Destiny</h4>
               <p style="font-size:0.82rem; color:var(--gold-light); margin-bottom:0.5rem;">Finding Meaning in an
                 Uncertain World</p>
-              <p>How do astrology and allied sciences help individuals understand themselves, navigate personal
-                uncertainty and build a sense of purpose?</p>
+              <p>Self-understanding, uncertainty and purpose.</p>
             </div>
             <div class="card reveal">
-              <div class="card-icon">⚖️</div>
+              <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-scales" /></svg></div>
               <h4>The Ethics of the Boom</h4>
               <p style="font-size:0.82rem; color:var(--gold-light); margin-bottom:0.5rem;">Trust, Accountability &
                 Responsibility in Digital Astrology</p>
-              <p>The astrology sector is growing rapidly and largely unregulated. This session confronts the hard
-                questions about standards, claims and consumer protection.</p>
+              <p>Standards, claims and consumer protection — the hard questions.</p>
             </div>
             <div class="card reveal">
-              <div class="card-icon">📈</div>
+              <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-chart" /></svg></div>
               <h4>Beyond Prediction</h4>
               <p style="font-size:0.82rem; color:var(--gold-light); margin-bottom:0.5rem;">The Evolving Role of the
                 Astrologer</p>
-              <p>The most respected practitioners are moving away from event-prediction toward guidance, coaching and
-                conscious living support.</p>
+              <p>From event-prediction to guidance and coaching.</p>
             </div>
             <div class="card reveal">
-              <div class="card-icon">💰</div>
+              <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-coins" /></svg></div>
               <h4>Prosperity Beyond Profit</h4>
               <p style="font-size:0.82rem; color:var(--gold-light); margin-bottom:0.5rem;">Wealth, Purpose & Cosmic
                 Timing</p>
-              <p>What does astrology offer the professional navigating business decisions, career transitions and
-                wealth-building?</p>
+              <p>Business decisions, career transitions, wealth-building.</p>
             </div>
             <div class="card reveal">
-              <div class="card-icon">♾️</div>
+              <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-infinity" /></svg></div>
               <h4>The Lottery of Birth</h4>
               <p style="font-size:0.82rem; color:var(--gold-light); margin-bottom:0.5rem;">Karma, Circumstance & Human
                 Potential</p>
-              <p>An honest philosophical exploration of destiny, free will and karma — and what astrology can
-                meaningfully say about the interplay between circumstance and choice.</p>
+              <p>Destiny, free will and karma — explored honestly.</p>
             </div>
           </div>
         </div>
@@ -936,7 +1307,6 @@
         <div class="container container--sm">
           <div class="section-header reveal">
             <p class="section-label">Day Schedule</p>
-            <h2>Conclave Programme</h2>
           </div>
           <div class="timeline">
             <div class="timeline-item reveal">
@@ -1006,235 +1376,6 @@
       </div>
     </section>
 
-    <!-- ╔══════════════════════════════════════════════════╗
-         ║             PAGE: SPEAKERS                      ║
-         ╚══════════════════════════════════════════════════╝ -->
-    <section data-page="speakers" class="page" id="pageSpeakers">
-      <div class="page-hero">
-        <div class="container">
-          <p class="section-label" style="justify-content:center;">Speakers & Dignitaries</p>
-          <h1 class="gradient-text">Speakers & Dignitaries</h1>
-          <p class="hero-subtitle">India's most respected voices in astrology, Vedic sciences and conscious living have
-            been invited to participate in Astro<sup>+</sup> महासंगम 2026.</p>
-        </div>
-      </div>
-
-      <div class="section section--dark">
-        <div class="container">
-          <!-- Badge Legend -->
-          <div class="badge-legend reveal">
-            <div class="badge-legend-item">
-              <span class="badge badge-invited">Invited</span>
-              <span>Invitation sent. Participation not yet confirmed.</span>
-            </div>
-            <div class="badge-legend-item">
-              <span class="badge badge-invitation-extended">Invitation Extended</span>
-              <span>Formal invitation extended. Awaiting confirmation.</span>
-            </div>
-          </div>
-
-          <!-- Chief Guests -->
-          <div class="section-header reveal">
-            <p class="section-label">Chief Guests</p>
-          </div>
-          <div class="grid grid-2" style="max-width:700px; margin:0 auto 3rem;">
-            <div class="chief-guest-card reveal reveal-delay-1">
-              <div class="speaker-avatar"
-                style="width:100px;height:100px;font-size:2rem;border:2px solid rgba(212,175,55,0.3);margin:0 auto 1rem;">
-                GS</div>
-              <h4>Shri Gajendra Singh Shekhawat</h4>
-              <p class="speaker-title">Union Minister of Culture and Tourism, Government of India</p>
-              <span class="badge badge-invitation-extended">⚠️ Invitation Extended</span>
-            </div>
-            <div class="chief-guest-card reveal reveal-delay-2">
-              <div class="speaker-avatar"
-                style="width:100px;height:100px;font-size:2rem;border:2px solid rgba(212,175,55,0.3);margin:0 auto 1rem;">
-                RG</div>
-              <h4>Smt. Rekha Gupta</h4>
-              <p class="speaker-title">Chief Minister of Delhi</p>
-              <span class="badge badge-invitation-extended">⚠️ Invitation Extended</span>
-            </div>
-          </div>
-
-          <!-- Speakers Grid -->
-          <div class="section-header reveal">
-            <p class="section-label">Invited Speakers</p>
-          </div>
-          <div class="grid grid-4">
-            <!-- Hansaji Yogendra -->
-            <div class="speaker-card reveal">
-              <div class="speaker-card-inner">
-                <div class="speaker-card-front">
-                  <div class="speaker-avatar">HY</div>
-                  <h4>Hansaji Yogendra</h4>
-                  <span class="speaker-discipline">Yoga &amp; Wellness</span>
-                </div>
-                <div class="speaker-card-back">
-                  <div class="speaker-avatar">HY</div>
-                  <h4>Hansaji Yogendra</h4>
-                  <p class="speaker-title">Bharat Gaurav Awardee | Director, The Yoga Institute</p>
-                  <span class="badge badge-discipline">Yoga &amp; Wellness</span>
-                  <span class="badge badge-invited">Invited</span>
-                </div>
-              </div>
-            </div>
-            <!-- Dr. Jai Madaan -->
-            <div class="speaker-card reveal">
-              <div class="speaker-card-inner">
-                <div class="speaker-card-front">
-                  <div class="speaker-avatar">JM</div>
-                  <h4>Dr. Jai Madaan</h4>
-                  <span class="speaker-discipline">Astrology &amp; Vastu</span>
-                </div>
-                <div class="speaker-card-back">
-                  <div class="speaker-avatar">JM</div>
-                  <h4>Dr. Jai Madaan</h4>
-                  <p class="speaker-title">Astrologer, Vastu Expert &amp; Spiritual Guide</p>
-                  <span class="badge badge-discipline">Astrology &amp; Vastu</span>
-                  <span class="badge badge-invited">Invited</span>
-                </div>
-              </div>
-            </div>
-            <!-- Munisha Khatwani -->
-            <div class="speaker-card reveal">
-              <div class="speaker-card-inner">
-                <div class="speaker-card-front">
-                  <div class="speaker-avatar">MK</div>
-                  <h4>Munisha Khatwani</h4>
-                  <span class="speaker-discipline">Astrology &amp; Tarot</span>
-                </div>
-                <div class="speaker-card-back">
-                  <div class="speaker-avatar">MK</div>
-                  <h4>Munisha Khatwani</h4>
-                  <p class="speaker-title">Astrologer, Tarot Expert &amp; Spiritual Coach</p>
-                  <span class="badge badge-discipline">Astrology &amp; Tarot</span>
-                  <span class="badge badge-invited">Invited</span>
-                </div>
-              </div>
-            </div>
-            <!-- Dr. Khushdeep Bansal -->
-            <div class="speaker-card reveal">
-              <div class="speaker-card-inner">
-                <div class="speaker-card-front">
-                  <div class="speaker-avatar">KB</div>
-                  <h4>Dr. Khushdeep Bansal</h4>
-                  <span class="speaker-discipline">Vastu</span>
-                </div>
-                <div class="speaker-card-back">
-                  <div class="speaker-avatar">KB</div>
-                  <h4>Dr. Khushdeep Bansal</h4>
-                  <p class="speaker-title">Vastu Expert &amp; Researcher</p>
-                  <span class="badge badge-discipline">Vastu</span>
-                  <span class="badge badge-invited">Invited</span>
-                </div>
-              </div>
-            </div>
-            <!-- Prem Kumar Sharma -->
-            <div class="speaker-card reveal">
-              <div class="speaker-card-inner">
-                <div class="speaker-card-front">
-                  <div class="speaker-avatar">PS</div>
-                  <h4>Prem Kumar Sharma</h4>
-                  <span class="speaker-discipline">Astrology, Vastu &amp; Numerology</span>
-                </div>
-                <div class="speaker-card-back">
-                  <div class="speaker-avatar">PS</div>
-                  <h4>Prem Kumar Sharma</h4>
-                  <p class="speaker-title">Astrologer, Numerologist &amp; Vastu Expert</p>
-                  <span class="badge badge-discipline">Astrology, Vastu &amp; Numerology</span>
-                  <span class="badge badge-invited">Invited</span>
-                </div>
-              </div>
-            </div>
-            <!-- Pankit Goyal -->
-            <div class="speaker-card reveal">
-              <div class="speaker-card-inner">
-                <div class="speaker-card-front">
-                  <div class="speaker-avatar">PG</div>
-                  <h4>Pankit Goyal</h4>
-                  <span class="speaker-discipline">Vedic Astrology</span>
-                </div>
-                <div class="speaker-card-back">
-                  <div class="speaker-avatar">PG</div>
-                  <h4>Pankit Goyal</h4>
-                  <p class="speaker-title">Expert in Vedic Astrology and Occult Sciences</p>
-                  <span class="badge badge-discipline">Vedic Astrology</span>
-                  <span class="badge badge-invited">Invited</span>
-                </div>
-              </div>
-            </div>
-            <!-- Arun Pandit -->
-            <div class="speaker-card reveal">
-              <div class="speaker-card-inner">
-                <div class="speaker-card-front">
-                  <div class="speaker-avatar">AP</div>
-                  <h4>Arun Pandit</h4>
-                  <span class="speaker-discipline">Astrology &amp; Numerology</span>
-                </div>
-                <div class="speaker-card-back">
-                  <div class="speaker-avatar">AP</div>
-                  <h4>Arun Pandit</h4>
-                  <p class="speaker-title">Astrologer, Numerologist &amp; Vastu Consultant</p>
-                  <span class="badge badge-discipline">Astrology &amp; Numerology</span>
-                  <span class="badge badge-invited">Invited</span>
-                </div>
-              </div>
-            </div>
-            <!-- Sheetal Shaparia -->
-            <div class="speaker-card reveal">
-              <div class="speaker-card-inner">
-                <div class="speaker-card-front">
-                  <div class="speaker-avatar">SS</div>
-                  <h4>Sheetal Shaparia</h4>
-                  <span class="speaker-discipline">Numerology &amp; Tarot</span>
-                </div>
-                <div class="speaker-card-back">
-                  <div class="speaker-avatar">SS</div>
-                  <h4>Sheetal Shaparia</h4>
-                  <p class="speaker-title">Numerologist &amp; Tarot Expert</p>
-                  <span class="badge badge-discipline">Numerology &amp; Tarot</span>
-                  <span class="badge badge-invited">Invited</span>
-                </div>
-              </div>
-            </div>
-            <!-- Devina Badhwar -->
-            <div class="speaker-card reveal">
-              <div class="speaker-card-inner">
-                <div class="speaker-card-front">
-                  <div class="speaker-avatar">DB</div>
-                  <h4>Devina Badhwar</h4>
-                  <span class="speaker-discipline">Tarot</span>
-                </div>
-                <div class="speaker-card-back">
-                  <div class="speaker-avatar">DB</div>
-                  <h4>Devina Badhwar</h4>
-                  <p class="speaker-title">Tarot Reader &amp; Spiritual Coach</p>
-                  <span class="badge badge-discipline">Tarot</span>
-                  <span class="badge badge-invited">Invited</span>
-                </div>
-              </div>
-            </div>
-            <!-- Sidhharrth S Kumaar -->
-            <div class="speaker-card reveal">
-              <div class="speaker-card-inner">
-                <div class="speaker-card-front">
-                  <div class="speaker-avatar">SK</div>
-                  <h4>Sidhharrth S Kumaar</h4>
-                  <span class="speaker-discipline">Numerology &amp; Energy Healing</span>
-                </div>
-                <div class="speaker-card-back">
-                  <div class="speaker-avatar">SK</div>
-                  <h4>Sidhharrth S Kumaar</h4>
-                  <p class="speaker-title">Astro-Numerologist &amp; Energy Healer</p>
-                  <span class="badge badge-discipline">Numerology &amp; Energy Healing</span>
-                  <span class="badge badge-invited">Invited</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- ╔══════════════════════════════════════════════════╗
          ║             PAGE: AWARDS                        ║
@@ -1247,7 +1388,7 @@
           <p class="hero-subtitle">India's first institutional recognition programme for the Vedic sciences and
             astrology ecosystem.</p>
           <div class="page-meta">
-            <span>🕟 04:30 PM – 06:30 PM</span><span class="dot"></span>
+            <span>04:30 PM – 06:30 PM</span><span class="dot"></span>
             <span>4 Disciplines</span><span class="dot"></span>
             <span>47 Categories</span>
           </div>
@@ -1258,26 +1399,19 @@
       <div class="section section--dark">
         <div class="container">
           <div class="section-header reveal">
-            <h2>Recognition That Means Something</h2>
-            <p class="subheadline" style="margin:0.75rem auto 0;">The NBT Astro Awards were created to address a real
-              problem: in a sector that is growing rapidly, there is no credible, independent, institutional benchmark
-              for excellence.</p>
           </div>
           <div class="grid grid-3">
             <div class="card reveal reveal-delay-1">
-              <h4>🏅 Establish Your Standing</h4>
-              <p>A recognised NBT Astro Award positions your practice among the most credible voices in India's Vedic
-                sciences ecosystem.</p>
+              <h4><svg class="icon" aria-hidden="true"><use href="#i-medal" /></svg>Establish Your Standing</h4>
+              <p>Stand among the most credible voices in India's Vedic sciences.</p>
             </div>
             <div class="card reveal reveal-delay-2">
-              <h4>🤝 Build Client Confidence</h4>
-              <p>Nomination and recognition carry an editorial endorsement from one of India's most trusted media
-                brands.</p>
+              <h4><svg class="icon" aria-hidden="true"><use href="#i-shield" /></svg>Build Client Confidence</h4>
+              <p>Editorial endorsement from one of India's most trusted media brands.</p>
             </div>
             <div class="card reveal reveal-delay-3">
-              <h4>📣 Get Seen by the Right Audience</h4>
-              <p>Nominated practitioners receive profile features on NBT Astro, one of India's largest astrology digital
-                platforms.</p>
+              <h4><svg class="icon" aria-hidden="true"><use href="#i-megaphone" /></svg>Get Seen</h4>
+              <p>Profile features on NBT Astro, one of India's largest astrology platforms.</p>
             </div>
           </div>
           <div class="section-cta reveal">
@@ -1297,7 +1431,6 @@
         <div class="container container--sm">
           <div class="section-header reveal">
             <p class="section-label">Ceremony Flow</p>
-            <h2>Awards Ceremony</h2>
           </div>
           <div class="timeline">
             <div class="timeline-item reveal">
@@ -1339,9 +1472,6 @@
         <div class="container">
           <div class="section-header reveal">
             <p class="section-label">47 Categories</p>
-            <h2>Four Disciplines of Excellence</h2>
-            <p class="subheadline" style="margin:0.75rem auto 0;">Each category is evaluated independently by a jury of
-              domain experts. Nominees may apply across multiple applicable categories.</p>
           </div>
 
           <div class="tabs reveal">
@@ -1570,57 +1700,49 @@
         <div class="container">
           <div class="section-header reveal">
             <p class="section-label">The Jury</p>
-            <h2>Guardians of Integrity</h2>
-            <p class="subheadline" style="margin:0.75rem auto 0;">A panel of India's most respected Vedic sciences
-              authorities. Every jury member has declared conflicts of interest before evaluation begins.</p>
           </div>
           <div class="jury-grid">
             <div class="jury-card reveal">
               <div class="jury-avatar">GS</div>
               <div class="jury-role">Chief Jury (Suggested)</div>
               <h4>Girija Shankar Shastri</h4>
-              <p class="speaker-title">Former Head, Department of Jyotish, Banaras Hindu University</p><span
-                class="badge badge-invited">Invited</span>
+              <p class="speaker-title">Former Head, Department of Jyotish, Banaras Hindu University</p>
             </div>
             <div class="jury-card reveal">
               <div class="jury-avatar">AB</div>
               <div class="jury-role">Jury Member</div>
               <h4>Ajai Bhambi</h4>
-              <p class="speaker-title">Veteran Astrologer & Author</p><span class="badge badge-invited">Invited</span>
+              <p class="speaker-title">Veteran Astrologer & Author</p>
             </div>
             <div class="jury-card reveal">
               <div class="jury-avatar">SS</div>
               <div class="jury-role">Jury Member</div>
               <h4>Dr. Sohini Sastri</h4>
-              <p class="speaker-title">Internationally Acclaimed Vedic Astrologer, Expert in KP Astrology</p><span
-                class="badge badge-invited">Invited</span>
+              <p class="speaker-title">Internationally Acclaimed Vedic Astrologer, Expert in KP Astrology</p>
             </div>
             <div class="jury-card reveal">
               <div class="jury-avatar">RA</div>
               <div class="jury-role">Jury Member</div>
               <h4>Dr. Raviraj Ahirrao</h4>
-              <p class="speaker-title">Renowned Vastu Expert, Researcher & Spiritual Mentor</p><span
-                class="badge badge-invited">Invited</span>
+              <p class="speaker-title">Renowned Vastu Expert, Researcher & Spiritual Mentor</p>
             </div>
             <div class="jury-card reveal">
               <div class="jury-avatar">SJ</div>
               <div class="jury-role">Jury Member</div>
               <h4>Sanjay B. Jumaani</h4>
-              <p class="speaker-title">Renowned Astro-Numerologist</p><span class="badge badge-invited">Invited</span>
+              <p class="speaker-title">Renowned Astro-Numerologist</p>
             </div>
             <div class="jury-card reveal">
               <div class="jury-avatar">SK</div>
               <div class="jury-role">Jury Member</div>
               <h4>Dr. Sundeep Kochar</h4>
-              <p class="speaker-title">Celebrity Astrologer, Vastu Consultant & Life Coach</p><span
-                class="badge badge-invited">Invited</span>
+              <p class="speaker-title">Celebrity Astrologer, Vastu Consultant & Life Coach</p>
             </div>
             <div class="jury-card reveal">
               <div class="jury-avatar">PS</div>
               <div class="jury-role">Jury Member</div>
               <h4>Pawan Sinha</h4>
-              <p class="speaker-title">Vedic Numerologist & Face Reading Expert</p><span
-                class="badge badge-invited">Invited</span>
+              <p class="speaker-title">Vedic Numerologist & Face Reading Expert</p>
             </div>
           </div>
           <p class="body-text reveal" style="text-align:center; margin-top:2rem; font-size:0.82rem; opacity:0.6;">Jury
@@ -1634,7 +1756,6 @@
         <div class="container container--sm">
           <div class="section-header reveal">
             <p class="section-label">Process</p>
-            <h2>How Nominations Are Evaluated</h2>
           </div>
           <div class="eval-stages">
             <div class="eval-stage reveal">
@@ -1669,7 +1790,7 @@
             </div>
           </div>
 
-          <div class="section-header reveal" style="margin-top:3rem;">
+          <div class="section-header reveal" style="margin-top:1.5rem;">
             <p class="section-label" style="justify-content:center;">Evaluation Criteria</p>
           </div>
           <div class="criteria-list reveal">
@@ -1692,9 +1813,6 @@
         <div class="container">
           <div class="section-header reveal">
             <p class="section-label">Nominate Your Practice</p>
-            <h2 class="gradient-text">Choose Your Nomination Package</h2>
-            <p class="subheadline" style="margin:0.75rem auto 0;">All packages include a formal nomination and
-              certificate. Higher tiers include editorial features and social amplification on NBT Astro.</p>
           </div>
 
           <!-- Individual Tiers -->
@@ -1709,7 +1827,7 @@
                 <div class="pricing-inclusion">1 Category Nomination</div>
                 <div class="pricing-inclusion">Nomination Certificate (digital & physical)</div>
               </div>
-              <a href="#contact" class="btn btn-secondary">Nominate — Silver</a>
+              <a href="#home" data-scroll="contact" class="btn btn-secondary">Nominate — Silver</a>
             </div>
             <div class="pricing-card pricing-card--featured">
               <span class="badge badge-popular">Most Popular</span>
@@ -1722,7 +1840,7 @@
                 <div class="pricing-inclusion">1 Social Post on NBT Astro</div>
                 <div class="pricing-inclusion">Nomination Certificate (digital & physical)</div>
               </div>
-              <a href="#contact" class="btn btn-primary">Nominate — Gold</a>
+              <a href="#home" data-scroll="contact" class="btn btn-primary">Nominate — Gold</a>
             </div>
             <div class="pricing-card">
               <div class="pricing-tier">Platinum</div>
@@ -1735,7 +1853,7 @@
                 <div class="pricing-inclusion">1 Podcast Feature on NBT Astro</div>
                 <div class="pricing-inclusion">Nomination Certificate (digital & physical)</div>
               </div>
-              <a href="#contact" class="btn btn-secondary">Nominate — Platinum</a>
+              <a href="#home" data-scroll="contact" class="btn btn-secondary">Nominate — Platinum</a>
             </div>
           </div>
 
@@ -1753,7 +1871,7 @@
                 <div class="pricing-inclusion">1 Category Nomination</div>
                 <div class="pricing-inclusion">Nomination Certificate (digital & physical)</div>
               </div>
-              <a href="#contact" class="btn btn-secondary">Nominate — Silver</a>
+              <a href="#home" data-scroll="contact" class="btn btn-secondary">Nominate — Silver</a>
             </div>
             <div class="pricing-card pricing-card--featured">
               <span class="badge badge-popular">Most Popular</span>
@@ -1766,7 +1884,7 @@
                 <div class="pricing-inclusion">1 Social Post on NBT Astro</div>
                 <div class="pricing-inclusion">Nomination Certificate (digital & physical)</div>
               </div>
-              <a href="#contact" class="btn btn-primary">Nominate — Gold</a>
+              <a href="#home" data-scroll="contact" class="btn btn-primary">Nominate — Gold</a>
             </div>
             <div class="pricing-card">
               <div class="pricing-tier">Platinum</div>
@@ -1778,7 +1896,7 @@
                 <div class="pricing-inclusion">3 Social Posts on NBT Astro</div>
                 <div class="pricing-inclusion">Nomination Certificate (digital & physical)</div>
               </div>
-              <a href="#contact" class="btn btn-secondary">Nominate — Platinum</a>
+              <a href="#home" data-scroll="contact" class="btn btn-secondary">Nominate — Platinum</a>
             </div>
           </div>
 
@@ -1811,10 +1929,9 @@
 
       <div class="section section--dark">
         <div class="container container--sm">
-          <p class="body-text reveal" style="text-align:center; margin-bottom:3rem;">For centuries, the most meaningful
-            guidance happened face-to-face — a practitioner, a seeker, and an honest conversation. The Consultation Zone
-            at Astro<sup>+</sup> महासंगम is built around that principle. Verified, credentialed experts. Structured
-            sessions. A private, calm environment designed for real guidance.</p>
+          <p class="body-text reveal" style="text-align:center; margin-bottom:1.5rem;">A practitioner, a seeker, and an
+            honest conversation. Verified experts, structured sessions, a calm private setting — built for real
+            guidance.</p>
         </div>
       </div>
 
@@ -1823,7 +1940,6 @@
         <div class="container">
           <div class="section-header reveal">
             <p class="section-label">Four Disciplines</p>
-            <h2>Choose Your Consultation</h2>
           </div>
           <div class="grid grid-2 gap-4">
             <div class="card discipline-card reveal" data-tilt>
@@ -1831,8 +1947,7 @@
                   <use href="#svg-kundali" />
                 </svg></div>
               <h4>Kundali Consultation</h4>
-              <p>A private, one-on-one session where experienced Vedic astrologers analyse your birth chart to offer
-                clarity on career, relationships, health and timing of major life decisions.</p>
+              <p>Birth-chart clarity on career, relationships, health and timing.</p>
               <span class="badge badge-discipline" style="margin-top:1rem;">Powered by [Partner]</span>
             </div>
             <div class="card discipline-card reveal" data-tilt>
@@ -1840,8 +1955,7 @@
                   <use href="#svg-vastu" />
                 </svg></div>
               <h4>Vastu Zone</h4>
-              <p>Expert Vastu consultants analyse the spatial energy of your home or workspace and offer practical
-                guidance on arrangement, direction and design to support wellbeing and productivity.</p>
+              <p>Practical spatial guidance for your home or workspace.</p>
               <span class="badge badge-discipline" style="margin-top:1rem;">Powered by [Partner]</span>
             </div>
             <div class="card discipline-card reveal" data-tilt>
@@ -1849,8 +1963,7 @@
                   <use href="#svg-tarot" />
                 </svg></div>
               <h4>Tarot & Numerology Zone</h4>
-              <p>Experienced readers use numerological analysis and tarot card interpretation to offer personal insight
-                into patterns, tendencies and upcoming opportunities — a reflective tool, not a prophecy.</p>
+              <p>Insight into patterns and opportunities — a reflective tool, not a prophecy.</p>
               <span class="badge badge-discipline" style="margin-top:1rem;">Powered by [Partner]</span>
             </div>
             <div class="card discipline-card reveal" data-tilt>
@@ -1858,9 +1971,7 @@
                   <use href="#svg-palm" />
                 </svg></div>
               <h4>Palm & Hand Reading Zone</h4>
-              <p>Skilled palmistry experts analyse the lines and structure of your hands to offer insights into
-                personality, inherent strengths and life patterns — a traditional discipline with deep scholarly roots.
-              </p>
+              <p>Personality, strengths and life patterns — read from your hands.</p>
               <span class="badge badge-discipline" style="margin-top:1rem;">Powered by [Partner]</span>
             </div>
           </div>
@@ -1872,7 +1983,6 @@
         <div class="container">
           <div class="section-header reveal">
             <p class="section-label">How It Works</p>
-            <h2>Your Consultation Experience</h2>
           </div>
           <div class="steps-grid">
             <div class="step-card reveal reveal-delay-1">
@@ -1931,12 +2041,9 @@
         <div class="container container--sm">
           <div class="section-header reveal">
             <p class="section-label">Quality Assurance</p>
-            <h2>Who Consults at Astro<sup>+</sup> महासंगम</h2>
           </div>
-          <p class="body-text reveal" style="text-align:center; margin-bottom:1.5rem;">Every practitioner in the
-            Consultation Zone has been vetted by the NBT Astro team. We verify credentials, check for public complaints,
-            review their professional profile, and require each practitioner to agree to our code of conduct before
-            participating.</p>
+          <p class="body-text reveal" style="text-align:center; margin-bottom:1.5rem;">Every practitioner is vetted by
+            the NBT Astro team — credentials verified, background checked, code of conduct signed.</p>
           <div class="practitioner-standards reveal">
             <div class="standard-item">Verified identity and professional credentials</div>
             <div class="standard-item">Signed code of conduct and practitioner agreement</div>
@@ -1966,11 +2073,8 @@
 
       <div class="section section--dark">
         <div class="container container--sm">
-          <p class="body-text reveal" style="text-align:center; margin-bottom:3rem;">The Expo is where India's spiritual
-            commerce ecosystem meets its highest-intent audience. Whether you are a digital platform seeking new users,
-            a gemstone specialist building a premium clientele, a publishing house launching a title, or an educational
-            institute recruiting the next generation of practitioners — the Astro<sup>+</sup> महासंगम Expo is your best
-            channel.</p>
+          <p class="body-text reveal" style="text-align:center; margin-bottom:1.5rem;">Where India's spiritual commerce
+            ecosystem meets its highest-intent audience — apps, gemstones, publishers, institutes and more.</p>
         </div>
       </div>
 
@@ -1979,44 +2083,37 @@
         <div class="container">
           <div class="section-header reveal">
             <p class="section-label">Exhibitor Categories</p>
-            <h2>Who Exhibits at Astro<sup>+</sup> महासंगम</h2>
           </div>
           <div class="expo-grid">
             <div class="card reveal">
-              <div class="card-icon">📱</div>
+              <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-phone" /></svg></div>
               <h4>Astrology Apps & Digital Platforms</h4>
-              <p>Astrology, kundali, numerology and Vastu apps showcasing their products to a highly engaged,
-                high-intent consumer audience.</p>
+              <p>Kundali, numerology and Vastu apps meeting engaged users.</p>
             </div>
             <div class="card reveal">
-              <div class="card-icon">💎</div>
+              <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-gem" /></svg></div>
               <h4>Gemstones, Crystals & Spiritual Products</h4>
-              <p>Curated gemstone specialists, crystal retailers and puja product brands — verified, premium, and
-                presented in a trust-first environment.</p>
+              <p>Verified, premium specialists in a trust-first setting.</p>
             </div>
             <div class="card reveal">
-              <div class="card-icon">🌿</div>
+              <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-leaf" /></svg></div>
               <h4>Wellness & Ayurveda Brands</h4>
-              <p>Ayurvedic practitioners, wellness product companies and holistic health brands connecting with a
-                spiritually and wellness-aligned consumer base.</p>
+              <p>Holistic health brands meeting an aligned audience.</p>
             </div>
             <div class="card reveal">
-              <div class="card-icon">🎓</div>
+              <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-cap" /></svg></div>
               <h4>Astrology Education & Certification</h4>
-              <p>Training institutes, certification bodies and online learning platforms presenting their programmes to
-                practitioners seeking structured knowledge and credentials.</p>
+              <p>Institutes and platforms recruiting the next generation.</p>
             </div>
             <div class="card reveal">
-              <div class="card-icon">📚</div>
+              <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-book" /></svg></div>
               <h4>Publishers & Spiritual Content</h4>
-              <p>Astrology and Vedic sciences publishers, devotional content platforms and spiritual book sellers
-                reaching a deeply engaged audience.</p>
+              <p>Books and devotional content for a deeply engaged readership.</p>
             </div>
             <div class="card reveal">
-              <div class="card-icon">📍</div>
+              <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-pin" /></svg></div>
               <h4>Pilgrimage & Spiritual Tourism</h4>
-              <p>State tourism boards, pilgrimage operators and wellness retreat organisers connecting with a
-                high-intent, experientially motivated audience.</p>
+              <p>Tourism boards and retreat operators reaching motivated travellers.</p>
             </div>
           </div>
         </div>
@@ -2027,9 +2124,6 @@
         <div class="container">
           <div class="section-header reveal">
             <p class="section-label">Sponsorship</p>
-            <h2>Partner with Astro<sup>+</sup> महासंगम</h2>
-            <p class="subheadline" style="margin:0.75rem auto 0;">Reach India's most engaged astrology and Vedic
-              sciences audience. Position your brand at the centre of a category-defining event IP.</p>
             <p class="body-text" style="text-align:center; margin-top:0.75rem;">3,000+ expected attendees · 300+
               practitioners and experts · 50+ exhibiting brands · An NBT Astro digital audience of millions</p>
           </div>
@@ -2073,7 +2167,7 @@
           </div>
 
           <div class="section-cta reveal" style="margin-top:2.5rem;">
-            <a href="#contact" class="btn btn-primary btn-lg">Request Sponsorship Deck →</a>
+            <a href="#home" data-scroll="contact" class="btn btn-primary btn-lg">Request Sponsorship Deck →</a>
             <p class="body-text" style="margin-top:0.75rem; font-size:0.82rem;">Fill in your details and our team will
               reach out within 24 hours.</p>
           </div>
@@ -2085,255 +2179,17 @@
         <div class="container container--sm" style="text-align:center;">
           <div class="section-header reveal">
             <p class="section-label" style="justify-content:center;">Expo Stalls</p>
-            <h2>Book an Expo Stall</h2>
           </div>
           <p class="body-text reveal" style="margin-bottom:2rem;">Stall space is available for brands, platforms,
             educational institutes and individual practitioners. Multiple formats available — from standard display
             stalls to branded consultation pods.</p>
-          <a href="#contact" class="btn btn-secondary btn-lg reveal">Enquire About Stall Space →</a>
+          <a href="#home" data-scroll="contact" class="btn btn-secondary btn-lg reveal">Enquire About Stall Space →</a>
         </div>
       </div>
     </section>
 
-    <!-- ╔══════════════════════════════════════════════════╗
-         ║             PAGE: TICKETS                       ║
-         ╚══════════════════════════════════════════════════╝ -->
-    <section data-page="tickets" class="page" id="pageTickets">
-      <div class="page-hero">
-        <div class="container">
-          <p class="section-label" style="justify-content:center;">Tickets</p>
-          <h1 class="gradient-text">Tickets & Registration</h1>
-          <p class="hero-subtitle">Choose your Astro<sup>+</sup> महासंगम 2026 experience. All prices inclusive of GST.
-          </p>
-        </div>
-      </div>
 
-      <div class="section section--dark">
-        <div class="container">
-          <div class="ticket-grid">
-            <!-- Free Entry — de-emphasized -->
-            <div class="pricing-card reveal" style="opacity:0.75;">
-              <div class="pricing-tier">Free Entry</div>
-              <div class="pricing-price">Free</div>
-              <div class="pricing-price-note">No charge</div>
-              <div class="pricing-inclusions">
-                <div class="pricing-inclusion">Access to Expo & Commercial Marketplace</div>
-                <div class="pricing-inclusion">Access to Consultation Zone (without complimentary session)</div>
-              </div>
-              <div style="margin-bottom:1rem;">
-                <div class="pricing-exclusion">Conclave & Conference sessions</div>
-                <div class="pricing-exclusion">Complimentary consultation session</div>
-                <div class="pricing-exclusion">Musical evening</div>
-              </div>
-              <a href="#contact" class="btn btn-ghost">Register Free</a>
-            </div>
 
-            <!-- General Pass — highlighted -->
-            <div class="pricing-card pricing-card--featured reveal">
-              <span class="badge badge-popular">Most Popular</span>
-              <div class="pricing-tier">General Pass</div>
-              <div class="pricing-price">₹599</div>
-              <div class="pricing-price-note">Inclusive of GST</div>
-              <div class="pricing-inclusions">
-                <div class="pricing-inclusion">Full access to Astro<sup>+</sup> महासंगम Expo</div>
-                <div class="pricing-inclusion">All Conclave sessions (9 AM – 4:30 PM)</div>
-                <div class="pricing-inclusion">Consultation Zone with 10-min complimentary session</div>
-                <div class="pricing-inclusion">Access to Awards Ceremony (standing)</div>
-                <div class="pricing-inclusion">Welcome kit</div>
-              </div>
-              <div style="margin-bottom:1rem;">
-                <div class="pricing-exclusion">Musical evening / Bhajan Concert</div>
-                <div class="pricing-exclusion">VIP Lounge access</div>
-              </div>
-              <a href="#contact" class="btn btn-primary">Register Interest</a>
-            </div>
-
-            <!-- General + Musical -->
-            <div class="pricing-card reveal">
-              <div class="pricing-tier">General + Musical Evening</div>
-              <div class="pricing-price">₹1,599</div>
-              <div class="pricing-price-note">Inclusive of GST</div>
-              <div class="pricing-inclusions">
-                <div class="pricing-inclusion">Everything in General Pass</div>
-                <div class="pricing-inclusion">Musical Evening & Bhajan Concert access</div>
-                <div class="pricing-inclusion">Priority zone entry</div>
-              </div>
-              <div style="margin-bottom:1rem;">
-                <div class="pricing-exclusion">VIP Lounge access</div>
-              </div>
-              <a href="#contact" class="btn btn-secondary">Register Interest</a>
-            </div>
-
-            <!-- VIP Pass -->
-            <div class="pricing-card reveal">
-              <span class="badge badge-premium">Premium</span>
-              <div class="pricing-tier">VIP Pass</div>
-              <div class="pricing-price">₹2,999</div>
-              <div class="pricing-price-note">Inclusive of GST</div>
-              <div class="pricing-inclusions">
-                <div class="pricing-inclusion">Full access to all zones</div>
-                <div class="pricing-inclusion">VIP Lounge with dedicated seating</div>
-                <div class="pricing-inclusion">Front-row seating for Conclave sessions</div>
-                <div class="pricing-inclusion">Reserved seating for Musical Evening</div>
-                <div class="pricing-inclusion">Priority consultation booking</div>
-                <div class="pricing-inclusion">Welcome kit + VIP welcome gift</div>
-              </div>
-              <a href="#contact" class="btn btn-secondary">Register Interest</a>
-            </div>
-          </div>
-
-          <div class="section-cta reveal" style="margin-top:3rem;">
-            <p class="body-text" style="text-align:center; font-size:0.9rem;">🎫 Ticketing opens soon. Register your
-              interest below and be the first to know when booking goes live.</p>
-          </div>
-
-          <p class="body-text reveal" style="text-align:center; margin-top:1.5rem; font-size:0.78rem; opacity:0.5;">All
-            prices are inclusive of GST. Tickets are non-refundable except in case of event cancellation.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ╔══════════════════════════════════════════════════╗
-         ║             PAGE: VENUE                         ║
-         ╚══════════════════════════════════════════════════╝ -->
-    <section data-page="venue" class="page" id="pageVenue">
-      <div class="page-hero">
-        <div class="container">
-          <p class="section-label" style="justify-content:center;">Venue</p>
-          <h1 class="gradient-text">Venue & Getting Here</h1>
-          <p class="hero-subtitle">Astro<sup>+</sup> महासंगम 2026 — Delhi NCR, September 2026</p>
-        </div>
-      </div>
-
-      <div class="section section--dark">
-        <div class="container container--sm">
-          <div class="venue-tba reveal">
-            <div class="venue-tba-icon">📍</div>
-            <h2>Venue To Be Announced</h2>
-            <p class="body-text" style="margin-top:1rem;">Delhi NCR, India · September 2026</p>
-            <p class="body-text" style="margin-top:0.5rem; font-size:0.82rem;">Detailed venue information, parking and
-              transit details will be updated here once confirmed.</p>
-          </div>
-
-          <div class="section-header reveal" style="margin-top:3rem;">
-            <p class="section-label" style="justify-content:center;">Day Schedule</p>
-          </div>
-          <div class="venue-schedule reveal">
-            <div class="venue-time-block">
-              <div class="block-label">Gates Open</div>
-              <div class="block-time">08:30 AM</div>
-            </div>
-            <div class="venue-time-block">
-              <div class="block-label">Conclave</div>
-              <div class="block-time">09:00 AM – 04:30 PM</div>
-            </div>
-            <div class="venue-time-block">
-              <div class="block-label">Awards Ceremony</div>
-              <div class="block-time">04:30 PM – 06:00 PM</div>
-            </div>
-            <div class="venue-time-block">
-              <div class="block-label">Bhajan & Musical Evening</div>
-              <div class="block-time">06:00 PM onwards</div>
-            </div>
-          </div>
-
-          <p class="body-text reveal" style="text-align:center; margin-top:2rem; font-size:0.85rem;">♿ Fully accessible
-            venue. Detailed accessibility information to follow.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ╔══════════════════════════════════════════════════╗
-         ║             PAGE: CONTACT                       ║
-         ╚══════════════════════════════════════════════════╝ -->
-    <section data-page="contact" class="page" id="pageContact">
-      <div class="page-hero">
-        <div class="container">
-          <p class="section-label" style="justify-content:center;">Contact</p>
-          <h1 class="gradient-text">Get in Touch</h1>
-          <p class="hero-subtitle">Reach the right person, faster.</p>
-        </div>
-      </div>
-
-      <div class="section section--dark">
-        <div class="container">
-          <div class="grid grid-2 gap-4" style="margin-bottom:3rem;">
-            <div class="routing-card reveal">
-              <h4>🎤 Speaking & Programme</h4>
-              <p>Interested in speaking, moderating or participating in a panel at the Conclave?</p>
-              <p style="font-size:0.82rem; color:var(--gold-light);">speaking@antariksh2026.in</p>
-            </div>
-            <div class="routing-card reveal">
-              <h4>🤝 Sponsorship & Exhibitor</h4>
-              <p>Looking to sponsor the event or book an Expo stall? Our team will share the full commercial deck.</p>
-              <p style="font-size:0.82rem; color:var(--gold-light);">sponsorship@antariksh2026.in</p>
-            </div>
-            <div class="routing-card reveal">
-              <h4>🏆 Award Nominations</h4>
-              <p>Questions about the nomination process, categories or fee structure?</p>
-              <p style="font-size:0.82rem; color:var(--gold-light);">awards@antariksh2026.in</p>
-            </div>
-            <div class="routing-card reveal">
-              <h4>📰 Media & Press</h4>
-              <p>Press accreditation, media partnership enquiries and editorial requests.</p>
-              <p style="font-size:0.82rem; color:var(--gold-light);">press@antariksh2026.in</p>
-            </div>
-          </div>
-
-          <!-- Contact Form -->
-          <div class="container--sm" style="margin:0 auto;">
-            <div class="section-header reveal">
-              <p class="section-label" style="justify-content:center;">Send a Message</p>
-              <h2>Contact Us</h2>
-            </div>
-            <form id="contactForm" class="reveal" onsubmit="return handleFormSubmit(event)">
-              <div class="grid grid-2 gap-3">
-                <div class="form-group">
-                  <label class="form-label" for="contactName">Full Name *</label>
-                  <input type="text" id="contactName" class="form-input" placeholder="Your full name" required>
-                  <div class="form-error">Please enter your name</div>
-                </div>
-                <div class="form-group">
-                  <label class="form-label" for="contactEmail">Email Address *</label>
-                  <input type="email" id="contactEmail" class="form-input" placeholder="you@example.com" required>
-                  <div class="form-error">Please enter a valid email</div>
-                </div>
-              </div>
-              <div class="grid grid-2 gap-3">
-                <div class="form-group">
-                  <label class="form-label" for="contactPhone">Phone Number</label>
-                  <input type="tel" id="contactPhone" class="form-input" placeholder="+91 XXXXX XXXXX">
-                </div>
-                <div class="form-group">
-                  <label class="form-label" for="contactDept">I'm Reaching Out About *</label>
-                  <select id="contactDept" class="form-select" required>
-                    <option value="">Select a department</option>
-                    <option value="speaking">Speaking & Programme</option>
-                    <option value="sponsorship">Sponsorship & Exhibitor</option>
-                    <option value="nominations">Award Nominations</option>
-                    <option value="tickets">Tickets & Registration</option>
-                    <option value="media">Media & Press</option>
-                    <option value="general">General Inquiry</option>
-                  </select>
-                  <div class="form-error">Please select a department</div>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="contactOrg">Organisation / Practice Name</label>
-                <input type="text" id="contactOrg" class="form-input" placeholder="Your organisation or practice">
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="contactMsg">Message *</label>
-                <textarea id="contactMsg" class="form-textarea" placeholder="Tell us what you're looking for..."
-                  required></textarea>
-                <div class="form-error">Please enter a message</div>
-              </div>
-              <button type="submit" class="btn btn-primary btn-lg" style="width:100%;">Send Message</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
 
   </main>
 
@@ -2363,20 +2219,21 @@
           <div class="footer-col">
             <h5>Event</h5>
             <a href="#conclave">Conclave</a>
-            <a href="#speakers">Speakers</a>
+            <a href="#home" data-scroll="speakers">Speakers</a>
             <a href="#awards">Awards</a>
             <a href="#consultation">Consultation</a>
           </div>
           <div class="footer-col">
             <h5>Participate</h5>
             <a href="#expo">Expo & Sponsorship</a>
-            <a href="#tickets">Tickets</a>
-            <a href="#venue">Venue</a>
-            <a href="#contact">Contact</a>
+            <a href="#home" data-scroll="tickets">Tickets</a>
+            <a href="#home" data-scroll="venue">Venue</a>
+            <a href="#home" data-scroll="contact">Contact</a>
           </div>
           <div class="footer-col">
             <h5>Contact</h5>
-            <a href="mailto:antariksh@timesinternet.in">antariksh@timesinternet.in</a>
+            <a href="mailto:chandan.bharti@timesinternet.in">chandan.bharti@timesinternet.in</a>
+            <a href="tel:+919902241943">+91 99022 41943</a>
           </div>
         </div>
       </div>
@@ -2393,7 +2250,7 @@
   <!-- Floating CTA (mobile) -->
   <div class="floating-cta" id="floatingCta">
     <a href="#awards" class="btn btn-primary btn-sm" data-scroll="nominate">Nominate Now</a>
-    <a href="#tickets" class="btn btn-secondary btn-sm">Book Tickets</a>
+    <a href="#home" class="btn btn-secondary btn-sm" data-scroll="tickets">Book Tickets</a>
   </div>
 
   <script src="app.js" defer></script>

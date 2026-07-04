@@ -1,6 +1,8 @@
 /* ============================================================
-   Astro+ महासंगम — Immersive Canvas Starfield
-   Pure Canvas 2D · zero CDN · mouse-reactive · shooting stars
+   Astro+ महासंगम — Site-wide Canvas Starfield
+   Pure Canvas 2D · zero CDN · mouse + scroll reactive · 3 depth layers
+   Perf: starts after window load + idle, pauses when tab hidden,
+   DPR capped, mobile gets a reduced star budget and no nebula.
    ============================================================ */
 
 (function () {
@@ -8,34 +10,31 @@
 
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  const canvas = document.getElementById('heroGL');
+  const canvas = document.getElementById('siteStars');
   if (!canvas) return;
 
-  const hero = document.getElementById('hero');
-  if (!hero) return;
-
-  // Skip canvas on mobile — CSS static stars in .hero-bg handle the background
-  if (window.innerWidth < 768) return;
+  const isMobile = window.innerWidth < 768;
 
   const ctx = canvas.getContext('2d', { alpha: true });
   if (!ctx) return;
 
   // ── Sizing ──────────────────────────────────────────────────
   let W = 0, H = 0;
-  const DPR = Math.min(devicePixelRatio || 1, 2);
+  const DPR = Math.min(devicePixelRatio || 1, isMobile ? 1.5 : 2);
 
   function resize() {
-    W = hero.clientWidth;
-    H = hero.clientHeight;
+    W = window.innerWidth;
+    H = window.innerHeight;
     canvas.width  = Math.round(W * DPR);
     canvas.height = Math.round(H * DPR);
-    canvas.style.width  = W + 'px';
-    canvas.style.height = H + 'px';
     ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
   }
 
-  const ro = new ResizeObserver(resize);
-  ro.observe(hero);
+  let resizeT;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeT);
+    resizeT = setTimeout(resize, 150);
+  }, { passive: true });
   resize();
 
   // ── Helpers ─────────────────────────────────────────────────
@@ -43,7 +42,7 @@
   function rndInt(min, max) { return (min + Math.random() * (max - min)) | 0; }
 
   // ── Stars (3 depth layers) ──────────────────────────────────
-  const TOTAL = window.innerWidth > 1280 ? 520 : window.innerWidth > 768 ? 320 : 180;
+  const TOTAL = isMobile ? 110 : window.innerWidth > 1280 ? 440 : 300;
 
   const stars = Array.from({ length: TOTAL }, () => {
     const depth = rnd(0.15, 1);       // 0.15 = far, 1 = close to camera
@@ -62,8 +61,8 @@
     };
   });
 
-  // ── Nebula blobs ─────────────────────────────────────────────
-  const NEBULA = [
+  // ── Nebula blobs (desktop only — gradients are the costly part) ──
+  const NEBULA = isMobile ? [] : [
     { bx: 0.50, by: 0.35, r: 260, ph: 0,   sp: 0.08, col: [212, 170, 45]  },
     { bx: 0.28, by: 0.62, r: 180, ph: 1.4, sp: 0.12, col: [80,  50, 160]  },
     { bx: 0.72, by: 0.55, r: 200, ph: 2.8, sp: 0.10, col: [27,  42,  90]  },
@@ -87,12 +86,19 @@
     });
   }
 
-  // ── Mouse ───────────────────────────────────────────────────
+  // ── Mouse + scroll (depth parallax inputs) ──────────────────
   let mx = 0, my = 0, tmx = 0, tmy = 0;
+  let scrollNorm = 0;
 
-  window.addEventListener('mousemove', e => {
-    tmx = (e.clientX / window.innerWidth  - 0.5) * 2;
-    tmy = (e.clientY / window.innerHeight - 0.5) * 2;
+  if (!isMobile) {
+    window.addEventListener('mousemove', e => {
+      tmx = (e.clientX / window.innerWidth  - 0.5) * 2;
+      tmy = (e.clientY / window.innerHeight - 0.5) * 2;
+    }, { passive: true });
+  }
+
+  window.addEventListener('scroll', () => {
+    scrollNorm = window.scrollY / H;
   }, { passive: true });
 
   // ── Render ──────────────────────────────────────────────────
@@ -116,7 +122,7 @@
       const ox = Math.sin(t * n.sp + n.ph)        * 0.025 * W;
       const oy = Math.cos(t * n.sp + n.ph * 1.3)  * 0.018 * H;
       const px = n.bx * W + ox;
-      const py = n.by * H + oy;
+      const py = ((n.by + scrollNorm * 0.06) % 1) * H + oy;
       const a  = 0.06 + 0.03 * Math.sin(t * 0.35 + n.ph);
 
       const grd = ctx.createRadialGradient(px, py, 0, px, py, n.r);
@@ -130,16 +136,19 @@
       ctx.fill();
     }
 
-    // ── Star layer ────────────────────────────────────────────
+    // ── Star layer — mouse sways X/Y, scroll drifts Y by depth ──
     for (const s of stars) {
       const twinkle  = 0.40 + 0.60 * (0.5 + 0.5 * Math.sin(t * s.speed + s.phase));
       const px       = s.bx * W + mx * s.depth * 22;
-      const py       = s.by * H + my * s.depth * 14;
+      // wrap so stars recycle as the page scrolls — deeper stars drift more (3D feel)
+      let py = (s.by - scrollNorm * s.depth * 0.22) % 1;
+      if (py < 0) py += 1;
+      py = py * H + my * s.depth * 14;
       const r        = s.baseR;
       const aStr     = twinkle.toFixed(3);
       const colStr   = `${s.r},${s.g},${s.b}`;
 
-      // Soft glow for stars larger than 0.7px
+      // Soft glow for stars larger than 0.65px
       if (r > 0.65) {
         const glowR = r * 5;
         const grd   = ctx.createRadialGradient(px, py, 0, px, py, glowR);
@@ -201,23 +210,35 @@
     }
   }
 
-  // ── IntersectionObserver — pause off-screen ─────────────────
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        if (!rafId) {
-          if (pausedAt) { startMs += performance.now() - pausedAt; pausedAt = 0; }
-          rafId = requestAnimationFrame(draw);
-        }
-      } else {
-        if (rafId) { cancelAnimationFrame(rafId); rafId = null; pausedAt = performance.now(); }
-      }
-    });
-  }, { threshold: 0.01 });
+  function start() {
+    if (!rafId) {
+      if (pausedAt) { startMs += performance.now() - pausedAt; pausedAt = 0; }
+      rafId = requestAnimationFrame(draw);
+    }
+  }
 
-  obs.observe(hero);
+  function stop() {
+    if (rafId) { cancelAnimationFrame(rafId); rafId = null; pausedAt = performance.now(); }
+  }
 
-  // Fade in after 2 frames to avoid first-frame flash
-  requestAnimationFrame(() => requestAnimationFrame(() => canvas.classList.add('gl-ready')));
+  // Pause when the tab is hidden — zero background CPU
+  document.addEventListener('visibilitychange', () => {
+    document.hidden ? stop() : start();
+  });
+
+  // ── Boot: wait for full load, then idle — protects LCP/TBT ──
+  function boot() {
+    start();
+    // Fade in after 2 frames to avoid first-frame flash
+    requestAnimationFrame(() => requestAnimationFrame(() => canvas.classList.add('gl-ready')));
+  }
+
+  if (document.readyState === 'complete') {
+    ('requestIdleCallback' in window) ? requestIdleCallback(boot, { timeout: 1500 }) : setTimeout(boot, 200);
+  } else {
+    window.addEventListener('load', () => {
+      ('requestIdleCallback' in window) ? requestIdleCallback(boot, { timeout: 1500 }) : setTimeout(boot, 200);
+    }, { once: true });
+  }
 
 })();
