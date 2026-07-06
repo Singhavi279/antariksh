@@ -1002,16 +1002,10 @@ body.lite-mode .hero-wheel-breathe { animation: none; }
   white-space: nowrap;
 }
 
-/* Both source logos are dark artwork made for light backgrounds — a soft white
-   badge keeps them legible and on-brand against the dark hero. */
+/* Both source logos are rendered transparently against the dark hero background. */
 .hero-logo-chip {
   display: inline-flex;
   align-items: center;
-  background: #fff;
-  border-radius: 8px;
-  padding: 0.4rem 0.65rem;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.28);
-  border: 1px solid rgba(255, 255, 255, 0.6);
 }
 
 .hero-logo { display: block; width: auto; }
