@@ -296,6 +296,9 @@
         <path d="M4 5h13v15H6a2 2 0 0 1-2-2Z" />
         <path d="M17 9h3v9a2 2 0 0 1-2 2M7 9h7M7 12.5h7M7 16h4" />
       </symbol>
+      <symbol id="i-chevron-down" viewBox="0 0 24 24">
+        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </symbol>
 
       <!-- Vastu compass (8 directions) -->
       <symbol id="svg-vastu" viewBox="-50 -50 100 100">
@@ -320,31 +323,21 @@
     </defs>
   </svg>
 
-  <!-- ========== CINEMATIC TRIMURTI LOADER ========== -->
+  <!-- ========== CINEMATIC TEXT LOADER ========== -->
   <div class="page-loader" id="pageLoader">
     <div class="loader-stage">
 
-      <!-- Divine glow behind the deities -->
+      <!-- Divine glow behind the title -->
       <div class="loader-divine-glow" aria-hidden="true"></div>
 
-      <!-- Light burst flash -->
-      <div class="loader-burst" aria-hidden="true"></div>
-
-      <!-- Trimurti — Brahma · Vishnu · Mahesh -->
-      <div class="loader-trimurti">
-        <div class="loader-deity" style="--d:0">
-          <img src="assets/brahma.png" alt="" width="220" height="220" draggable="false">
-          <span class="loader-deity-label">ब्रह्मा</span>
-        </div>
-        <div class="loader-deity loader-deity--center" style="--d:1">
-          <img src="assets/vishnu.png" alt="" width="260" height="260" draggable="false">
-          <span class="loader-deity-label">विष्णु</span>
-        </div>
-        <div class="loader-deity" style="--d:2">
-          <img src="assets/mahesh.png" alt="" width="220" height="220" draggable="false">
-          <span class="loader-deity-label">महेश</span>
-        </div>
+      <!-- Presents logo + label -->
+      <div class="loader-lockup loader-lockup--presents">
+        <span class="hero-logo-chip">
+          <img src="assets/times-internet-logo.png" alt="Times Internet" class="hero-logo hero-logo--ti" width="600"
+            height="173" loading="eager" decoding="async">
+        </span>
       </div>
+      <span class="loader-lockup-label">Presents</span>
 
       <!-- Title — lotus petal opening animation -->
       <div class="loader-title loader-lotus">
@@ -357,6 +350,15 @@
           style="--p:0">म</span><span class="loader-petal loader-petal--right" style="--p:1">हा</span><span
           class="loader-petal loader-petal--right" style="--p:2">सं</span><span class="loader-petal loader-petal--right"
           style="--p:3">ग</span><span class="loader-petal loader-petal--right" style="--p:4">म</span>
+      </div>
+
+      <!-- Initiative Logo + label -->
+      <div class="loader-lockup loader-lockup--initiative">
+        <span class="loader-lockup-label">An Initiative By</span>
+        <span class="hero-logo-chip">
+          <img src="assets/nbt-astro-logo.png" alt="NBT Astro" class="hero-logo hero-logo--nbt" width="362" height="74"
+            loading="eager" decoding="async">
+        </span>
       </div>
 
       <div class="loader-sub">Conclave · Awards · Expo · 2026</div>
@@ -382,8 +384,6 @@
         <a href="#consultation" class="nav-link" data-page="consultation">Consultation</a>
         <a href="#fellowship" class="nav-link" data-page="fellowship">Guru&ndash;Shishya</a>
         <a href="#expo" class="nav-link" data-page="expo">Expo & Sponsorship</a>
-        <a href="#home" class="nav-link" data-scroll="tickets">Tickets</a>
-        <a href="#home" class="nav-link" data-scroll="venue">Venue</a>
         <a href="#home" class="nav-link" data-scroll="contact">Contact</a>
       </div>
 
@@ -407,8 +407,6 @@
     <a href="#consultation" class="nav-link mobile-link" data-page="consultation">Consultation</a>
     <a href="#fellowship" class="nav-link mobile-link" data-page="fellowship">Guru&ndash;Shishya</a>
     <a href="#expo" class="nav-link mobile-link" data-page="expo">Expo & Sponsorship</a>
-    <a href="#home" class="nav-link mobile-link" data-scroll="tickets">Tickets</a>
-    <a href="#home" class="nav-link mobile-link" data-scroll="venue">Venue</a>
     <a href="#home" class="nav-link mobile-link" data-scroll="contact">Contact</a>
     <div class="nav-ctas">
       <a href="#awards" class="btn btn-primary" data-scroll="nominate">Nominate Now</a>
@@ -512,8 +510,8 @@
                     <use href="#i-shield" />
                   </svg></div>
                 <div>
-                  <h4>A Trust Gap at the Centre</h4>
-                  <p>Unverified practitioners make it hard for genuine seekers to find credible experts.</p>
+                  <h4>1. A Trust Gap at the Centre</h4>
+                  <p>Anyone can claim to be an expert online. Seekers have no way to tell who's real.</p>
                 </div>
               </div>
               <div class="ps-connector" aria-hidden="true">→</div>
@@ -523,7 +521,7 @@
                   </svg></div>
                 <div>
                   <h4>Trust Through Recognition</h4>
-                  <p>Jury-led awards set the credibility benchmark the sector lacks.</p>
+                  <p>A jury of respected names, setting the bar the industry never had.</p>
                   <a href="#awards" class="ps-link">Explore Awards →</a>
                 </div>
               </div>
@@ -535,8 +533,8 @@
                     <use href="#i-link" />
                   </svg></div>
                 <div>
-                  <h4>A Fragmented Ecosystem</h4>
-                  <p>Five disciplines, zero shared platform for collaboration or standards.</p>
+                  <h4>2. A Fragmented Ecosystem</h4>
+                  <p>Astrology, Vastu, Numerology, Tarot and Palmistry — five worlds that never meet.</p>
                 </div>
               </div>
               <div class="ps-connector" aria-hidden="true">→</div>
@@ -546,7 +544,7 @@
                   </svg></div>
                 <div>
                   <h4>One Shared Platform</h4>
-                  <p>Practitioners, seekers, brands and institutions — in structured dialogue at last.</p>
+                  <p>Where practitioners, seekers, brands and institutions meet on common ground.</p>
                   <a href="#conclave" class="ps-link">Explore Conclave →</a>
                 </div>
               </div>
@@ -558,9 +556,8 @@
                     <use href="#i-user" />
                   </svg></div>
                 <div>
-                  <h4>A Missing Physical Layer</h4>
-                  <p>A trust-driven sector has gone almost entirely digital — losing the face-to-face moments that
-                    build it.</p>
+                  <h4>3. A Missing Physical Layer</h4>
+                  <p>Screens replaced sittings — and something got lost in translation.</p>
                 </div>
               </div>
               <div class="ps-connector" aria-hidden="true">→</div>
@@ -570,7 +567,7 @@
                   </svg></div>
                 <div>
                   <h4>In-Person Guidance, Revived</h4>
-                  <p>Credentialed experts. Structured 1-on-1 sessions. Face to face.</p>
+                  <p>Bringing back the sit-down consultation the digital age erased.</p>
                   <a href="#consultation" class="ps-link">Consultation Zone →</a>
                 </div>
               </div>
@@ -582,9 +579,9 @@
                     <use href="#i-book" />
                   </svg></div>
                 <div>
-                  <h4>No Structured Knowledge Transfer</h4>
-                  <p>Deep Vedic scholarship is losing ground to short-form content, with no mechanism to mentor the
-                    next generation.</p>
+                  <h4>4. An Expanding Gap in an era of Digitalisation</h4>
+                  <p>As Digitalisation becomes more widespread, the depth of Vedic scholarship gets harder to pass on.
+                  </p>
                 </div>
               </div>
               <div class="ps-connector" aria-hidden="true">→</div>
@@ -595,7 +592,7 @@
                 <div>
                   <h4>The Guru-Shishya Tradition</h4>
                   <p>Masterclasses where senior practitioners pass deep knowledge to the next generation.</p>
-                  <a href="#conclave" class="ps-link">View Agenda →</a>
+                  <a href="#fellowship" class="ps-link">Guru&ndash;Shishya Fellowship →</a>
                 </div>
               </div>
             </div>
@@ -623,7 +620,7 @@
                 </svg></div>
               <div class="journey-time">09:00 AM – 04:30 PM</div>
               <h4>Conclave</h4>
-              <p>Panels, keynotes and masterclasses across ten themes.</p>
+              <p>Panels, keynotes and masterclasses across all themes.</p>
             </div>
             <div class="journey-stop reveal reveal-delay-2" style="cursor:pointer;" onclick="navigateTo('awards')">
               <div class="journey-dot"><svg class="icon" aria-hidden="true">
@@ -983,31 +980,6 @@
         </div>
       </div>
 
-      <!-- CONCLAVE PREVIEW -->
-      <div class="section section--navy">
-        <div class="container">
-          <div class="section-header reveal">
-            <p class="section-label">From the Conclave</p>
-          </div>
-          <div class="chip-scroll reveal">
-            <div class="card-glass chip">
-              <h4>Algorithms vs. Ancient Wisdom</h4>
-              <p>AI, Apps and the Battle Between Digital & Physical Astrology</p>
-            </div>
-            <div class="card-glass chip">
-              <h4>Cosmic Wellbeing</h4>
-              <p>Mental Health, Meaning & Human Flourishing</p>
-            </div>
-            <div class="card-glass chip">
-              <h4>The Ethics of the Boom</h4>
-              <p>Trust, Accountability & Responsibility in Digital Astrology</p>
-            </div>
-          </div>
-          <div class="section-cta reveal">
-            <a href="#conclave" class="btn btn-primary">Explore the Full Agenda →</a>
-          </div>
-        </div>
-      </div>
 
       <!-- AWARDS PREVIEW -->
       <div class="section section--dark">
@@ -1083,17 +1055,6 @@
         </div>
       </div>
 
-      <!-- EXPO PREVIEW -->
-      <div class="section section--navy">
-        <div class="container">
-          <div class="section-header reveal">
-            <p class="section-label">Expo & Sponsorship</p>
-          </div>
-          <div class="section-cta reveal">
-            <a href="#expo" class="btn btn-primary btn-lg" data-scroll="sponsor">Partner With Us →</a>
-          </div>
-        </div>
-      </div>
 
       <!-- TICKETS -->
       <div class="section section--darker" id="tickets">
@@ -1130,48 +1091,7 @@
         </div>
       </div>
 
-      <!-- VENUE -->
-      <div class="section section--dark" id="venue">
-        <div class="container container--sm">
-          <div class="section-header reveal">
-            <p class="section-label" style="justify-content:center;">Venue</p>
-          </div>
-          <div class="venue-tba reveal">
-            <div class="venue-tba-icon"><svg class="icon" aria-hidden="true">
-                <use href="#i-pin" />
-              </svg></div>
-            <h2>Venue To Be Announced</h2>
-            <p class="body-text" style="margin-top:1rem;">Delhi NCR, India · September 2026</p>
-            <p class="body-text" style="margin-top:0.5rem; font-size:0.82rem;">Detailed venue, parking and transit
-              details will be updated here once confirmed.</p>
-          </div>
-          <div class="venue-schedule reveal" style="margin-top:1.5rem;">
-            <div class="venue-time-block">
-              <div class="block-label">Gates Open</div>
-              <div class="block-time">08:30 AM</div>
-            </div>
-            <div class="venue-time-block">
-              <div class="block-label">Conclave</div>
-              <div class="block-time">09:00 AM – 04:30 PM</div>
-            </div>
-            <div class="venue-time-block">
-              <div class="block-label">Awards Ceremony</div>
-              <div class="block-time">04:30 PM – 06:00 PM</div>
-            </div>
-          </div>
-          <p class="body-text reveal" style="text-align:center; margin-top:2rem; font-size:0.85rem;">♿ Fully accessible
-            venue. Detailed accessibility information to follow.</p>
-        </div>
-      </div>
 
-      <!-- IP VISION -->
-      <div class="section section--dark">
-        <div class="container">
-          <div class="ip-vision reveal">
-            <p class="section-label" style="justify-content: center;">The IP Vision</p>
-          </div>
-        </div>
-      </div>
 
       <!-- FAQs -->
       <div class="section section--darker">
@@ -1369,103 +1289,321 @@
             questions that matter most to the profession.</p>
         </div>
       </div>
+      <!-- CONCLAVE TIMELINE -->
+      <div class="section section--navy">
+        <div class="container container--sm">
+          <div class="section-header reveal">
+            <p class="section-label">Conclave Timeline</p>
+          </div>
+
+          <div class="agenda-filters reveal">
+            <button class="filter-btn active" data-filter="all">All Sessions</button>
+            <button class="filter-btn" data-filter="panel">Panels</button>
+            <button class="filter-btn" data-filter="talk">Talks</button>
+            <button class="filter-btn" data-filter="fireside">Fireside Chats</button>
+          </div>
+
+          <div class="timeline reveal">
+            <!-- Item 1 -->
+            <div class="timeline-item" data-category="ceremony">
+              <div class="timeline-time">09:00 AM</div>
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <div class="timeline-header">
+                  <span class="badge-agenda badge-ceremony">Ceremony</span>
+                  <span class="timeline-venue">Main Stage</span>
+                </div>
+                <div class="timeline-title-row">
+                  <h4>Grand Opening Ceremony</h4>
+                  <button class="timeline-toggle" aria-label="Toggle details">
+                    <svg class="icon icon-chevron" aria-hidden="true"><use href="#i-chevron-down" /></svg>
+                  </button>
+                </div>
+                <div class="timeline-details">
+                  <p class="timeline-desc">Inaugural lamp lighting, introductory keynotes, and a warm welcome by NBT Astro and Times Internet leadership outlining the vision for Astro+ महासंगम.</p>
+                  <div class="timeline-meta">
+                    <span class="meta-label">Featuring:</span>
+                    <div class="avatar-group">
+                      <div class="avatar" title="NBT Leadership">NL</div>
+                      <div class="avatar" title="Times Leadership">TL</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="timeline-item" data-category="talk">
+              <div class="timeline-time">09:30 AM</div>
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <div class="timeline-header">
+                  <span class="badge-agenda badge-talk">Lightning Talk</span>
+                  <span class="timeline-venue">Main Stage</span>
+                </div>
+                <div class="timeline-title-row">
+                  <h4>Lightning Talk</h4>
+                  <button class="timeline-toggle" aria-label="Toggle details">
+                    <svg class="icon icon-chevron" aria-hidden="true"><use href="#i-chevron-down" /></svg>
+                  </button>
+                </div>
+                <div class="timeline-details">
+                  <p class="timeline-desc">A high-impact, rapid-fire briefing on the sudden shift towards digitalization in Vedic sciences and how emerging technologies are changing seeker behaviors.</p>
+                  <div class="timeline-meta">
+                    <span class="meta-label">Featuring:</span>
+                    <div class="avatar-group">
+                      <div class="avatar" title="Sidhharrth S Kumaar">SK</div>
+                      <div class="avatar" title="Alok Sharma">AS</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="timeline-item" data-category="panel">
+              <div class="timeline-time">10:00 AM</div>
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <div class="timeline-header">
+                  <span class="badge-agenda badge-panel">Panel Discussion</span>
+                  <span class="timeline-venue">Discussion Hall</span>
+                </div>
+                <div class="timeline-title-row">
+                  <h4>Panel Discussion</h4>
+                  <button class="timeline-toggle" aria-label="Toggle details">
+                    <svg class="icon icon-chevron" aria-hidden="true"><use href="#i-chevron-down" /></svg>
+                  </button>
+                </div>
+                <div class="timeline-details">
+                  <p class="timeline-desc">A stellar panel debating the balance between artificial intelligence apps and centuries-old ancestral wisdom. Is automation a helper or a hubris?</p>
+                  <div class="timeline-meta">
+                    <span class="meta-label">Featuring:</span>
+                    <div class="avatar-group">
+                      <div class="avatar" title="Alok Sharma">AS</div>
+                      <div class="avatar" title="Nitin Verma">NV</div>
+                      <div class="avatar" title="Vipul Pathak">VP</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="timeline-item" data-category="fireside">
+              <div class="timeline-time">10:45 AM</div>
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <div class="timeline-header">
+                  <span class="badge-agenda badge-fireside">Fireside Chat</span>
+                  <span class="timeline-venue">Fireside Lounge</span>
+                </div>
+                <div class="timeline-title-row">
+                  <h4>Fireside Chat</h4>
+                  <button class="timeline-toggle" aria-label="Toggle details">
+                    <svg class="icon icon-chevron" aria-hidden="true"><use href="#i-chevron-down" /></svg>
+                  </button>
+                </div>
+                <div class="timeline-details">
+                  <p class="timeline-desc">An intimate one-on-one session discussing the ethical responsibilities of wellness apps, vetting practitioners, and establishing industry credibility.</p>
+                  <div class="timeline-meta">
+                    <span class="meta-label">Featuring:</span>
+                    <div class="avatar-group">
+                      <div class="avatar" title="Vipul Pathak">VP</div>
+                      <div class="avatar" title="Sidhharrth S Kumaar">SK</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 5 -->
+            <div class="timeline-item" data-category="panel">
+              <div class="timeline-time">11:50 AM</div>
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <div class="timeline-header">
+                  <span class="badge-agenda badge-panel">Panel Discussion</span>
+                  <span class="timeline-venue">Discussion Hall</span>
+                </div>
+                <div class="timeline-title-row">
+                  <h4>Panel Discussion</h4>
+                  <button class="timeline-toggle" aria-label="Toggle details">
+                    <svg class="icon icon-chevron" aria-hidden="true"><use href="#i-chevron-down" /></svg>
+                  </button>
+                </div>
+                <div class="timeline-details">
+                  <p class="timeline-desc">Exploring how to bridge the five disciplines—Astrology, Vastu, Numerology, Tarot, and Palmistry—into unified holistic wellness platforms.</p>
+                  <div class="timeline-meta">
+                    <span class="meta-label">Featuring:</span>
+                    <div class="avatar-group">
+                      <div class="avatar" title="Times Leadership">TL</div>
+                      <div class="avatar" title="Alok Sharma">AS</div>
+                      <div class="avatar" title="Jury Member">JM</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 6 -->
+            <div class="timeline-item" data-category="fireside">
+              <div class="timeline-time">12:45 PM</div>
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <div class="timeline-header">
+                  <span class="badge-agenda badge-fireside">Fireside Chat</span>
+                  <span class="timeline-venue">Fireside Lounge</span>
+                </div>
+                <div class="timeline-title-row">
+                  <h4>Fireside Chat</h4>
+                  <button class="timeline-toggle" aria-label="Toggle details">
+                    <svg class="icon icon-chevron" aria-hidden="true"><use href="#i-chevron-down" /></svg>
+                  </button>
+                </div>
+                <div class="timeline-details">
+                  <p class="timeline-desc">Reimagining the physical layer: why the screens of the digital age cannot replace the deep connection and translation of in-person consultations.</p>
+                  <div class="timeline-meta">
+                    <span class="meta-label">Featuring:</span>
+                    <div class="avatar-group">
+                      <div class="avatar" title="Guest Speaker">GS</div>
+                      <div class="avatar" title="Nitin Verma">NV</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 7 -->
+            <div class="timeline-item" data-category="panel">
+              <div class="timeline-time">02:00 PM</div>
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <div class="timeline-header">
+                  <span class="badge-agenda badge-panel">Panel Discussion</span>
+                  <span class="timeline-venue">Discussion Hall</span>
+                </div>
+                <div class="timeline-title-row">
+                  <h4>Panel Discussion</h4>
+                  <button class="timeline-toggle" aria-label="Toggle details">
+                    <svg class="icon icon-chevron" aria-hidden="true"><use href="#i-chevron-down" /></svg>
+                  </button>
+                </div>
+                <div class="timeline-details">
+                  <p class="timeline-desc">Vedic scholarship in modern times: how to pass down the sacred Guru-Shishya tradition in an era of quick online search and micro-courses.</p>
+                  <div class="timeline-meta">
+                    <span class="meta-label">Featuring:</span>
+                    <div class="avatar-group">
+                      <div class="avatar" title="Jury Member">JM</div>
+                      <div class="avatar" title="Sidhharrth S Kumaar">SK</div>
+                      <div class="avatar" title="Vipul Pathak">VP</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 8 -->
+            <div class="timeline-item" data-category="fireside">
+              <div class="timeline-time">02:35 PM</div>
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <div class="timeline-header">
+                  <span class="badge-agenda badge-fireside">Fireside Chat</span>
+                  <span class="timeline-venue">Fireside Lounge</span>
+                </div>
+                <div class="timeline-title-row">
+                  <h4>Fireside Chat</h4>
+                  <button class="timeline-toggle" aria-label="Toggle details">
+                    <svg class="icon icon-chevron" aria-hidden="true"><use href="#i-chevron-down" /></svg>
+                  </button>
+                </div>
+                <div class="timeline-details">
+                  <p class="timeline-desc">A focused discussion on building credibility and professional standards in astrology, ensuring a secure and authentic environment for seekers.</p>
+                  <div class="timeline-meta">
+                    <span class="meta-label">Featuring:</span>
+                    <div class="avatar-group">
+                      <div class="avatar" title="Times Leadership">TL</div>
+                      <div class="avatar" title="Alok Sharma">AS</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 9 -->
+            <div class="timeline-item" data-category="panel">
+              <div class="timeline-time">03:10 PM</div>
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <div class="timeline-header">
+                  <span class="badge-agenda badge-panel">Panel Discussion</span>
+                  <span class="timeline-venue">Discussion Hall</span>
+                </div>
+                <div class="timeline-title-row">
+                  <h4>Panel Discussion</h4>
+                  <button class="timeline-toggle" aria-label="Toggle details">
+                    <svg class="icon icon-chevron" aria-hidden="true"><use href="#i-chevron-down" /></svg>
+                  </button>
+                </div>
+                <div class="timeline-details">
+                  <p class="timeline-desc">Faith-tech funding and business growth: commercial opportunities, ethical parameters, and the expansion of the wellness marketplace in India.</p>
+                  <div class="timeline-meta">
+                    <span class="meta-label">Featuring:</span>
+                    <div class="avatar-group">
+                      <div class="avatar" title="Guest Speaker">GS</div>
+                      <div class="avatar" title="Jury Member">JM</div>
+                      <div class="avatar" title="Nitin Verma">NV</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 10 -->
+            <div class="timeline-item" data-category="ceremony">
+              <div class="timeline-time">03:45 PM</div>
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <div class="timeline-header">
+                  <span class="badge-agenda badge-ceremony">Ceremony</span>
+                  <span class="timeline-venue">Main Stage</span>
+                </div>
+                <div class="timeline-title-row">
+                  <h4>Closing Address</h4>
+                  <button class="timeline-toggle" aria-label="Toggle details">
+                    <svg class="icon icon-chevron" aria-hidden="true"><use href="#i-chevron-down" /></svg>
+                  </button>
+                </div>
+                <div class="timeline-details">
+                  <p class="timeline-desc">Key takeaways from the conclave, future initiatives of the Astro+ platform, and final thanks ahead of the evening Awards Ceremony.</p>
+                  <div class="timeline-meta">
+                    <span class="meta-label">Featuring:</span>
+                    <div class="avatar-group">
+                      <div class="avatar" title="Times Leadership">TL</div>
+                      <div class="avatar" title="NBT Leadership">NL</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <!-- 10 Themes -->
       <div class="section section--darker">
         <div class="container">
           <div class="section-header reveal">
-            <p class="section-label">Ten Themes</p>
+            <p class="section-label">All Themes</p>
           </div>
-          <div class="grid grid-2 gap-4">
-            <div class="card reveal">
-              <div class="card-icon"><svg class="icon" aria-hidden="true">
-                  <use href="#i-chip" />
-                </svg></div>
-              <h4>Algorithms vs. Ancient Wisdom</h4>
-              <p style="font-size:0.82rem; color:var(--gold-light); margin-bottom:0.5rem;">AI, Apps and the Battle
-                Between Digital & Physical Astrology</p>
-              <p>Can technology genuinely complement human intuition?</p>
-            </div>
-            <div class="card reveal">
-              <div class="card-icon"><svg class="icon" aria-hidden="true">
-                  <use href="#i-heart" />
-                </svg></div>
-              <h4>Cosmic Wellbeing</h4>
-              <p style="font-size:0.82rem; color:var(--gold-light); margin-bottom:0.5rem;">Mental Health, Meaning &
-                Human Flourishing</p>
-              <p>Supporting emotional wellbeing — ethically.</p>
-            </div>
-            <div class="card reveal">
-              <div class="card-icon"><svg class="icon" aria-hidden="true">
-                  <use href="#i-globe" />
-                </svg></div>
-              <h4>Truth & Tradition</h4>
-              <p style="font-size:0.82rem; color:var(--gold-light); margin-bottom:0.5rem;">Vedic vs. Western Astrology
-              </p>
-              <p>Two living traditions, one honest comparison.</p>
-            </div>
-            <div class="card reveal">
-              <div class="card-icon"><svg class="icon" aria-hidden="true">
-                  <use href="#i-heart" />
-                </svg></div>
-              <h4>Cosmic Chemistry</h4>
-              <p style="font-size:0.82rem; color:var(--gold-light); margin-bottom:0.5rem;">Astrology, Compatibility &
-                the Timing of Relationships</p>
-              <p>Attraction, compatibility and the timing of love.</p>
-            </div>
-            <div class="card reveal">
+          <div style="display: flex; justify-content: center;">
+            <div class="card card--tba reveal" style="max-width: 420px; width: 100%;">
               <div class="card-icon"><svg class="icon" aria-hidden="true">
                   <use href="#i-star" />
                 </svg></div>
-              <h4>The Ultimate Alignment</h4>
-              <p style="font-size:0.82rem; color:var(--gold-light); margin-bottom:0.5rem;">Uniting Astrology, Vastu,
-                Tarot, Palmistry & Numerology</p>
-              <p>What happens when five disciplines stop working in silos?</p>
-            </div>
-            <div class="card reveal">
-              <div class="card-icon"><svg class="icon" aria-hidden="true">
-                  <use href="#i-compass" />
-                </svg></div>
-              <h4>Identity & Destiny</h4>
-              <p style="font-size:0.82rem; color:var(--gold-light); margin-bottom:0.5rem;">Finding Meaning in an
-                Uncertain World</p>
-              <p>Self-understanding, uncertainty and purpose.</p>
-            </div>
-            <div class="card reveal">
-              <div class="card-icon"><svg class="icon" aria-hidden="true">
-                  <use href="#i-scales" />
-                </svg></div>
-              <h4>The Ethics of the Boom</h4>
-              <p style="font-size:0.82rem; color:var(--gold-light); margin-bottom:0.5rem;">Trust, Accountability &
-                Responsibility in Digital Astrology</p>
-              <p>Standards, claims and consumer protection — the hard questions.</p>
-            </div>
-            <div class="card reveal">
-              <div class="card-icon"><svg class="icon" aria-hidden="true">
-                  <use href="#i-chart" />
-                </svg></div>
-              <h4>Beyond Prediction</h4>
-              <p style="font-size:0.82rem; color:var(--gold-light); margin-bottom:0.5rem;">The Evolving Role of the
-                Astrologer</p>
-              <p>From event-prediction to guidance and coaching.</p>
-            </div>
-            <div class="card reveal">
-              <div class="card-icon"><svg class="icon" aria-hidden="true">
-                  <use href="#i-coins" />
-                </svg></div>
-              <h4>Prosperity Beyond Profit</h4>
-              <p style="font-size:0.82rem; color:var(--gold-light); margin-bottom:0.5rem;">Wealth, Purpose & Cosmic
-                Timing</p>
-              <p>Business decisions, career transitions, wealth-building.</p>
-            </div>
-            <div class="card reveal">
-              <div class="card-icon"><svg class="icon" aria-hidden="true">
-                  <use href="#i-infinity" />
-                </svg></div>
-              <h4>The Lottery of Birth</h4>
-              <p style="font-size:0.82rem; color:var(--gold-light); margin-bottom:0.5rem;">Karma, Circumstance & Human
-                Potential</p>
-              <p>Destiny, free will and karma — explored honestly.</p>
+              <h4>To Be Announced</h4>
+              <p>Theme details will be unveiled soon.</p>
             </div>
           </div>
         </div>
@@ -1538,70 +1676,124 @@
           </div>
 
           <div class="tabs reveal">
-            <button class="tab-btn active" data-tab="astrology">ज्योतिष Astrology (14)</button>
-            <button class="tab-btn" data-tab="vastu">वास्तु Vastu (13)</button>
-            <button class="tab-btn" data-tab="tarot">टैरो Tarot & Numerology (10)</button>
-            <button class="tab-btn" data-tab="palmistry">हस्त रेखा Palmistry (10)</button>
+            <button class="tab-btn active" data-tab="astrology">ज्योतिष Astrology (10)</button>
+            <button class="tab-btn" data-tab="vastu">वास्तु Vastu (7)</button>
+            <button class="tab-btn" data-tab="tarot">टैरो Tarot & Numerology (7)</button>
+            <button class="tab-btn" data-tab="palmistry">हस्त रेखा Palmistry (6)</button>
           </div>
 
           <!-- Astrology -->
           <div class="tab-content active" data-tab-content="astrology">
             <div class="category-grid">
-              <div class="category-pill">
-                <div class="category-name">Jyotish Ratna</div>
-                <div class="category-meaning">Gem of Astrology</div>
+              <div class="category-card reveal">
+                <div class="category-card-inner">
+                  <div class="category-card-front">
+                    <h4>Jyotish Shiromani</h4>
+                  </div>
+                  <div class="category-card-back">
+                    <h4>Jyotish Shiromani</h4>
+                    <p>Crown Jewel of Astrology</p>
+                  </div>
+                </div>
               </div>
-              <div class="category-pill">
-                <div class="category-name">Jyotish Shiromani</div>
-                <div class="category-meaning">Crown Jewel of Astrology</div>
+              <div class="category-card reveal">
+                <div class="category-card-inner">
+                  <div class="category-card-front">
+                    <h4>Jyotish Ratna</h4>
+                  </div>
+                  <div class="category-card-back">
+                    <h4>Jyotish Ratna</h4>
+                    <p>Gem of Astrology</p>
+                  </div>
+                </div>
               </div>
-              <div class="category-pill">
-                <div class="category-name">Jyotish Bhushan</div>
-                <div class="category-meaning">Distinguished Astrologer</div>
+              <div class="category-card reveal">
+                <div class="category-card-inner">
+                  <div class="category-card-front">
+                    <h4>Jyotish Maharathi</h4>
+                  </div>
+                  <div class="category-card-back">
+                    <h4>Jyotish Maharathi</h4>
+                    <p>Astrology Grandmaster</p>
+                  </div>
+                </div>
               </div>
-              <div class="category-pill">
-                <div class="category-name">Jyotish Gaurav</div>
-                <div class="category-meaning">Pride of Astrology</div>
+              <div class="category-card reveal">
+                <div class="category-card-inner">
+                  <div class="category-card-front">
+                    <h4>Jyotish Visharad</h4>
+                  </div>
+                  <div class="category-card-back">
+                    <h4>Jyotish Visharad</h4>
+                    <p>Astrology Scholar</p>
+                  </div>
+                </div>
               </div>
-              <div class="category-pill">
-                <div class="category-name">Jyotish Pratibha</div>
-                <div class="category-meaning">Astrology Talent Award</div>
+              <div class="category-card reveal">
+                <div class="category-card-inner">
+                  <div class="category-card-front">
+                    <h4>Jyotish Pragya Samman</h4>
+                  </div>
+                  <div class="category-card-back">
+                    <h4>Jyotish Pragya Samman</h4>
+                    <p>Wisdom in Astrology Award</p>
+                  </div>
+                </div>
               </div>
-              <div class="category-pill">
-                <div class="category-name">Udaymaan Jyotishi</div>
-                <div class="category-meaning">Rising Astrologer of the Year</div>
+              <div class="category-card reveal">
+                <div class="category-card-inner">
+                  <div class="category-card-front">
+                    <h4>Udaymaan Jyotishi</h4>
+                  </div>
+                  <div class="category-card-back">
+                    <h4>Udaymaan Jyotishi</h4>
+                    <p>Rising Astrologer</p>
+                  </div>
+                </div>
               </div>
-              <div class="category-pill">
-                <div class="category-name">Jyotish Acharya</div>
-                <div class="category-meaning">Astrology Master</div>
+              <div class="category-card reveal">
+                <div class="category-card-inner">
+                  <div class="category-card-front">
+                    <h4>Astrology App Excellence Award</h4>
+                  </div>
+                  <div class="category-card-back">
+                    <h4>Astrology App Excellence Award</h4>
+                    <p>Best Astrology App</p>
+                  </div>
+                </div>
               </div>
-              <div class="category-pill">
-                <div class="category-name">Jyotish Prabhakar</div>
-                <div class="category-meaning">Astrology Illuminator</div>
+              <div class="category-card reveal">
+                <div class="category-card-inner">
+                  <div class="category-card-front">
+                    <h4>Astrology Brand of the Year</h4>
+                  </div>
+                  <div class="category-card-back">
+                    <h4>Astrology Brand of the Year</h4>
+                    <p>Leading Astrology Brand</p>
+                  </div>
+                </div>
               </div>
-              <div class="category-pill">
-                <div class="category-name">Jyotish Navonmesh Samman</div>
-                <div class="category-meaning">Innovation in Astrology Award</div>
+              <div class="category-card reveal">
+                <div class="category-card-inner">
+                  <div class="category-card-front">
+                    <h4>Jyotish Innovation Award</h4>
+                  </div>
+                  <div class="category-card-back">
+                    <h4>Jyotish Innovation Award</h4>
+                    <p>Innovation in Astrology</p>
+                  </div>
+                </div>
               </div>
-              <div class="category-pill">
-                <div class="category-name">Jyotish Vikas Samman</div>
-                <div class="category-meaning">Astrology Growth & Development Award</div>
-              </div>
-              <div class="category-pill">
-                <div class="category-name">Jyotish Vishwas Samman</div>
-                <div class="category-meaning">Astrology Trust & Integrity Award</div>
-              </div>
-              <div class="category-pill">
-                <div class="category-name">Jyotish Seva Samman</div>
-                <div class="category-meaning">Astrology Community Service Award</div>
-              </div>
-              <div class="category-pill">
-                <div class="category-name">Nakshatra Udyam Samman</div>
-                <div class="category-meaning">Astrology Enterprise Award</div>
-              </div>
-              <div class="category-pill">
-                <div class="category-name">Bharat Jyotish Udyam Samman</div>
-                <div class="category-meaning">India Astrology Business Excellence Award</div>
+              <div class="category-card reveal">
+                <div class="category-card-inner">
+                  <div class="category-card-front">
+                    <h4>Astrology Content Creator of the Year</h4>
+                  </div>
+                  <div class="category-card-back">
+                    <h4>Astrology Content Creator of the Year</h4>
+                    <p>Best Astrology Creator</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -1609,57 +1801,82 @@
           <!-- Vastu -->
           <div class="tab-content" data-tab-content="vastu">
             <div class="category-grid">
-              <div class="category-pill">
-                <div class="category-name">Vastu Ratna</div>
-                <div class="category-meaning">Jewel of Vastu</div>
+              <div class="category-card reveal">
+                <div class="category-card-inner">
+                  <div class="category-card-front">
+                    <h4>Vastu Shiromani</h4>
+                  </div>
+                  <div class="category-card-back">
+                    <h4>Vastu Shiromani</h4>
+                    <p>Crown Jewel of Vastu</p>
+                  </div>
+                </div>
               </div>
-              <div class="category-pill">
-                <div class="category-name">Vastu Bhushan</div>
-                <div class="category-meaning">Distinguished Vastu Expert</div>
+              <div class="category-card reveal">
+                <div class="category-card-inner">
+                  <div class="category-card-front">
+                    <h4>Vastu Ratna</h4>
+                  </div>
+                  <div class="category-card-back">
+                    <h4>Vastu Ratna</h4>
+                    <p>Jewel of Vastu</p>
+                  </div>
+                </div>
               </div>
-              <div class="category-pill">
-                <div class="category-name">Vastu Gaurav</div>
-                <div class="category-meaning">Pride of Vastu</div>
+              <div class="category-card reveal">
+                <div class="category-card-inner">
+                  <div class="category-card-front">
+                    <h4>Vastu Visharad</h4>
+                  </div>
+                  <div class="category-card-back">
+                    <h4>Vastu Visharad</h4>
+                    <p>Vastu Scholar</p>
+                  </div>
+                </div>
               </div>
-              <div class="category-pill">
-                <div class="category-name">Vastu Acharya</div>
-                <div class="category-meaning">Vastu Master</div>
+              <div class="category-card reveal">
+                <div class="category-card-inner">
+                  <div class="category-card-front">
+                    <h4>Vastu Maharathi</h4>
+                  </div>
+                  <div class="category-card-back">
+                    <h4>Vastu Maharathi</h4>
+                    <p>Vastu Grandmaster</p>
+                  </div>
+                </div>
               </div>
-              <div class="category-pill">
-                <div class="category-name">Udaymaan Vastuvid</div>
-                <div class="category-meaning">Rising Vastu Expert</div>
+              <div class="category-card reveal">
+                <div class="category-card-inner">
+                  <div class="category-card-front">
+                    <h4>Udaymaan Vastuvid</h4>
+                  </div>
+                  <div class="category-card-back">
+                    <h4>Udaymaan Vastuvid</h4>
+                    <p>Rising Vastu Expert</p>
+                  </div>
+                </div>
               </div>
-              <div class="category-pill">
-                <div class="category-name">Vastu Shri</div>
-                <div class="category-meaning">Respected Vastu Practitioner</div>
+              <div class="category-card reveal">
+                <div class="category-card-inner">
+                  <div class="category-card-front">
+                    <h4>Vastu Academy of the Year</h4>
+                  </div>
+                  <div class="category-card-back">
+                    <h4>Vastu Academy of the Year</h4>
+                    <p>Best Vastu Institution</p>
+                  </div>
+                </div>
               </div>
-              <div class="category-pill">
-                <div class="category-name">Vastu Vibhushan</div>
-                <div class="category-meaning">Great Vastu Expert</div>
-              </div>
-              <div class="category-pill">
-                <div class="category-name">Vastu Samman</div>
-                <div class="category-meaning">Vastu Recognition Award</div>
-              </div>
-              <div class="category-pill">
-                <div class="category-name">Maha Vastu Acharya</div>
-                <div class="category-meaning">Grand Vastu Master</div>
-              </div>
-              <div class="category-pill">
-                <div class="category-name">Vastu Mahaguru</div>
-                <div class="category-meaning">Vastu Grand Guru</div>
-              </div>
-              <div class="category-pill">
-                <div class="category-name">Vastu Pratibha Samman</div>
-                <div class="category-meaning">Vastu Talent Award</div>
-              </div>
-              <div class="category-pill">
-                <div class="category-name">Vastu Aarambh Puraskar</div>
-                <div class="category-meaning">Emerging Vastu Practitioner Award</div>
-              </div>
-              <div class="category-pill">
-                <div class="category-name">Vastu Shreshtha Samman</div>
-                <div class="category-meaning">Vastu Excellence Award</div>
+              <div class="category-card reveal">
+                <div class="category-card-inner">
+                  <div class="category-card-front">
+                    <h4>Vastu Content Creator of the Year</h4>
+                  </div>
+                  <div class="category-card-back">
+                    <h4>Vastu Content Creator of the Year</h4>
+                    <p>Best Vastu Creator</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -1667,45 +1884,82 @@
           <!-- Tarot & Numerology -->
           <div class="tab-content" data-tab-content="tarot">
             <div class="category-grid">
-              <div class="category-pill">
-                <div class="category-name">Ank Vidya Ratna</div>
-                <div class="category-meaning">Jewel of Numerology</div>
+              <div class="category-card reveal">
+                <div class="category-card-inner">
+                  <div class="category-card-front">
+                    <h4>Tarot Ratna</h4>
+                  </div>
+                  <div class="category-card-back">
+                    <h4>Tarot Ratna</h4>
+                    <p>Tarot Excellence Award</p>
+                  </div>
+                </div>
               </div>
-              <div class="category-pill">
-                <div class="category-name">Ank Jyotish Bhushan</div>
-                <div class="category-meaning">Distinguished Numerologist</div>
+              <div class="category-card reveal">
+                <div class="category-card-inner">
+                  <div class="category-card-front">
+                    <h4>Udaymaan Tarot Margdarshak</h4>
+                  </div>
+                  <div class="category-card-back">
+                    <h4>Udaymaan Tarot Margdarshak</h4>
+                    <p>Rising Tarot Guide</p>
+                  </div>
+                </div>
               </div>
-              <div class="category-pill">
-                <div class="category-name">Ank Vidya Gaurav</div>
-                <div class="category-meaning">Pride of Numerology</div>
+              <div class="category-card reveal">
+                <div class="category-card-inner">
+                  <div class="category-card-front">
+                    <h4>Numero Ratna</h4>
+                  </div>
+                  <div class="category-card-back">
+                    <h4>Numero Ratna</h4>
+                    <p>Jewel of Numerology</p>
+                  </div>
+                </div>
               </div>
-              <div class="category-pill">
-                <div class="category-name">Ank Vidya Acharya</div>
-                <div class="category-meaning">Numerology Master</div>
+              <div class="category-card reveal">
+                <div class="category-card-inner">
+                  <div class="category-card-front">
+                    <h4>Udaymaan Numerologist</h4>
+                  </div>
+                  <div class="category-card-back">
+                    <h4>Udaymaan Numerologist</h4>
+                    <p>Rising Numerologist</p>
+                  </div>
+                </div>
               </div>
-              <div class="category-pill">
-                <div class="category-name">Udaymaan Ank Jyotishi</div>
-                <div class="category-meaning">Rising Numerologist of the Year</div>
+              <div class="category-card reveal">
+                <div class="category-card-inner">
+                  <div class="category-card-front">
+                    <h4>Tarot Platform Excellence Award</h4>
+                  </div>
+                  <div class="category-card-back">
+                    <h4>Tarot Platform Excellence Award</h4>
+                    <p>Best Tarot Platform</p>
+                  </div>
+                </div>
               </div>
-              <div class="category-pill">
-                <div class="category-name">Tarot Ratna</div>
-                <div class="category-meaning">Jewel of Tarot</div>
+              <div class="category-card reveal">
+                <div class="category-card-inner">
+                  <div class="category-card-front">
+                    <h4>Tarot Content Creator of the Year</h4>
+                  </div>
+                  <div class="category-card-back">
+                    <h4>Tarot Content Creator of the Year</h4>
+                    <p>Best Tarot Creator</p>
+                  </div>
+                </div>
               </div>
-              <div class="category-pill">
-                <div class="category-name">Tarot Gaurav</div>
-                <div class="category-meaning">Pride of Tarot</div>
-              </div>
-              <div class="category-pill">
-                <div class="category-name">Tarot Pratibha</div>
-                <div class="category-meaning">Tarot Talent Award</div>
-              </div>
-              <div class="category-pill">
-                <div class="category-name">Tarot Prabhav Samman</div>
-                <div class="category-meaning">Tarot Impact Award</div>
-              </div>
-              <div class="category-pill">
-                <div class="category-name">Udaymaan Tarot Margdarshak</div>
-                <div class="category-meaning">Rising Tarot Guide of the Year</div>
+              <div class="category-card reveal">
+                <div class="category-card-inner">
+                  <div class="category-card-front">
+                    <h4>Numerology Content Creator of the Year</h4>
+                  </div>
+                  <div class="category-card-back">
+                    <h4>Numerology Content Creator of the Year</h4>
+                    <p>Best Numerology Creator</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -1713,45 +1967,71 @@
           <!-- Palmistry -->
           <div class="tab-content" data-tab-content="palmistry">
             <div class="category-grid">
-              <div class="category-pill">
-                <div class="category-name">Hasta Rekha Shri</div>
-                <div class="category-meaning">Respected Palmist</div>
+              <div class="category-card reveal">
+                <div class="category-card-inner">
+                  <div class="category-card-front">
+                    <h4>Hastarekha Shiromani</h4>
+                  </div>
+                  <div class="category-card-back">
+                    <h4>Hastarekha Shiromani</h4>
+                    <p>Crown Jewel of Palmistry</p>
+                  </div>
+                </div>
               </div>
-              <div class="category-pill">
-                <div class="category-name">Hasta Rekha Bhushan</div>
-                <div class="category-meaning">Distinguished Palmist</div>
+              <div class="category-card reveal">
+                <div class="category-card-inner">
+                  <div class="category-card-front">
+                    <h4>Hastarekha Ratna</h4>
+                  </div>
+                  <div class="category-card-back">
+                    <h4>Hastarekha Ratna</h4>
+                    <p>Jewel of Palmistry</p>
+                  </div>
+                </div>
               </div>
-              <div class="category-pill">
-                <div class="category-name">Hasta Rekha Gaurav</div>
-                <div class="category-meaning">Pride of Palmistry</div>
+              <div class="category-card reveal">
+                <div class="category-card-inner">
+                  <div class="category-card-front">
+                    <h4>Hastarekha Visharad</h4>
+                  </div>
+                  <div class="category-card-back">
+                    <h4>Hastarekha Visharad</h4>
+                    <p>Palmistry Scholar</p>
+                  </div>
+                </div>
               </div>
-              <div class="category-pill">
-                <div class="category-name">Hasta Rekha Acharya</div>
-                <div class="category-meaning">Palmistry Master</div>
+              <div class="category-card reveal">
+                <div class="category-card-inner">
+                  <div class="category-card-front">
+                    <h4>Udaymaan Hastarekha Expert</h4>
+                  </div>
+                  <div class="category-card-back">
+                    <h4>Udaymaan Hastarekha Expert</h4>
+                    <p>Rising Palmistry Expert</p>
+                  </div>
+                </div>
               </div>
-              <div class="category-pill">
-                <div class="category-name">Hasta Rekha Visharad</div>
-                <div class="category-meaning">Palmistry Scholar</div>
+              <div class="category-card reveal">
+                <div class="category-card-inner">
+                  <div class="category-card-front">
+                    <h4>Palmistry App Excellence</h4>
+                  </div>
+                  <div class="category-card-back">
+                    <h4>Palmistry App Excellence</h4>
+                    <p>Best Palmistry App</p>
+                  </div>
+                </div>
               </div>
-              <div class="category-pill">
-                <div class="category-name">Maha Hasta Rekha Acharya</div>
-                <div class="category-meaning">Grand Palmistry Master</div>
-              </div>
-              <div class="category-pill">
-                <div class="category-name">Hasta Rekha Mahaguru</div>
-                <div class="category-meaning">Palmistry Grand Guru</div>
-              </div>
-              <div class="category-pill">
-                <div class="category-name">Hasta Rekha Siddhantacharya</div>
-                <div class="category-meaning">Master of Palmistry Principles</div>
-              </div>
-              <div class="category-pill">
-                <div class="category-name">Hasta Rekha Visheshagya Samman</div>
-                <div class="category-meaning">Palmistry Specialist Award</div>
-              </div>
-              <div class="category-pill">
-                <div class="category-name">Hasta Rekha Vibhushan</div>
-                <div class="category-meaning">Great Palmist</div>
+              <div class="category-card reveal">
+                <div class="category-card-inner">
+                  <div class="category-card-front">
+                    <h4>Palmistry Content Creator of the Year</h4>
+                  </div>
+                  <div class="category-card-back">
+                    <h4>Palmistry Content Creator of the Year</h4>
+                    <p>Best Palmistry Creator</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -1764,48 +2044,13 @@
           <div class="section-header reveal">
             <p class="section-label">The Jury</p>
           </div>
-          <div class="jury-grid">
-            <div class="jury-card reveal">
-              <div class="jury-avatar">GS</div>
-              <div class="jury-role">Chief Jury (Suggested)</div>
-              <h4>Girija Shankar Shastri</h4>
-              <p class="speaker-title">Former Head, Department of Jyotish, Banaras Hindu University</p>
-            </div>
-            <div class="jury-card reveal">
-              <div class="jury-avatar">AB</div>
-              <div class="jury-role">Jury Member</div>
-              <h4>Ajai Bhambi</h4>
-              <p class="speaker-title">Veteran Astrologer & Author</p>
-            </div>
-            <div class="jury-card reveal">
-              <div class="jury-avatar">SS</div>
-              <div class="jury-role">Jury Member</div>
-              <h4>Dr. Sohini Sastri</h4>
-              <p class="speaker-title">Internationally Acclaimed Vedic Astrologer, Expert in KP Astrology</p>
-            </div>
-            <div class="jury-card reveal">
-              <div class="jury-avatar">RA</div>
-              <div class="jury-role">Jury Member</div>
-              <h4>Dr. Raviraj Ahirrao</h4>
-              <p class="speaker-title">Renowned Vastu Expert, Researcher & Spiritual Mentor</p>
-            </div>
-            <div class="jury-card reveal">
-              <div class="jury-avatar">SJ</div>
-              <div class="jury-role">Jury Member</div>
-              <h4>Sanjay B. Jumaani</h4>
-              <p class="speaker-title">Renowned Astro-Numerologist</p>
-            </div>
-            <div class="jury-card reveal">
-              <div class="jury-avatar">SK</div>
-              <div class="jury-role">Jury Member</div>
-              <h4>Dr. Sundeep Kochar</h4>
-              <p class="speaker-title">Celebrity Astrologer, Vastu Consultant & Life Coach</p>
-            </div>
-            <div class="jury-card reveal">
-              <div class="jury-avatar">PS</div>
-              <div class="jury-role">Jury Member</div>
-              <h4>Pawan Sinha</h4>
-              <p class="speaker-title">Vedic Numerologist & Face Reading Expert</p>
+          <div style="display: flex; justify-content: center;">
+            <div class="jury-card card--tba reveal" style="max-width: 420px; width: 100%;">
+              <div class="card-icon" style="margin-bottom: 1rem;"><svg class="icon" aria-hidden="true">
+                  <use href="#i-star" />
+                </svg></div>
+              <h4>To Be Announced</h4>
+              <p style="font-size:0.85rem; color:var(--white-muted);">Jury panel details will be unveiled soon.</p>
             </div>
           </div>
           <p class="body-text reveal" style="text-align:center; margin-top:2rem; font-size:0.82rem; opacity:0.6;">Jury
@@ -1878,88 +2123,100 @@
             <p class="section-label">Nominate Your Practice</p>
           </div>
 
-          <!-- Individual Tiers -->
-          <p class="audience-tag reveal">For Astrologers, Vastu Experts, Numerologists, Tarot Readers, Palmists &
-            Spiritual Creators</p>
-          <div class="pricing-grid pricing-grid-3 reveal">
-            <div class="pricing-card">
-              <div class="pricing-tier">Silver</div>
-              <div class="pricing-price">₹20,000</div>
-              <div class="pricing-price-note">+ GST</div>
-              <div class="pricing-inclusions">
-                <div class="pricing-inclusion">1 Category Nomination</div>
-                <div class="pricing-inclusion">Nomination Certificate (digital & physical)</div>
+          <div class="tabs reveal" style="margin-bottom: 2rem;">
+            <button class="tab-btn active" data-tab="nominate-individual">Individual Tiers</button>
+            <button class="tab-btn" data-tab="nominate-business">Business Tiers</button>
+          </div>
+
+          <!-- Individual Tiers Content -->
+          <div class="tab-content active" data-tab-content="nominate-individual">
+            <p class="audience-tag reveal">For Astrologers, Vastu Experts, Numerologists, Tarot Readers, Palmists &
+              Spiritual Creators</p>
+            <div class="pricing-grid pricing-grid-3 reveal">
+              <div class="pricing-card">
+                <div class="pricing-tier">Silver</div>
+                <div class="pricing-price">₹20,000</div>
+                <div class="pricing-price-note">+ GST</div>
+                <div class="pricing-inclusions">
+                  <div class="pricing-inclusion">1 Category Nomination</div>
+                  <div class="pricing-inclusion">Nomination Certificate (digital & physical)</div>
+                  <div class="pricing-inclusion">2 Event Passes</div>
+                </div>
+                <a href="#home" data-scroll="contact" class="btn btn-secondary">Nominate — Silver</a>
               </div>
-              <a href="#home" data-scroll="contact" class="btn btn-secondary">Nominate — Silver</a>
-            </div>
-            <div class="pricing-card pricing-card--featured">
-              <span class="badge badge-popular">Most Popular</span>
-              <div class="pricing-tier">Gold</div>
-              <div class="pricing-price">₹45,000</div>
-              <div class="pricing-price-note">+ GST</div>
-              <div class="pricing-inclusions">
-                <div class="pricing-inclusion">2 Category Nominations</div>
-                <div class="pricing-inclusion">1 Native Article Feature on NBT Astro</div>
-                <div class="pricing-inclusion">1 Social Post on NBT Astro</div>
-                <div class="pricing-inclusion">Nomination Certificate (digital & physical)</div>
+              <div class="pricing-card pricing-card--featured">
+                <span class="badge badge-popular">Most Popular</span>
+                <div class="pricing-tier">Gold</div>
+                <div class="pricing-price">₹45,000</div>
+                <div class="pricing-price-note">+ GST</div>
+                <div class="pricing-inclusions">
+                  <div class="pricing-inclusion">2 Category Nominations</div>
+                  <div class="pricing-inclusion">1 Native Article Feature on NBT Astro</div>
+                  <div class="pricing-inclusion">1 Social Post on NBT Astro</div>
+                  <div class="pricing-inclusion">Nomination Certificate (digital & physical)</div>
+                  <div class="pricing-inclusion">2 Event Passes</div>
+                </div>
+                <a href="#home" data-scroll="contact" class="btn btn-primary">Nominate — Gold</a>
               </div>
-              <a href="#home" data-scroll="contact" class="btn btn-primary">Nominate — Gold</a>
-            </div>
-            <div class="pricing-card">
-              <div class="pricing-tier">Platinum</div>
-              <div class="pricing-price">₹95,000</div>
-              <div class="pricing-price-note">+ GST</div>
-              <div class="pricing-inclusions">
-                <div class="pricing-inclusion">2 Category Nominations</div>
-                <div class="pricing-inclusion">1 Native Article Feature on NBT Astro</div>
-                <div class="pricing-inclusion">1 Social Post on NBT Astro</div>
-                <div class="pricing-inclusion">1 Podcast Feature on NBT Astro</div>
-                <div class="pricing-inclusion">Nomination Certificate (digital & physical)</div>
+              <div class="pricing-card">
+                <div class="pricing-tier">Platinum</div>
+                <div class="pricing-price">₹95,000</div>
+                <div class="pricing-price-note">+ GST</div>
+                <div class="pricing-inclusions">
+                  <div class="pricing-inclusion">2 Category Nominations</div>
+                  <div class="pricing-inclusion">1 Native Article Feature on NBT Astro</div>
+                  <div class="pricing-inclusion">1 Social Post on NBT Astro</div>
+                  <div class="pricing-inclusion">1 Podcast Feature on NBT Astro</div>
+                  <div class="pricing-inclusion">Nomination Certificate (digital & physical)</div>
+                  <div class="pricing-inclusion">2 Event Passes</div>
+                </div>
+                <a href="#home" data-scroll="contact" class="btn btn-secondary">Nominate — Platinum</a>
               </div>
-              <a href="#home" data-scroll="contact" class="btn btn-secondary">Nominate — Platinum</a>
             </div>
           </div>
 
-          <!-- Business Tiers -->
-          <div class="tier-divider reveal">
-            <div class="gold-line"></div>
-            <h3>For Astrology Brands, Platforms, Institutes, Apps & Startups</h3>
-          </div>
-          <div class="pricing-grid pricing-grid-3 reveal">
-            <div class="pricing-card">
-              <div class="pricing-tier">Silver</div>
-              <div class="pricing-price">₹45,000</div>
-              <div class="pricing-price-note">+ GST</div>
-              <div class="pricing-inclusions">
-                <div class="pricing-inclusion">1 Category Nomination</div>
-                <div class="pricing-inclusion">Nomination Certificate (digital & physical)</div>
+          <!-- Business Tiers Content -->
+          <div class="tab-content" data-tab-content="nominate-business">
+            <p class="audience-tag reveal">For Astrology Brands, Platforms, Institutes, Apps & Startups</p>
+            <div class="pricing-grid pricing-grid-3 reveal">
+              <div class="pricing-card">
+                <div class="pricing-tier">Silver</div>
+                <div class="pricing-price">₹45,000</div>
+                <div class="pricing-price-note">+ GST</div>
+                <div class="pricing-inclusions">
+                  <div class="pricing-inclusion">1 Category Nomination</div>
+                  <div class="pricing-inclusion">Nomination Certificate (digital & physical)</div>
+                  <div class="pricing-inclusion">2 Event Passes</div>
+                </div>
+                <a href="#home" data-scroll="contact" class="btn btn-secondary">Nominate — Silver</a>
               </div>
-              <a href="#home" data-scroll="contact" class="btn btn-secondary">Nominate — Silver</a>
-            </div>
-            <div class="pricing-card pricing-card--featured">
-              <span class="badge badge-popular">Most Popular</span>
-              <div class="pricing-tier">Gold</div>
-              <div class="pricing-price">₹95,000</div>
-              <div class="pricing-price-note">+ GST</div>
-              <div class="pricing-inclusions">
-                <div class="pricing-inclusion">2 Category Nominations</div>
-                <div class="pricing-inclusion">1 Native Article Feature on NBT Astro</div>
-                <div class="pricing-inclusion">1 Social Post on NBT Astro</div>
-                <div class="pricing-inclusion">Nomination Certificate (digital & physical)</div>
+              <div class="pricing-card pricing-card--featured">
+                <span class="badge badge-popular">Most Popular</span>
+                <div class="pricing-tier">Gold</div>
+                <div class="pricing-price">₹95,000</div>
+                <div class="pricing-price-note">+ GST</div>
+                <div class="pricing-inclusions">
+                  <div class="pricing-inclusion">2 Category Nominations</div>
+                  <div class="pricing-inclusion">1 Native Article Feature on NBT Astro</div>
+                  <div class="pricing-inclusion">1 Social Post on NBT Astro</div>
+                  <div class="pricing-inclusion">Nomination Certificate (digital & physical)</div>
+                  <div class="pricing-inclusion">2 Event Passes</div>
+                </div>
+                <a href="#home" data-scroll="contact" class="btn btn-primary">Nominate — Gold</a>
               </div>
-              <a href="#home" data-scroll="contact" class="btn btn-primary">Nominate — Gold</a>
-            </div>
-            <div class="pricing-card">
-              <div class="pricing-tier">Platinum</div>
-              <div class="pricing-price">₹1,50,000</div>
-              <div class="pricing-price-note">+ GST</div>
-              <div class="pricing-inclusions">
-                <div class="pricing-inclusion">2 Category Nominations</div>
-                <div class="pricing-inclusion">2 Native Article Features on NBT Astro</div>
-                <div class="pricing-inclusion">3 Social Posts on NBT Astro</div>
-                <div class="pricing-inclusion">Nomination Certificate (digital & physical)</div>
+              <div class="pricing-card">
+                <div class="pricing-tier">Platinum</div>
+                <div class="pricing-price">₹1,50,000</div>
+                <div class="pricing-price-note">+ GST</div>
+                <div class="pricing-inclusions">
+                  <div class="pricing-inclusion">2 Category Nominations</div>
+                  <div class="pricing-inclusion">2 Native Article Features on NBT Astro</div>
+                  <div class="pricing-inclusion">3 Social Posts on NBT Astro</div>
+                  <div class="pricing-inclusion">Nomination Certificate (digital & physical)</div>
+                  <div class="pricing-inclusion">2 Event Passes</div>
+                </div>
+                <a href="#home" data-scroll="contact" class="btn btn-secondary">Nominate — Platinum</a>
               </div>
-              <a href="#home" data-scroll="contact" class="btn btn-secondary">Nominate — Platinum</a>
             </div>
           </div>
 
@@ -2288,6 +2545,61 @@
         </div>
       </div>
 
+      <!-- Why the Fellowship -->
+      <div class="section section--darker" id="why-fellowship">
+        <div class="container">
+          <div class="section-header reveal">
+            <p class="section-label">Why the Fellowship</p>
+          </div>
+          <p class="ps-hook reveal" style="max-width:680px; margin:0 auto 3rem; text-align:center; font-size:1.05rem; color:var(--white-dim); line-height:1.8;">Deep Vedic scholarship is losing ground to short-form content — and there's no structured way for genuine masters to pass it on.</p>
+          <div class="ps-list">
+            <div class="ps-row reveal">
+              <div class="ps-side ps-problem">
+                <div class="card-icon"><svg class="icon" aria-hidden="true">
+                    <use href="#i-shield" />
+                  </svg></div>
+                <div>
+                  <h4>No Verification, No Trust</h4>
+                  <p>Anyone can call themselves a practitioner. There's no way for a serious learner to tell real depth from a following.</p>
+                </div>
+              </div>
+              <div class="ps-connector" aria-hidden="true">→</div>
+              <div class="ps-side ps-solution">
+                <div class="card-icon"><svg class="icon" aria-hidden="true">
+                    <use href="#i-trophy" />
+                  </svg></div>
+                <div>
+                  <h4>Verified Gurus Only</h4>
+                  <p>Every Guru is screened for credentials, body of work, and peer recognition before being listed.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="ps-row reveal">
+              <div class="ps-side ps-problem">
+                <div class="card-icon"><svg class="icon" aria-hidden="true">
+                    <use href="#i-link" />
+                  </svg></div>
+                <div>
+                  <h4>Knowledge With No Path Forward</h4>
+                  <p>Senior practitioners have decades of insight but no structured way to mentor the next generation at scale.</p>
+                </div>
+              </div>
+              <div class="ps-connector" aria-hidden="true">→</div>
+              <div class="ps-side ps-solution">
+                <div class="card-icon"><svg class="icon" aria-hidden="true">
+                    <use href="#i-lotus" />
+                  </svg></div>
+                <div>
+                  <h4>A Real Mentorship Structure</h4>
+                  <p>Defined cycles, limited cohorts, mutual commitment — not a course, an actual apprenticeship.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Synopsis -->
       <div class="section section--dark">
         <div class="container container--sm">
@@ -2297,14 +2609,22 @@
           <div class="body-text reveal"
             style="text-align:center; max-width:680px; margin:0 auto 2rem; line-height:1.9;">
             <p>The Guru&ndash;Shishya Fellowship at Astro<sup>+</sup> महासंगम is a structured mentorship programme
-              rooted in the classical Indian tradition of knowledge transfer. It bridges verified Gurus — seasoned
-              practitioners across astrology, Vastu, tarot, numerology, and palmistry — with committed Shishyas who seek
-              authentic, in-depth learning beyond what digital platforms can offer.</p>
-            <p style="margin-top:1.25rem;">The fellowship is designed for depth, not breadth. A Guru accepts a limited
+              rooted in the classical Indian tradition of knowledge transfer. It connects verified Gurus — seasoned
+              practitioners across astrology, Vastu, tarot, numerology, and palmistry — with committed Shishyas seeking authentic, in-depth learning that no app or online course can offer.</p>
+            <p style="margin-top:1.25rem;">The Fellowship is built for depth, not breadth. A Guru accepts a limited
               number of Shishyas each cycle; a Shishya commits to a defined period of structured learning. Both are
-              verified, both are accountable.</p>
+              verified. Both are accountable. Neither is optional.</p>
           </div>
-          <div class="grid grid-3 reveal" style="max-width:820px; margin:0 auto;">
+        </div>
+      </div>
+
+      <!-- Feature Cards (4) -->
+      <div class="section section--darker">
+        <div class="container">
+          <div class="section-header reveal">
+            <p class="section-label">What Makes This Different</p>
+          </div>
+          <div class="grid grid-4 reveal" style="max-width:1100px; margin:0 auto;">
             <div class="card">
               <div class="card-icon"><svg class="icon" aria-hidden="true">
                   <use href="#i-star" />
@@ -2318,7 +2638,7 @@
                   <use href="#i-compass" />
                 </svg></div>
               <h4>Structured Cycles</h4>
-              <p>Time-bound, outcome-oriented fellowship cycles — not open-ended arrangements. Clear expectations on
+              <p>Time-bound, outcome-oriented fellowship cycles, not open-ended arrangements. Clear expectations on
                 both sides.</p>
             </div>
             <div class="card">
@@ -2328,12 +2648,80 @@
               <h4>Vedic Disciplines</h4>
               <p>Covering astrology, Vastu Shastra, tarot &amp; numerology, palmistry, and allied Vedic sciences.</p>
             </div>
+            <div class="card">
+              <div class="card-icon"><svg class="icon" aria-hidden="true">
+                  <use href="#i-venn" />
+                </svg></div>
+              <h4>Mutual Selection</h4>
+              <p>A Shishya applies to the Guru they want to learn from. The Guru decides whether to accept them. This isn't pay-and-enroll — it's a two-way commitment.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- How It Works -->
+      <div class="section section--dark">
+        <div class="container">
+          <div class="section-header reveal">
+            <p class="section-label">How It Works</p>
+          </div>
+          <div class="steps-grid reveal">
+            <div class="step-card">
+              <div class="step-number">1</div>
+              <h4>Guru Applies</h4>
+              <p>Practitioners register with their discipline, years of practice, and a short introduction.</p>
+            </div>
+            <div class="step-card">
+              <div class="step-number">2</div>
+              <h4>Guru Is Verified</h4>
+              <p>The NBT Astro team reviews credentials, body of work, and standing before listing the Guru on the fellowship directory.</p>
+            </div>
+            <div class="step-card">
+              <div class="step-number">3</div>
+              <h4>Shishya Applies to a Guru</h4>
+              <p>Once Shishya registrations open, seekers browse verified Guru profiles by discipline and apply to the one they want to learn from.</p>
+            </div>
+            <div class="step-card">
+              <div class="step-number">4</div>
+              <h4>Guru Accepts, Cycle Begins</h4>
+              <p>The Guru reviews the application and decides. Once accepted, the Shishya begins the structured fellowship cycle.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- For Gurus / For Shishyas -->
+      <div class="section section--darker">
+        <div class="container">
+          <div class="section-header reveal">
+            <p class="section-label">Who This Is For</p>
+          </div>
+          <div class="grid grid-2 reveal" style="max-width:900px; margin:0 auto; gap:2rem;">
+            <div class="card" style="border-color: rgba(212,175,55,0.3); padding:2.5rem;">
+              <div class="card-icon" style="margin-bottom:1.25rem;">
+                <svg class="icon" aria-hidden="true"><use href="#i-star" /></svg>
+              </div>
+              <p class="section-label" style="margin-bottom:1rem; font-size:0.7rem;">For Gurus</p>
+              <p style="color:var(--white-dim); line-height:1.85; font-size:0.95rem;">You've spent years — sometimes decades — building real expertise. The Fellowship gives you a verified profile on the directory, a cohort of genuinely committed students each cycle, and recognition at Astro<sup>+</sup> महासंगम itself.</p>
+              <a href="#fellowship" data-scroll="fellowship-form" class="btn btn-primary" style="margin-top:1.75rem; display:inline-flex;">Register as a Guru &rarr;</a>
+            </div>
+            <div class="card" style="border-color: rgba(212,175,55,0.15); padding:2.5rem; position:relative; overflow:hidden;">
+              <div class="card-icon" style="margin-bottom:1.25rem;">
+                <svg class="icon" aria-hidden="true"><use href="#i-leaf" /></svg>
+              </div>
+              <p class="section-label" style="margin-bottom:1rem; font-size:0.7rem;">For Shishyas</p>
+              <p style="color:var(--white-dim); line-height:1.85; font-size:0.95rem;">Not another course. A real mentor, chosen by you, who also has to choose you back. Structured learning, direct access, and a credential that means something because the person teaching you was verified first.</p>
+              <div style="margin-top:1.75rem; padding:0.75rem 1.25rem; background:rgba(212,175,55,0.07); border:1px solid rgba(212,175,55,0.2); border-radius:var(--radius); font-size:0.82rem; color:var(--gold-light); display:flex; align-items:center; gap:0.5rem; justify-content:center;">
+                <svg class="icon" aria-hidden="true" style="width:1rem;height:1rem;flex-shrink:0;"><use href="#i-lotus" /></svg>
+                <span>Registrations opening soon</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- Registration -->
-      <div class="section section--darker" id="fellowship-register">
+      <div class="section section--dark" id="fellowship-register">
         <div class="container container--sm">
           <div class="section-header reveal">
             <p class="section-label">Registration</p>
@@ -2343,7 +2731,7 @@
           <div class="ticket-grid reveal" style="max-width:620px; margin:0 auto 2.5rem;">
             <div class="pricing-card pricing-card--featured" style="flex:1 1 100%; max-width:100%;">
               <div class="pricing-tier">Register as a Guru</div>
-              <div class="pricing-price">&#x20B9;1,000</div>
+              <div class="pricing-price">&#x20B9;1,001</div>
               <div class="pricing-price-note">Registration Fee</div>
               <div class="pricing-inclusions">
                 <div class="pricing-inclusion">Verified Guru profile on the fellowship directory</div>
@@ -2355,12 +2743,20 @@
             </div>
           </div>
 
-          <!-- Shishya coming-soon note -->
-          <div class="fellowship-shishya-note reveal">
-            <svg class="icon" aria-hidden="true">
+          <!-- Shishya coming-soon capture -->
+          <div class="fellowship-shishya-note reveal" style="flex-direction:column; padding:2rem; text-align:center; gap:1.25rem;">
+            <svg class="icon" aria-hidden="true" style="width:2rem;height:2rem;color:var(--gold);margin:0 auto;">
               <use href="#i-lotus" />
             </svg>
-            <p>Shishya registrations will begin soon.</p>
+            <div>
+              <p style="font-weight:600; color:var(--white); margin-bottom:0.5rem; font-size:1rem;">Shishya Registrations Opening Soon</p>
+              <p style="font-size:0.88rem; color:var(--white-dim); max-width:520px; margin:0 auto; line-height:1.7;">Shishya registrations open closer to the event. Leave your email and we'll notify you the moment applications go live.</p>
+            </div>
+            <form id="shishyaNotifyForm" onsubmit="return handleFormSubmit(event)" style="display:flex; gap:0.75rem; max-width:420px; margin:0 auto; width:100%; flex-wrap:wrap; justify-content:center;">
+              <input type="email" id="shishyaEmail" class="form-input" placeholder="your@email.com" required style="flex:1 1 220px;">
+              <button type="submit" class="btn btn-primary">Notify Me</button>
+            </form>
+            <p style="font-size:0.75rem; color:var(--white-muted); opacity:0.6; margin:0;">Browse verified Guru profiles by discipline · Apply directly to the Guru you want · Acceptance is at the Guru's discretion</p>
           </div>
 
           <!-- Registration form -->
@@ -2422,11 +2818,28 @@
                 Registration &rarr;</button>
             </form>
             <p style="text-align:center; font-size:0.8rem; opacity:0.5; margin-top:1.5rem;">Registration fee of
-              &#x20B9;1,000 will be collected after form review and confirmation. All registrations are subject to
+              &#x20B9;1,001 will be collected after form review and confirmation. All registrations are subject to
               verification.</p>
           </div>
         </div>
       </div>
+
+      <!-- Quality Assurance -->
+      <div class="section section--darker">
+        <div class="container container--sm">
+          <div class="section-header reveal">
+            <p class="section-label">Quality Assurance</p>
+          </div>
+          <p class="body-text reveal" style="text-align:center; margin-bottom:1.5rem;">Every Guru is vetted by the NBT Astro team before being listed — credentials verified, body of work reviewed, peer standing checked.</p>
+          <div class="practitioner-standards reveal">
+            <div class="standard-item">Every Guru is vetted by the NBT Astro team before being listed</div>
+            <div class="standard-item">Verified body of work and years-of-practice check</div>
+            <div class="standard-item">Limited cohort sizes — quality over volume</div>
+            <div class="standard-item">Grievance mechanism available for any Shishya not satisfied with their match or experience</div>
+          </div>
+        </div>
+      </div>
+
     </section>
 
   </main>
@@ -2465,7 +2878,6 @@
             <h5>Participate</h5>
             <a href="#expo">Expo & Sponsorship</a>
             <a href="#home" data-scroll="tickets">Tickets</a>
-            <a href="#home" data-scroll="venue">Venue</a>
             <a href="#home" data-scroll="contact">Contact</a>
           </div>
           <div class="footer-col">

@@ -11,7 +11,7 @@
   const REVEAL_THRESHOLD = 0.12;
   const COUNTER_DURATION = 2000;
   const TILT_MAX = 8;
-  const LOADER_MIN_MS = 4000;
+  const LOADER_MIN_MS = 2500;
   const prefersReducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const isDesktop = () => window.innerWidth >= 1024 && matchMedia('(hover: hover)').matches;
   const isMobileDevice = window.innerWidth < 768;
@@ -67,6 +67,7 @@
     setupHeroConstellation();
     setupFloatingOrbs();
     setupSpeakerCardFlip();
+    setupAgendaTimeline();
 
     handleRoute();
   }
@@ -89,6 +90,62 @@
         clearTimeout(card._flipTimer);
         card._flipTimer = setTimeout(() => card.classList.remove('flipped'), 3500);
       }
+    });
+  }
+
+  // ===== AGENDA TIMELINE INTERACTIVITY =====
+  function setupAgendaTimeline() {
+    const timeline = document.querySelector('.timeline');
+    if (!timeline) return;
+
+    // 1. Accordion Expand/Collapse on click (Commented out for static list)
+    /*
+    timeline.addEventListener('click', function(e) {
+      const header = e.target.closest('.timeline-header');
+      const titleRow = e.target.closest('.timeline-title-row');
+      const item = e.target.closest('.timeline-item');
+      
+      // If user clicked header, title-row, or toggle button, toggle expansion
+      if (item && (header || titleRow || e.target.closest('.timeline-toggle'))) {
+        item.classList.toggle('expanded');
+      }
+    });
+    */
+
+    // 2. Category filtering
+    const filterContainer = document.querySelector('.agenda-filters');
+    if (!filterContainer) return;
+
+    filterContainer.addEventListener('click', function(e) {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+
+      // Update active state in buttons
+      filterContainer.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filter = btn.dataset.filter;
+      const items = timeline.querySelectorAll('.timeline-item');
+
+      items.forEach(item => {
+        const cat = item.dataset.category;
+        
+        // Add a clean fade transition out/in
+        item.style.opacity = '0';
+        item.style.transform = 'scale(0.98)';
+        
+        setTimeout(() => {
+          if (filter === 'all' || cat === filter) {
+            item.style.display = 'flex';
+            setTimeout(() => {
+              item.style.opacity = '1';
+              item.style.transform = 'translateY(0) scale(1)';
+            }, 50);
+          } else {
+            item.style.display = 'none';
+          }
+        }, 200);
+      });
     });
   }
 
@@ -371,13 +428,21 @@
 
   // ===== TABS =====
   function setupTabs() {
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-      btn.addEventListener('click', function () {
-        const tabId = this.getAttribute('data-tab');
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-        document.querySelectorAll('.tab-content').forEach(content => {
-          content.classList.toggle('active', content.getAttribute('data-tab-content') === tabId);
+    const tabGroups = document.querySelectorAll('.tabs');
+    tabGroups.forEach(group => {
+      const container = group.closest('.container') || group.parentElement;
+      const buttons = group.querySelectorAll('.tab-btn');
+      
+      buttons.forEach(btn => {
+        btn.addEventListener('click', function () {
+          const tabId = this.getAttribute('data-tab');
+          
+          buttons.forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          
+          container.querySelectorAll('.tab-content').forEach(content => {
+            content.classList.toggle('active', content.getAttribute('data-tab-content') === tabId);
+          });
         });
       });
     });
