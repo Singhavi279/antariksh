@@ -288,66 +288,27 @@ h4 { font-size: clamp(1.1rem, 2vw, 1.4rem); }
   pointer-events: none;
 }
 
+/* ── Soft light glow trailing the default system cursor ── */
 .cursor-glow {
   position: fixed;
-  width: 380px;
-  height: 380px;
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
-  background: var(--gold-radial);
+  background: radial-gradient(circle at 50% 50%, rgba(255,250,235,0.14), rgba(255,244,214,0) 65%);
   pointer-events: none;
   z-index: var(--z-cursor);
   transform: translate(-50%, -50%);
   opacity: 0;
   transition: opacity 0.4s var(--ease);
   mix-blend-mode: screen;
-  filter: blur(8px);
+  filter: blur(6px);
   will-change: transform;
 }
 
-body.cursor-active .cursor-glow { opacity: 0.45; }
-
-/* ── Real Peacock Feather Cursor ── */
-.peacock-cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: 1260;
-  opacity: 0;
-  transition: opacity 0.25s var(--ease);
-  will-change: transform;
-  /* Feather tip (top-left of plume) is the hotspot */
-  transform-origin: 0 0;
-}
-
-.peacock-cursor img {
-  display: block;
-  /* No filter — let the real colours show through */
-  image-rendering: -webkit-optimize-contrast;
-  image-rendering: crisp-edges;
-  user-select: none;
-  -webkit-user-drag: none;
-}
-
-body.cursor-active .peacock-cursor { opacity: 1; }
-
-/* Hide the default cursor on desktop when feather is active */
-@media (hover: hover) and (pointer: fine) {
-  body.cursor-active,
-  body.cursor-active *,
-  body.cursor-active a,
-  body.cursor-active button,
-  body.cursor-active input,
-  body.cursor-active select,
-  body.cursor-active textarea,
-  body.cursor-active [role="button"] {
-    cursor: none !important;
-  }
-}
+body.cursor-active .cursor-glow { opacity: 1; }
 
 @media (hover: none), (max-width: 1023px) {
   .cursor-glow { display: none; }
-  .peacock-cursor { display: none; }
 }
 
 /* ===== 6. NAVIGATION ===== */
@@ -909,6 +870,11 @@ body.wheel-energized {
   transition: opacity 0.6s var(--ease-out);
   animation: wheel-glow-pulse 7s ease-in-out infinite;
 }
+
+/* Lite mode (slow conn / low memory / few cores): wheel is static —
+   drop the filter-animating glow pulse and compositor hint to save GPU. */
+body.lite-mode .hero-wheel-wrap { animation: none; will-change: auto; }
+body.lite-mode .hero-wheel-breathe { animation: none; }
 
 /* Breathing scale lives on a child so it never fights the JS-driven translate/rotate
    transform on .hero-wheel-wrap (scroll drift + cursor tilt) */
@@ -3368,6 +3334,5 @@ body::after {
   }
   .hero-constellation { display: none; }
   .cursor-glow { display: none; }
-  .peacock-cursor { display: none; }
   .reveal { opacity: 1; transform: none; }
 }

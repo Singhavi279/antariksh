@@ -15,10 +15,13 @@
   const prefersReducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const isDesktop = () => window.innerWidth >= 1024 && matchMedia('(hover: hover)').matches;
   const isMobileDevice = window.innerWidth < 768;
-  const isSlowConn = (() => {
-    const c = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-    return c && /^(slow-2g|2g|3g)$/.test(c.effectiveType);
-  })();
+  const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+  const isSlowConn = !!(conn && (/^(slow-2g|2g|3g)$/.test(conn.effectiveType || '') || conn.saveData));
+  const lowMemory = typeof navigator.deviceMemory === 'number' && navigator.deviceMemory <= 2;
+  const lowCores = typeof navigator.hardwareConcurrency === 'number' && navigator.hardwareConcurrency <= 2;
+  // Lite mode: drop continuous per-frame scroll effects (parallax + wheel transforms)
+  // on weak/slow/data-saver clients so scrolling stays smooth on low-end Windows machines.
+  const liteMode = prefersReducedMotion || isSlowConn || lowMemory || lowCores;
 
   // ===== DOM REFS =====
   const navbar = document.getElementById('navbar');
@@ -41,6 +44,11 @@
 
   function init() {
     document.body.classList.add('loading');
+    if (liteMode) {
+      document.body.classList.add('lite-mode');
+      // Wheel stays visible but static and readable — no per-frame zone hit-test.
+      if (heroWheel) document.body.dataset.wheelZone = 'dark';
+    }
     runLoader();
 
     setupRouter();
@@ -89,7 +97,7 @@
   function runLoader() {
     if (!pageLoader) return;
 
-    if (isMobileDevice || isSlowConn) { dismissLoader(); return; }
+    if (isMobileDevice || liteMode) { dismissLoader(); return; }
 
     const start = performance.now();
 
@@ -205,6 +213,7 @@
   // ===== SCROLL EFFECTS =====
   function setupScrollEffects() {
     let ticking = false;
+    let lastZoneCheck = 0;
 
     function update() {
       const scrollY = window.scrollY;
@@ -221,8 +230,9 @@
         floatingCta.style.display = show ? 'flex' : '';
       }
 
-      // Hero parallax via transform
-      if (!prefersReducedMotion) {
+      // Hero parallax + wheel transform — skipped in lite mode (keeps low-end
+      // Windows/slow clients at a smooth scroll; only the cheap progress bar + navbar run).
+      if (!liteMode) {
         document.querySelectorAll('[data-parallax]').forEach(el => {
           const speed = parseFloat(el.getAttribute('data-parallax')) || 0.2;
           const rect = el.getBoundingClientRect();
@@ -235,9 +245,14 @@
         });
 
         renderWheel(scrollY);
+        // elementFromPoint is a synchronous hit-test — throttle it off the
+        // per-frame path so it never stalls the scroll on slower GPUs.
+        const nowT = performance.now();
+        if (nowT - lastZoneCheck > 160) {
+          lastZoneCheck = nowT;
+          updateWheelZone();
+        }
       }
-
-      updateWheelZone();
 
       ticking = false;
     }
@@ -394,18 +409,11 @@
     document.body.style.overflow = '';
   }
 
-  // ===== CURSOR GLOW + FEATHER IMAGE =====
+  // ===== CURSOR GLOW (default system cursor stays; soft glow trails it) =====
   function setupCursorGlow() {
     if (prefersReducedMotion) return;
     if (!isDesktop()) return;
-
-    const peacock = document.getElementById('peacockCursor');
-    if (!cursorGlow && !peacock) return;
-
-    // Hotspot is set to the upper-left tip of the feather plume (6px, 6px)
-    // so that pointing and clicking feels natural, instant, and sensitive.
-    const OFFSET_X = 6;
-    const OFFSET_Y = 6;
+    if (!cursorGlow) return;
 
     let raf = null;
     let tx = 0, ty = 0, cx = 0, cy = 0;
@@ -416,13 +424,8 @@
       if (!document.body.classList.contains('cursor-active')) {
         document.body.classList.add('cursor-active');
       }
-      // Update feather position instantly on mousemove for zero latency and high precision
-      if (peacock) {
-        peacock.style.transform =
-          `translate3d(${tx - OFFSET_X}px, ${ty - OFFSET_Y}px, 0) rotate(-10deg)`;
-      }
       if (!raf) raf = requestAnimationFrame(animateCursor);
-    });
+    }, { passive: true });
 
     document.addEventListener('mouseleave', () => {
       document.body.classList.remove('cursor-active');
@@ -431,10 +434,7 @@
     function animateCursor() {
       cx += (tx - cx) * 0.18;
       cy += (ty - cy) * 0.18;
-
-      if (cursorGlow) {
-        cursorGlow.style.transform = `translate3d(${cx}px, ${cy}px, 0) translate(-50%, -50%)`;
-      }
+      cursorGlow.style.transform = `translate3d(${cx}px, ${cy}px, 0) translate(-50%, -50%)`;
 
       if (Math.abs(tx - cx) > 0.3 || Math.abs(ty - cy) > 0.3) {
         raf = requestAnimationFrame(animateCursor);

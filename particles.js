@@ -13,7 +13,15 @@
   const canvas = document.getElementById('siteStars');
   if (!canvas) return;
 
-  const isMobile = window.innerWidth < 768;
+  // Treat weak/slow/data-saver clients like mobile: reduced star budget, no nebula
+  // gradients (the costly part) — keeps scrolling smooth on low-end Windows machines.
+  const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+  const isConstrained =
+    (conn && (/^(slow-2g|2g|3g)$/.test(conn.effectiveType || '') || conn.saveData)) ||
+    (typeof navigator.deviceMemory === 'number' && navigator.deviceMemory <= 2) ||
+    (typeof navigator.hardwareConcurrency === 'number' && navigator.hardwareConcurrency <= 2);
+
+  const isMobile = window.innerWidth < 768 || isConstrained;
 
   const ctx = canvas.getContext('2d', { alpha: true });
   if (!ctx) return;
