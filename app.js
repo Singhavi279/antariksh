@@ -224,7 +224,7 @@
       if (navbar) navbar.classList.toggle('scrolled', scrollY > SCROLL_THRESHOLD);
 
       if (floatingCta) {
-        const show = scrollY > window.innerHeight * 0.6 && window.innerWidth <= 1023;
+        const show = scrollY > window.innerHeight * 0.6 && window.innerWidth <= 1199;
         floatingCta.classList.toggle('visible', show);
         floatingCta.style.display = show ? 'flex' : '';
       }

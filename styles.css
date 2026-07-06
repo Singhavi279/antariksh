@@ -3124,12 +3124,36 @@ body::after {
   .hero-wheel-wrap { width: 60vw; height: 60vw; max-width: 700px; max-height: 700px; }
 }
 
+/* Navbar responsive adjustments to prevent cropping on 1366x768 and small laptop viewports */
+@media (max-width: 1399px) and (min-width: 1200px) {
+  .navbar .container {
+    gap: 0.75rem;
+  }
+  .nav-logo-text {
+    font-size: 1.3rem;
+  }
+  .nav-link {
+    padding: 0.5rem 0.45rem;
+    font-size: 0.78rem;
+  }
+  .nav-ctas {
+    gap: 0.5rem;
+  }
+  .nav-ctas .btn-sm {
+    padding: 0.45rem 1rem;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 1199px) {
+  .nav-links { display: none !important; }
+  .nav-ctas { display: none !important; }
+  .hamburger { display: flex !important; }
+  .floating-cta { display: flex; }
+}
+
 /* M: 768–1023 — tablet landscape */
 @media (max-width: 1023px) {
-  .nav-links { display: none; }
-  .nav-ctas { display: none; }
-  .hamburger { display: flex; }
-  .floating-cta { display: flex; }
   .grid-4 { grid-template-columns: repeat(2, 1fr); }
   .grid-3 { grid-template-columns: repeat(2, 1fr); }
   .pricing-grid-3 { grid-template-columns: 1fr; max-width: 500px; margin: 0 auto; }
