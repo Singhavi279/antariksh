@@ -718,12 +718,6 @@ h4 .icon {
   animation: badge-pulse 2.4s ease-in-out infinite;
 }
 
-.badge-premium {
-  background: linear-gradient(135deg, #7C3AED, #A855F7);
-  color: var(--white);
-  font-weight: 700;
-}
-
 .badge-discipline {
   background: rgba(255,255,255,0.06);
   color: var(--white-dim);
@@ -987,18 +981,47 @@ body.lite-mode .hero-wheel-breathe { animation: none; }
   opacity: 0.85;
 }
 
-.hero-attribution {
-  font-size: 0.8rem;
-  color: var(--white-dim);
-  margin-bottom: 1rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+/* ── Brand lockups (Presents · Times Internet / An Initiative By · NBT Astro) ── */
+.hero-lockup {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  flex-wrap: wrap;
 }
 
-.hero-attribution .hero-attr-dot {
-  display: inline-block;
-  margin: 0 0.5rem;
-  color: var(--gold-light);
+.hero-lockup--presents { margin-bottom: 1.1rem; }
+.hero-lockup--initiative { margin: 0.9rem 0 1.1rem; }
+
+.hero-lockup-label {
+  font-size: 0.7rem;
+  color: var(--white-dim);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Both source logos are dark artwork made for light backgrounds — a soft white
+   badge keeps them legible and on-brand against the dark hero. */
+.hero-logo-chip {
+  display: inline-flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 8px;
+  padding: 0.4rem 0.65rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.hero-logo { display: block; width: auto; }
+.hero-logo--ti { height: 24px; }
+.hero-logo--nbt { height: 28px; }
+
+@media (max-width: 600px) {
+  .hero-lockup-label { font-size: 0.62rem; letter-spacing: 0.14em; }
+  .hero-logo--ti { height: 20px; }
+  .hero-logo--nbt { height: 24px; }
 }
 
 .hero-title {
@@ -1507,90 +1530,6 @@ h1 sup, h2 sup, h3 sup, h4 sup, p sup {
   margin-top: 0.25rem;
 }
 
-/* ===== 13. TIMELINE ===== */
-.timeline {
-  position: relative;
-  padding-left: 3rem;
-}
-
-.timeline::before {
-  content: '';
-  position: absolute;
-  left: 0.6rem;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: linear-gradient(to bottom, var(--gold), var(--gold-dim), transparent);
-  transform-origin: top;
-  transform: scaleY(0);
-  transition: transform 1.5s var(--ease-out);
-}
-
-.timeline.in-view::before { transform: scaleY(1); }
-
-.timeline-item {
-  position: relative;
-  padding-bottom: 2rem;
-  padding-left: 1rem;
-  transition: transform 0.4s var(--ease-out);
-}
-
-.timeline-item::before {
-  content: '';
-  position: absolute;
-  left: -2.55rem;
-  top: 0.35rem;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: var(--gold);
-  border: 2px solid var(--bg-dark);
-  box-shadow: 0 0 0 3px var(--gold-dim);
-  transition: transform 0.4s var(--ease-spring), box-shadow var(--duration) var(--ease);
-}
-
-.timeline-item:hover { transform: translateX(4px); }
-.timeline-item:hover::before {
-  transform: scale(1.3);
-  box-shadow: 0 0 0 6px var(--gold-dim), 0 0 20px rgba(212,175,55,0.5);
-}
-
-.timeline-item:last-child { padding-bottom: 0; }
-
-.timeline-time {
-  font-family: var(--font-heading);
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--gold-light);
-  margin-bottom: 0.25rem;
-  letter-spacing: 0.05em;
-}
-
-.timeline-title {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--white);
-  margin-bottom: 0.2rem;
-}
-
-.timeline-detail { font-size: 0.85rem; color: var(--white-dim); }
-
-.timeline-type {
-  display: inline-block;
-  font-size: 0.65rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  padding: 0.15rem 0.5rem;
-  border-radius: var(--radius-full);
-  margin-left: 0.5rem;
-}
-
-.type-ceremony { background: rgba(212,175,55,0.15); color: var(--gold-light); }
-.type-keynote { background: rgba(168,85,247,0.15); color: #C084FC; }
-.type-panel { background: rgba(59,130,246,0.15); color: #93C5FD; }
-.type-transition { background: rgba(255,255,255,0.06); color: var(--white-dim); }
-
 /* ===== 14. PRICING CARDS ===== */
 .pricing-grid {
   display: flex;
@@ -1694,23 +1633,6 @@ h1 sup, h2 sup, h3 sup, h4 sup, p sup {
   font-weight: 700;
   flex-shrink: 0;
   margin-top: 1px;
-}
-
-.pricing-exclusion {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.65rem;
-  padding: 0.5rem 0;
-  font-size: 0.85rem;
-  color: var(--white-dim);
-  opacity: 0.5;
-}
-
-.pricing-exclusion::before {
-  content: '✕';
-  color: var(--danger);
-  font-weight: 700;
-  flex-shrink: 0;
 }
 
 .pricing-card .btn { width: 100%; margin-top: auto; }
@@ -3250,7 +3172,6 @@ body::after {
   .venue-schedule { grid-template-columns: 1fr 1fr; }
   .consult-pricing { grid-template-columns: 1fr; max-width: 400px; margin: 2rem auto 0; }
   .hero-wheel-wrap { width: 100vw; height: 100vw; --wheel-opacity-responsive: 0.5; }
-  .timeline { padding-left: 2.25rem; }
   .eval-stages { padding-left: 2.5rem; }
   /* Remove expensive blur compositing on mobile cards */
   .card, .pricing-card, .jury-card,
@@ -3336,3 +3257,30 @@ body::after {
   .cursor-glow { display: none; }
   .reveal { opacity: 1; transform: none; }
 }
+
+/* ===== GURU–SHISHYA FELLOWSHIP ===== */
+.fellowship-shishya-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  background: rgba(212,175,55,0.07);
+  border: 1px dashed rgba(212,175,55,0.3);
+  border-radius: var(--radius-lg);
+  padding: 1.1rem 1.75rem;
+  max-width: 480px;
+  margin: 0 auto;
+  color: var(--gold-light);
+  font-size: 0.92rem;
+  font-style: italic;
+  letter-spacing: 0.02em;
+}
+
+.fellowship-shishya-note .icon {
+  width: 1.2rem;
+  height: 1.2rem;
+  flex-shrink: 0;
+  opacity: 0.8;
+}
+
+.fellowship-shishya-note p { margin: 0; }
