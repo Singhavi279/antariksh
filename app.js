@@ -68,6 +68,7 @@
     setupFloatingOrbs();
     setupSpeakerCardFlip();
     setupAgendaTimeline();
+    setupScrollToTop();
 
     handleRoute();
   }
@@ -280,6 +281,11 @@
 
       if (navbar) navbar.classList.toggle('scrolled', scrollY > SCROLL_THRESHOLD);
 
+      const scrollToTopBtn = document.getElementById('scrollToTop');
+      if (scrollToTopBtn) {
+        scrollToTopBtn.classList.toggle('visible', scrollY > window.innerHeight * 0.5);
+      }
+
       if (floatingCta) {
         const show = scrollY > window.innerHeight * 0.6 && window.innerWidth <= 1199;
         floatingCta.classList.toggle('visible', show);
@@ -424,6 +430,19 @@
         item.classList.toggle('open', !isOpen);
       });
     });
+  }
+
+  // ===== SCROLL TO TOP =====
+  function setupScrollToTop() {
+    const btn = document.getElementById('scrollToTop');
+    if (btn) {
+      btn.addEventListener('click', function () {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+    }
   }
 
   // ===== TABS =====
