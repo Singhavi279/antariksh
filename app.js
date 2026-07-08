@@ -187,7 +187,34 @@
     setTimeout(() => { pageLoader.style.display = 'none'; }, 600);
   }
 
-  // ===== ROUTER =====
+  // ===== ROUTER & SEO TITLE/META MANAGEMENT =====
+  const pageMeta = {
+    home: {
+      title: "Astro+ महासंगम — Conclave, Awards & Expo 2026 | NBT Astro",
+      desc: "India's premier forum for Vedic Sciences, Astrology & Conscious Living. Join 30+ Award Categories, Conclave, Consultation Zone, Expo & Gurukulam — September 2026, Delhi NCR."
+    },
+    conclave: {
+      title: "Conclave Sessions & Speakers — Astro+ महासंगम 2026 | NBT Astro",
+      desc: "Explore keynote panels, fireside chats, and talks by India's most revered Vedic scholars, astrologers, and spiritual leaders at Astro+ Mahasangam 2026."
+    },
+    awards: {
+      title: "30+ Vedic Science Awards & Categories — Astro+ महासंगम 2026 | NBT Astro",
+      desc: "India's first jury-led recognition programme for Vedic sciences. Explore 30 award categories across Astrology, Vastu, Tarot, Palmistry, and Business tiers."
+    },
+    consultation: {
+      title: "Personal Vedic Consultation Zone — Astro+ महासंगम 2026 | NBT Astro",
+      desc: "Book personal 1-on-1 guidance sessions with verified Vedic practitioners in Kundali, Vastu Shastra, Tarot, Numerology, and Palmistry."
+    },
+    expo: {
+      title: "Vedic & Faith-Tech Expo 2026 — Astro+ महासंगम | NBT Astro",
+      desc: "Discover India's largest Vedic sciences exhibition featuring faith-tech apps, gemstone specialists, Ayurveda brands, spiritual tourism, and publishers."
+    },
+    fellowship: {
+      title: "Antarix Gurukulam & Lineage Transmission — Astro+ महासंगम 2026 | NBT Astro",
+      desc: "Reviving the sacred Guru-Shishya parampara. Connect directly with authentic Vedic masters for structured mentorship and lineage transmission."
+    }
+  };
+
   function setupRouter() {
     window.addEventListener('hashchange', handleRoute);
   }
@@ -208,8 +235,28 @@
     });
 
     navLinks.forEach(link => {
-      link.classList.toggle('active', link.getAttribute('data-page') === hash);
+      const isActive = link.getAttribute('data-page') === hash;
+      link.classList.toggle('active', isActive);
+      if (link.getAttribute('role') === 'menuitem') {
+        link.setAttribute('aria-current', isActive ? 'page' : 'false');
+      }
     });
+
+    // Dynamic SEO Title & OpenGraph update for SPA link sharing & previews
+    const meta = pageMeta[hash] || pageMeta.home;
+    document.title = meta.title;
+    const descEl = document.querySelector('meta[name="description"]');
+    if (descEl) descEl.setAttribute('content', meta.desc);
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.setAttribute('content', meta.title);
+    const ogDesc = document.querySelector('meta[property="og:description"]');
+    if (ogDesc) ogDesc.setAttribute('content', meta.desc);
+    const ogUrl = document.querySelector('meta[property="og:url"]');
+    if (ogUrl) ogUrl.setAttribute('content', `https://timeslanguages.in/astro-mahasangam/#${hash === 'home' ? '' : hash}`);
+    const twTitle = document.querySelector('meta[name="twitter:title"]');
+    if (twTitle) twTitle.setAttribute('content', meta.title);
+    const twDesc = document.querySelector('meta[name="twitter:description"]');
+    if (twDesc) twDesc.setAttribute('content', meta.desc);
 
     window.scrollTo({ top: 0, behavior: 'instant' });
     closeMobileMenu();
@@ -421,13 +468,19 @@
   // ===== FAQ =====
   function setupFaqAccordion() {
     document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.setAttribute('aria-expanded', 'false');
       btn.addEventListener('click', function () {
         const item = this.closest('.faq-item');
         const isOpen = item.classList.contains('open');
         document.querySelectorAll('.faq-item.open').forEach(o => {
-          if (o !== item) o.classList.remove('open');
+          if (o !== item) {
+            o.classList.remove('open');
+            const qBtn = o.querySelector('.faq-question');
+            if (qBtn) qBtn.setAttribute('aria-expanded', 'false');
+          }
         });
         item.classList.toggle('open', !isOpen);
+        this.setAttribute('aria-expanded', !isOpen ? 'true' : 'false');
       });
     });
   }
@@ -449,18 +502,28 @@
   function setupTabs() {
     const tabGroups = document.querySelectorAll('.tabs');
     tabGroups.forEach(group => {
+      group.setAttribute('role', 'tablist');
       const container = group.closest('.container') || group.parentElement;
       const buttons = group.querySelectorAll('.tab-btn');
       
       buttons.forEach(btn => {
+        btn.setAttribute('role', 'tab');
+        btn.setAttribute('aria-selected', btn.classList.contains('active') ? 'true' : 'false');
         btn.addEventListener('click', function () {
           const tabId = this.getAttribute('data-tab');
           
-          buttons.forEach(b => b.classList.remove('active'));
+          buttons.forEach(b => {
+            b.classList.remove('active');
+            b.setAttribute('aria-selected', 'false');
+          });
           this.classList.add('active');
+          this.setAttribute('aria-selected', 'true');
           
           container.querySelectorAll('.tab-content').forEach(content => {
-            content.classList.toggle('active', content.getAttribute('data-tab-content') === tabId);
+            content.setAttribute('role', 'tabpanel');
+            const isActive = content.getAttribute('data-tab-content') === tabId;
+            content.classList.toggle('active', isActive);
+            if (isActive) content.setAttribute('tabindex', '0');
           });
         });
       });
@@ -481,14 +544,18 @@
   function openMobileMenu() {
     if (!hamburger) return;
     hamburger.classList.add('open');
+    hamburger.setAttribute('aria-expanded', 'true');
     mobileMenu.classList.add('open');
+    mobileMenu.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
   }
 
   function closeMobileMenu() {
     if (!hamburger) return;
     hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
     mobileMenu.classList.remove('open');
+    mobileMenu.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
   }
 

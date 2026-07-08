@@ -3786,3 +3786,61 @@ body::after {
     height: 44px;
   }
 }
+
+/* ==========================================================
+   WCAG 2.1 AA ACCESSIBILITY & RESPONSIVE ENHANCEMENTS
+   ========================================================== */
+
+/* Universal High-Contrast Focus Ring for Keyboard Navigation */
+*:focus-visible {
+  outline: 2px solid var(--gold-light, #ffd700) !important;
+  outline-offset: 3px !important;
+  border-radius: 4px;
+}
+
+/* Skip to Main Content Link (Off-screen until focused) */
+.skip-link {
+  position: absolute;
+  top: -1000px;
+  left: 1.5rem;
+  z-index: 999999;
+  background: var(--bg-card, #130c1e);
+  color: var(--gold-light, #ffd700);
+  border: 2px solid var(--accent-gold, #d4af37);
+  padding: 0.85rem 1.5rem;
+  border-radius: var(--radius-md, 8px);
+  font-family: var(--font-heading, 'Outfit', sans-serif);
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.85);
+  transition: top 0.25s ease-in-out;
+}
+.skip-link:focus,
+.skip-link:focus-visible {
+  top: 1.5rem;
+  outline: 3px solid var(--white, #ffffff) !important;
+}
+
+/* Minimum Touch Target Spacing (WCAG 2.5.5 - 44x44px minimum) */
+@media (max-width: 1023px) {
+  .nav-link,
+  .mobile-link,
+  .tab-btn,
+  .filter-btn,
+  .faq-question,
+  .timeline-toggle {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+  .faq-question {
+    justify-content: space-between;
+  }
+}
+
+/* Responsive Viewport Safety & Overflow Prevention */
+html, body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
