@@ -58,6 +58,7 @@
     setupTabs();
     setupMobileMenu();
     setupSmoothLinks();
+    setupCategoriesFilters();
     setupCounters();
     setupCursorGlow();
     setupCardTilt();
@@ -190,28 +191,32 @@
   // ===== ROUTER & SEO TITLE/META MANAGEMENT =====
   const pageMeta = {
     home: {
-      title: "Astro+ महासंगम — Conclave, Awards & Expo 2026 | NBT Astro",
-      desc: "India's premier forum for Vedic Sciences, Astrology & Conscious Living. Join 30+ Award Categories, Conclave, Consultation Zone, Expo & Gurukulam — September 2026, Delhi NCR."
+      title: "Astro+ महासंगम | Conclave, Awards & Expo 2026 | NBT Astro",
+      desc: "India's premier forum for Vedic Sciences, Astrology & Conscious Living. Join 30+ Award Categories, Conclave, Consultation Zone, Expo & Gurukulam - September 2026, Delhi NCR."
     },
     conclave: {
-      title: "Conclave Sessions & Speakers — Astro+ महासंगम 2026 | NBT Astro",
-      desc: "Explore keynote panels, fireside chats, and talks by India's most revered Vedic scholars, astrologers, and spiritual leaders at Astro+ Mahasangam 2026."
+      title: "Conclave Sessions & Speakers | Astro+ महासंगम 2026 | NBT Astro",
+      desc: "For the first time, India's best Astrologers, Vastu experts, Tarot readers, Numerologists and Palmists on one credible stage, panels, live sessions and keynotes on the questions that matter most."
     },
     awards: {
-      title: "30+ Vedic Science Awards & Categories — Astro+ महासंगम 2026 | NBT Astro",
-      desc: "India's first jury-led recognition programme for Vedic sciences. Explore 30 award categories across Astrology, Vastu, Tarot, Palmistry, and Business tiers."
+      title: "30+ Vedic Science Awards & Categories | Astro+ महासंगम 2026 | NBT Astro",
+      desc: "India's only transparent, jury-evaluated awards for practitioners of mystic sciences, audited and led by a globally recognised Knowledge and Process partner."
     },
     consultation: {
-      title: "Personal Vedic Consultation Zone — Astro+ महासंगम 2026 | NBT Astro",
-      desc: "Book personal 1-on-1 guidance sessions with verified Vedic practitioners in Kundali, Vastu Shastra, Tarot, Numerology, and Palmistry."
+      title: "Personal Vedic Consultation Zone | Astro+ महासंगम 2026 | NBT Astro",
+      desc: "Your first 10 minutes are free. One-on-one access to India's most credible practitioners, in person."
     },
     expo: {
-      title: "Vedic & Faith-Tech Expo 2026 — Astro+ महासंगम | NBT Astro",
-      desc: "Discover India's largest Vedic sciences exhibition featuring faith-tech apps, gemstone specialists, Ayurveda brands, spiritual tourism, and publishers."
+      title: "Vedic & Faith-Tech Expo 2026 | Astro+ महासंगम | NBT Astro",
+      desc: "Brands. Practitioners. Educators. Experiences. India's most curated commercial marketplace for astrology and Vedic sciences."
     },
     fellowship: {
-      title: "Antarix Gurukulam & Lineage Transmission — Astro+ महासंगम 2026 | NBT Astro",
+      title: "Antarix Gurukulam & Lineage Transmission | Astro+ महासंगम 2026 | NBT Astro",
       desc: "Reviving the sacred Guru-Shishya parampara. Connect directly with authentic Vedic masters for structured mentorship and lineage transmission."
+    },
+    categories: {
+      title: "All Award Categories | Astro+ महासंगम 2026 | NBT Astro",
+      desc: "Explore all 30 transparent, jury-evaluated award categories across 5+ mystic sciences."
     }
   };
 
@@ -273,7 +278,7 @@
     }
   };
 
-  // ===== SMOOTH LINKS =====
+  // ===== SMOOTH LINKS & CTA INTERCEPTION =====
   function setupSmoothLinks() {
     document.addEventListener('click', function (e) {
       const link = e.target.closest('a[href^="#"]');
@@ -281,6 +286,18 @@
 
       const href = link.getAttribute('href');
       const scrollTarget = link.getAttribute('data-scroll');
+
+      // Intercept CTAs to open modal (unless they already have explicit onclick logic)
+      if (link.classList.contains('btn') && window.openLeadModal && !link.hasAttribute('onclick')) {
+        e.preventDefault();
+        let preselectType = '';
+        if (scrollTarget === 'nominate' || href === '#awards') preselectType = 'awards';
+        else if (scrollTarget === 'tickets' || href === '#conclave') preselectType = 'conclave';
+        else if (scrollTarget === 'consult-price-card' || href === '#consultation') preselectType = 'consultation';
+        else if (scrollTarget === 'contact') preselectType = 'expo'; // Default generic
+        window.openLeadModal(preselectType);
+        return;
+      }
       const hash = href.replace('#', '');
       const pageNames = Array.from(pages).map(p => p.getAttribute('data-page'));
 
@@ -334,7 +351,7 @@
       }
 
       if (floatingCta) {
-        const show = scrollY > window.innerHeight * 0.6 && window.innerWidth <= 1199;
+        const show = scrollY > window.innerHeight * 0.6;
         floatingCta.classList.toggle('visible', show);
         floatingCta.style.display = show ? 'flex' : '';
       }
@@ -530,6 +547,31 @@
     });
   }
 
+  // ===== CATEGORIES FILTERS =====
+  function setupCategoriesFilters() {
+    const page = document.getElementById('pageCategories');
+    if (!page) return;
+    const filterBtns = page.querySelectorAll('.filter-tab-btn');
+    const cards = page.querySelectorAll('.category-card');
+    
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        
+        const filter = this.getAttribute('data-filter');
+        cards.forEach(card => {
+          const discipline = card.getAttribute('data-discipline');
+          if (filter === 'all' || discipline === filter) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  }
+
   // ===== MOBILE MENU =====
   function setupMobileMenu() {
     if (!hamburger) return;
@@ -706,7 +748,7 @@
   }
 
   // ===== WHEEL HOVER-ENERGIZE (boosts glow/breathe while hovering interactive content) =====
-  const WHEEL_ENERGIZE_SELECTOR = '.card, .btn, .pillar-tab, .routing-card, .pricing-card';
+  const WHEEL_ENERGIZE_SELECTOR = '.card, .btn, .routing-card, .pricing-card';
 
   function setupWheelEnergize() {
     if (!heroWheel || prefersReducedMotion) return;
@@ -842,26 +884,126 @@
     setTimeout(() => heroConstellation.classList.add('lit'), 400);
   }
 
+  // ===== LEAD CAPTURE MODAL LOGIC =====
+  const leadModal = document.getElementById('leadModal');
+  const closeModalBtn = document.getElementById('closeModal');
+  const leadTypeSelect = document.getElementById('leadType');
+  const nomCategorySelect = document.getElementById('nomCategory');
+  const guruRoleSelect = document.getElementById('guruRole');
+
+  window.openLeadModal = function(type = '', nomCat = '', nomTier = '') {
+    if (!leadModal) return false;
+    
+    // Reset forms and hide all cond groups first
+    const form = document.getElementById('leadForm');
+    if (form) form.reset();
+    document.querySelectorAll('.cond-group, .cond-subgroup').forEach(el => el.style.display = 'none');
+    document.querySelectorAll('.form-group.error').forEach(el => el.classList.remove('error'));
+    
+    // Set type if provided
+    if (type && leadTypeSelect) {
+      leadTypeSelect.value = type;
+      const group = document.getElementById(`cond-${type}`);
+      if (group) group.style.display = 'block';
+    }
+    
+    // Setup nested conditionally if awards
+    if (type === 'awards' && nomCat && nomCategorySelect) {
+      nomCategorySelect.value = nomCat;
+      const sub = document.getElementById(nomCat === 'individual' ? 'cond-awards-indiv' : 'cond-awards-biz');
+      if (sub) sub.style.display = 'block';
+      if (nomTier) {
+        const tierSelect = document.getElementById('nomTier');
+        if (tierSelect) tierSelect.value = nomTier;
+      }
+    }
+
+    leadModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    return false; // Prevent default for anchor clicks
+  };
+
+  function closeLeadModal() {
+    if (!leadModal) return;
+    leadModal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  if (closeModalBtn) closeModalBtn.addEventListener('click', closeLeadModal);
+  if (leadModal) {
+    leadModal.addEventListener('click', (e) => {
+      if (e.target === leadModal) closeLeadModal();
+    });
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && leadModal && leadModal.classList.contains('active')) {
+      closeLeadModal();
+    }
+  });
+
+  // Conditional Logic Listeners
+  if (leadTypeSelect) {
+    leadTypeSelect.addEventListener('change', function(e) {
+      document.querySelectorAll('.cond-group').forEach(el => el.style.display = 'none');
+      const val = e.target.value;
+      if (val) {
+        const group = document.getElementById(`cond-${val}`);
+        if (group) group.style.display = 'block';
+      }
+    });
+  }
+
+  if (nomCategorySelect) {
+    nomCategorySelect.addEventListener('change', function(e) {
+      const indiv = document.getElementById('cond-awards-indiv');
+      const biz = document.getElementById('cond-awards-biz');
+      if (indiv) indiv.style.display = 'none';
+      if (biz) biz.style.display = 'none';
+      const val = e.target.value;
+      if (val === 'individual' && indiv) indiv.style.display = 'block';
+      if (val === 'business' && biz) biz.style.display = 'block';
+    });
+  }
+
+  if (guruRoleSelect) {
+    guruRoleSelect.addEventListener('change', function(e) {
+      const guru = document.getElementById('cond-guru-details');
+      const shishya = document.getElementById('cond-shishya-details');
+      if (guru) guru.style.display = 'none';
+      if (shishya) shishya.style.display = 'none';
+      const val = e.target.value;
+      if (val === 'guru' && guru) guru.style.display = 'block';
+      if (val === 'shishya' && shishya) shishya.style.display = 'block';
+    });
+  }
+
   // ===== FORM HANDLING =====
   window.handleFormSubmit = function (e) {
     e.preventDefault();
     const form = e.target;
-    const requiredFields = form.querySelectorAll('[required]');
     let isValid = true;
 
-    requiredFields.forEach(field => {
+    // Only validate fields that are currently visible
+    const visibleFields = Array.from(form.querySelectorAll('input, select, textarea')).filter(el => {
+      return el.offsetWidth > 0 && el.offsetHeight > 0 && el.hasAttribute('required');
+    });
+
+    visibleFields.forEach(field => {
       const group = field.closest('.form-group');
-      if (!field.value.trim()) {
-        group.classList.add('error');
-        isValid = false;
-      } else {
-        group.classList.remove('error');
-      }
-      if (field.type === 'email' && field.value.trim()) {
-        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!re.test(field.value.trim())) {
+      if (group) {
+        if (!field.value.trim()) {
           group.classList.add('error');
           isValid = false;
+        } else {
+          group.classList.remove('error');
+        }
+        
+        if (field.type === 'email' && field.value.trim()) {
+          const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!re.test(field.value.trim())) {
+            group.classList.add('error');
+            isValid = false;
+          }
         }
       }
     });
@@ -869,7 +1011,7 @@
     if (isValid) {
       const submitBtn = form.querySelector('[type="submit"]');
       const originalText = submitBtn.textContent;
-      submitBtn.textContent = '✓ Message Sent!';
+      submitBtn.textContent = '✓ Request Submitted!';
       submitBtn.style.background = 'linear-gradient(135deg, #34D399, #10B981)';
       submitBtn.disabled = true;
 
@@ -877,8 +1019,9 @@
         submitBtn.textContent = originalText;
         submitBtn.style.background = '';
         submitBtn.disabled = false;
+        closeLeadModal();
         form.reset();
-      }, 3000);
+      }, 2500);
     }
 
     return false;

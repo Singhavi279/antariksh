@@ -79,17 +79,18 @@
     { bx: 0.50, by: 0.78, r: 220, ph: 1.8, sp: 0.07, col: [27,  42,  74]  },
   ];
 
-  // ── Shooting stars ──────────────────────────────────────────
+  // ── Shooting stars (enhanced frequency & twins across hero background) ──
   const shooters   = [];
-  let nextShootAt  = rnd(4000, 9000);
+  let nextShootAt  = rnd(600, 1600);
 
   function spawnShooter(elapsed) {
+    const inHero = window.scrollY < (window.innerHeight || 1000) * 1.2;
     shooters.push({
       x:    rnd(0.05, 0.85),
-      y:    rnd(0.03, 0.35),
-      vx:   rnd(0.0035, 0.006),
-      vy:   rnd(0.001, 0.0025),
-      len:  rnd(90, 200),
+      y:    rnd(0.02, 0.35),
+      vx:   rnd(0.004, inHero ? 0.0075 : 0.006),
+      vy:   rnd(0.0012, inHero ? 0.003 : 0.0025),
+      len:  rnd(110, inHero ? 250 : 180),
       born: elapsed,
     });
   }
@@ -178,7 +179,11 @@
     // ── Shooting stars ────────────────────────────────────────
     if (elapsed > nextShootAt) {
       spawnShooter(elapsed);
-      nextShootAt += rnd(5000, 12000);
+      const inHero = window.scrollY < (window.innerHeight || 1000) * 1.2;
+      if (inHero && Math.random() < 0.35) {
+        setTimeout(() => spawnShooter(elapsed + rnd(150, 400)), rnd(150, 400));
+      }
+      nextShootAt += rnd(inHero ? 2200 : 4000, inHero ? 4800 : 8000);
     }
 
     for (let i = shooters.length - 1; i >= 0; i--) {
