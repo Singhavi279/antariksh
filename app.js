@@ -203,12 +203,8 @@
       desc: "India's only transparent, jury-evaluated awards for practitioners of mystic sciences, audited and led by a globally recognised Knowledge and Process partner."
     },
     consultation: {
-      title: "Personal Vedic Consultation Zone | Astro+ महासंगम 2026 | NBT Astro",
-      desc: "Your first 10 minutes are free. One-on-one access to India's most credible practitioners, in person."
-    },
-    expo: {
-      title: "Vedic & Faith-Tech Expo 2026 | Astro+ महासंगम | NBT Astro",
-      desc: "Brands. Practitioners. Educators. Experiences. India's most curated commercial marketplace for astrology and Vedic sciences."
+      title: "Consultation & Expo | Astro+ महासंगम 2026 | NBT Astro",
+      desc: "One-on-one access to India's most credible practitioners, in person, plus India's most curated commercial marketplace for astrology and Vedic sciences."
     },
     fellowship: {
       title: "Antarix Gurukulam & Lineage Transmission | Astro+ महासंगम 2026 | NBT Astro",
@@ -226,6 +222,7 @@
 
   function handleRoute() {
     let hash = window.location.hash.replace('#', '') || 'home';
+    if (hash === 'expo') hash = 'consultation'; // Legacy route: Expo merged into Consultation & Expo
     const pageNames = Array.from(pages).map(p => p.getAttribute('data-page'));
     if (!pageNames.includes(hash)) hash = 'home';
 
@@ -238,6 +235,8 @@
     pages.forEach(page => {
       page.classList.toggle('active', page.getAttribute('data-page') === hash);
     });
+
+    document.body.dataset.activePage = hash;
 
     navLinks.forEach(link => {
       const isActive = link.getAttribute('data-page') === hash;
