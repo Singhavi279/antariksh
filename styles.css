@@ -3331,6 +3331,13 @@ body::after {
   border-bottom: 1px solid rgba(184,134,11,0.18);
 }
 
+.ps-row--single {
+  grid-template-columns: 1fr;
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: left;
+}
+
 .ps-side {
   display: flex;
   align-items: flex-start;
