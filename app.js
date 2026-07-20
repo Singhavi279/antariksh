@@ -265,6 +265,11 @@
     window.scrollTo({ top: 0, behavior: 'instant' });
     closeMobileMenu();
     setTimeout(reobserveReveals, 100);
+
+    // Show nomination context banner if categories page just became active
+    if (hash === 'categories' && typeof showNomContextBanner === 'function') {
+      requestAnimationFrame(showNomContextBanner);
+    }
   }
 
   window.navigateTo = function (page, anchor) {
@@ -546,7 +551,75 @@
     });
   }
 
-  // ===== CATEGORIES FILTERS & DASHBOARD =====
+  // ===== NOMINATE NOW → CATEGORIES FLOW =====
+  const TIER_LABELS = {
+    sapphire: 'Sapphire Package',
+    emerald:  'Emerald Package',
+    ruby:     'Ruby Package',
+  };
+
+  function showNomContextBanner() {
+    try {
+      const pending = JSON.parse(sessionStorage.getItem('pendingNomination') || 'null');
+      const banner  = document.getElementById('nomContextBanner');
+      const pkgEl   = document.getElementById('nomContextPackage');
+      if (!banner || !pkgEl) return;
+      if (pending && pending.tier) {
+        pkgEl.textContent = TIER_LABELS[pending.tier] || pending.tier;
+        banner.style.display = '';
+        // Animate in
+        requestAnimationFrame(() => banner.classList.add('nom-context-visible'));
+      } else {
+        banner.style.display = 'none';
+        banner.classList.remove('nom-context-visible');
+      }
+    } catch(_) {}
+  }
+
+  function clearPendingNomination() {
+    try { sessionStorage.removeItem('pendingNomination'); } catch(_) {}
+    const banner = document.getElementById('nomContextBanner');
+    if (banner) {
+      banner.classList.remove('nom-context-visible');
+      setTimeout(() => { banner.style.display = 'none'; }, 300);
+    }
+  }
+
+  // Expose globally
+  window.navigateToNominate = function(tier, nomCat) {
+    try {
+      sessionStorage.setItem('pendingNomination', JSON.stringify({ tier, nomCat }));
+    } catch(_) {}
+
+    // Map nomCat to segment for sidebar pre-selection
+    const segmentMap = { individual: 'practitioner', business: 'business' };
+    const filterName = segmentMap[nomCat] || 'practitioner';
+
+    // Reuse navigateToCategoryFilter to do the page switch + segment activation
+    window.navigateToCategoryFilter(filterName, null);
+
+    // Show banner — if already on categories page show immediately, else wait for page switch
+    const currentHash = (window.location.hash || '').replace('#', '');
+    if (currentHash === 'categories') {
+      showNomContextBanner();
+    } else {
+      const onSwitch = () => {
+        window.removeEventListener('hashchange', onSwitch);
+        requestAnimationFrame(showNomContextBanner);
+      };
+      window.addEventListener('hashchange', onSwitch);
+    }
+    return false;
+  };
+
+  // Wire up dismiss button
+  document.addEventListener('click', function(e) {
+    if (e.target && (e.target.id === 'nomContextDismiss' || e.target.closest('#nomContextDismiss'))) {
+      clearPendingNomination();
+    }
+  });
+
+
   window.navigateToCategoryFilter = function(filterName, event) {
     if (event) {
       event.preventDefault();
@@ -943,6 +1016,16 @@
     // Store current active page hash before modal opens
     modalOriginHash = window.location.hash || '#home';
     
+    // Read pending nomination from sessionStorage (set by navigateToNominate)
+    let pending = null;
+    try { pending = JSON.parse(sessionStorage.getItem('pendingNomination') || 'null'); } catch(_) {}
+    if (pending) {
+      // Use pending values as defaults (caller can still override)
+      if (!nomCat && pending.nomCat) nomCat = pending.nomCat;
+      if (!nomTier && pending.tier) nomTier = pending.tier;
+      if (!type) type = 'awards';
+    }
+
     // Reset forms and hide all cond groups first
     const form = document.getElementById('leadForm');
     if (form) form.reset();

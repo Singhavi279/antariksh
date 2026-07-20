@@ -4125,6 +4125,77 @@ body::after {
     }
   }
 
+/* ===== NOMINATION CONTEXT BANNER ===== */
+.nom-context-banner {
+  background: linear-gradient(135deg, rgba(212,175,55,0.12) 0%, rgba(212,175,55,0.06) 100%);
+  border: 1px solid rgba(212,175,55,0.35);
+  border-radius: var(--radius-lg);
+  padding: 0.9rem 1.25rem;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.35s var(--ease), transform 0.35s var(--ease);
+  pointer-events: none;
+}
+.nom-context-banner.nom-context-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.nom-context-inner {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.nom-context-icon {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(212,175,55,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold-light);
+}
+.nom-context-text {
+  flex: 1;
+  font-size: 0.85rem;
+  color: var(--white-muted);
+  line-height: 1.5;
+}
+.nom-context-label {
+  color: var(--gold-light);
+  font-weight: 600;
+  margin-right: 0.35em;
+}
+.nom-context-package {
+  color: var(--white);
+  font-weight: 700;
+  margin-right: 0.25em;
+}
+.nom-context-hint {
+  color: var(--white-muted);
+}
+.nom-context-dismiss {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  color: var(--white-dim);
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 0.3rem 0.5rem;
+  border-radius: var(--radius-sm);
+  transition: color 0.2s, background 0.2s;
+  line-height: 1;
+}
+.nom-context-dismiss:hover { color: var(--white); background: rgba(255,255,255,0.08); }
+
+@media (max-width: 600px) {
+  .nom-context-inner { flex-wrap: wrap; }
+  .nom-context-hint { display: block; margin-top: 0.25rem; }
+}
+
 /* ===== CATEGORIES MASTER-DETAIL DASHBOARD UI ===== */
 .categories-dashboard-container {
   display: grid;

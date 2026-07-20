@@ -1636,9 +1636,7 @@
                   <div class="pricing-inclusion">Individual Profile Page on NBT</div>
                   <div class="pricing-inclusion">1 Social media Post</div>
                 </div>
-                <a href="#home" data-scroll="contact" class="btn btn-secondary"
-                  onclick="return window.openLeadModal && window.openLeadModal('awards', 'individual', 'sapphire')">Nominate
-                  Now</a>
+                <a href="javascript:void(0)" class="btn btn-secondary" onclick="event.preventDefault(); event.stopPropagation(); return window.navigateToNominate && window.navigateToNominate('sapphire','individual')">Nominate Now</a>
               </div>
               <div class="pricing-card pricing-card--featured">
                 <span class="badge badge-popular">Most Popular</span>
@@ -1655,9 +1653,7 @@
                   <div class="pricing-inclusion">1 Social Media Post</div>
                   <div class="pricing-inclusion">1 Native Article feature on NBT Astro</div>
                 </div>
-                <a href="#home" data-scroll="contact" class="btn btn-primary"
-                  onclick="return window.openLeadModal && window.openLeadModal('awards', 'individual', 'ruby')">Nominate
-                  Now</a>
+                <a href="javascript:void(0)" class="btn btn-primary" onclick="event.preventDefault(); event.stopPropagation(); return window.navigateToNominate && window.navigateToNominate('emerald','individual')">Nominate Now</a>
               </div>
               <div class="pricing-card">
                 <div class="pricing-tier">Ruby</div>
@@ -1675,9 +1671,7 @@
                   <div class="pricing-inclusion">1 Native Article Feature on NBT Astro</div>
                   <div class="pricing-inclusion">1 Video feature on NBT Astro</div>
                 </div>
-                <a href="#home" data-scroll="contact" class="btn btn-secondary"
-                  onclick="return window.openLeadModal && window.openLeadModal('awards', 'individual', 'diamond')">Nominate
-                  Now</a>
+                <a href="javascript:void(0)" class="btn btn-secondary" onclick="event.preventDefault(); event.stopPropagation(); return window.navigateToNominate && window.navigateToNominate('ruby','individual')">Nominate Now</a>
               </div>
             </div>
           </div>
@@ -1699,9 +1693,7 @@
                   <div class="pricing-inclusion">2 Complimentary Event Passes</div>
                   <div class="pricing-inclusion">1 Social Media Post</div>
                 </div>
-                <a href="#home" data-scroll="contact" class="btn btn-secondary"
-                  onclick="return window.openLeadModal && window.openLeadModal('awards', 'business', 'sapphire')">Nominate
-                  Now</a>
+                <a href="javascript:void(0)" class="btn btn-secondary" onclick="event.preventDefault(); event.stopPropagation(); return window.navigateToNominate && window.navigateToNominate('sapphire','business')">Nominate Now</a>
               </div>
               <div class="pricing-card pricing-card--featured">
                 <span class="badge badge-popular">Most Popular</span>
@@ -1717,9 +1709,7 @@
                   <div class="pricing-inclusion">1 Social Media Post</div>
                   <div class="pricing-inclusion">1 Native Article Feature on NBT Astro</div>
                 </div>
-                <a href="#home" data-scroll="contact" class="btn btn-primary"
-                  onclick="return window.openLeadModal && window.openLeadModal('awards', 'business', 'ruby')">Nominate
-                  Now</a>
+                <a href="javascript:void(0)" class="btn btn-primary" onclick="event.preventDefault(); event.stopPropagation(); return window.navigateToNominate && window.navigateToNominate('emerald','business')">Nominate Now</a>
               </div>
               <div class="pricing-card">
                 <div class="pricing-tier">Ruby</div>
@@ -1735,9 +1725,7 @@
                   <div class="pricing-inclusion">2 Native Article Features on NBT Astro</div>
                   <div class="pricing-inclusion">1 Video Feature on NBT Astro</div>
                 </div>
-                <a href="#home" data-scroll="contact" class="btn btn-secondary"
-                  onclick="return window.openLeadModal && window.openLeadModal('awards', 'business', 'diamond')">Nominate
-                  Now</a>
+                <a href="javascript:void(0)" class="btn btn-secondary" onclick="event.preventDefault(); event.stopPropagation(); return window.navigateToNominate && window.navigateToNominate('ruby','business')">Nominate Now</a>
               </div>
             </div>
           </div>
@@ -1995,6 +1983,21 @@
       <div class="section section--dark">
         <div class="container">
           
+          <!-- Nomination Context Banner: shown when user arrives via Nominate Now -->
+          <div id="nomContextBanner" class="nom-context-banner" style="display:none;" role="status" aria-live="polite">
+            <div class="nom-context-inner">
+              <div class="nom-context-icon">
+                <svg class="icon" aria-hidden="true" style="width:18px;height:18px;"><use href="#i-star" /></svg>
+              </div>
+              <div class="nom-context-text">
+                <span class="nom-context-label">You're nominating with:</span>
+                <strong id="nomContextPackage" class="nom-context-package"></strong>
+                <span class="nom-context-hint"> — Browse categories below and click <strong>Nominate in this Category</strong> on your preferred one.</span>
+              </div>
+              <button class="nom-context-dismiss" id="nomContextDismiss" aria-label="Dismiss">✕</button>
+            </div>
+          </div>
+
           <div class="categories-dashboard-container">
             <!-- LEFT SIDEBAR: Segment Navigation -->
             <div class="segment-sidebar reveal">
