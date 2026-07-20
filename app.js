@@ -547,9 +547,12 @@
   }
 
   // ===== CATEGORIES FILTERS & DASHBOARD =====
-  window.navigateToCategoryFilter = function(filterName) {
+  window.navigateToCategoryFilter = function(filterName, event) {
+    if (event && event.preventDefault) event.preventDefault();
     window.location.hash = 'categories';
-    setTimeout(() => {
+    if (typeof handleRoute === 'function') handleRoute();
+
+    const selectSegment = () => {
       const page = document.getElementById('pageCategories');
       if (!page) return;
       
@@ -562,7 +565,10 @@
         targetSegCard.click();
       }
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 120);
+    };
+
+    selectSegment();
+    setTimeout(selectSegment, 50);
     return false;
   };
 
@@ -922,8 +928,13 @@
   const nomCategorySelect = document.getElementById('nomCategory');
   const guruRoleSelect = document.getElementById('guruRole');
 
+  let modalOriginHash = '';
+
   window.openLeadModal = function(type = '', nomCat = '', nomTier = '') {
     if (!leadModal) return false;
+    
+    // Store current active page hash before modal opens
+    modalOriginHash = window.location.hash || '#home';
     
     // Reset forms and hide all cond groups first
     const form = document.getElementById('leadForm');
@@ -958,6 +969,14 @@
     if (!leadModal) return;
     leadModal.classList.remove('active');
     document.body.style.overflow = '';
+
+    // Restore user to their origin page if hash was modified
+    if (modalOriginHash) {
+      if (window.location.hash !== modalOriginHash) {
+        window.location.hash = modalOriginHash;
+        if (typeof handleRoute === 'function') handleRoute();
+      }
+    }
   }
 
   if (closeModalBtn) closeModalBtn.addEventListener('click', closeLeadModal);
