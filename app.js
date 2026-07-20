@@ -548,27 +548,34 @@
 
   // ===== CATEGORIES FILTERS & DASHBOARD =====
   window.navigateToCategoryFilter = function(filterName, event) {
-    if (event && event.preventDefault) event.preventDefault();
-    window.location.hash = 'categories';
-    if (typeof handleRoute === 'function') handleRoute();
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
 
-    const selectSegment = () => {
+    const activateSegment = () => {
       const page = document.getElementById('pageCategories');
-      if (!page) return;
-      
+      if (!page || !page.classList.contains('active')) return;
       let targetSegCard = page.querySelector(`.segment-nav-card[data-segment="${filterName}"]`);
       if (!targetSegCard || filterName === 'all') {
         targetSegCard = page.querySelector(`.segment-nav-card[data-segment="practitioner"]`);
       }
-      
-      if (targetSegCard) {
-        targetSegCard.click();
-      }
+      if (targetSegCard) targetSegCard.click();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    selectSegment();
-    setTimeout(selectSegment, 50);
+    if ((window.location.hash || '#home').replace('#', '') === 'categories') {
+      // Already on categories page — just activate segment directly
+      activateSegment();
+    } else {
+      // Navigate to categories page first, then activate segment after render
+      const onHashChange = () => {
+        window.removeEventListener('hashchange', onHashChange);
+        requestAnimationFrame(() => setTimeout(activateSegment, 30));
+      };
+      window.addEventListener('hashchange', onHashChange);
+      window.location.hash = 'categories';
+    }
     return false;
   };
 

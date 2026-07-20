@@ -748,6 +748,10 @@ h4 .icon {
   color: var(--white-dim);
   border: 1px solid var(--glass-border);
   font-size: 0.65rem;
+  white-space: normal;
+  text-align: center;
+  line-height: 1.4;
+  display: inline-block;
 }
 
 @keyframes badge-pulse {
@@ -3538,14 +3542,22 @@ body::after {
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     max-width: 100%;
-    padding-bottom: 0.5rem;
+    padding-bottom: 0.75rem;
     -webkit-overflow-scrolling: touch;
+    /* Pull out to full bleed for more swipe room */
+    margin-left: calc(-1 * var(--container-px, 1.25rem));
+    margin-right: calc(-1 * var(--container-px, 1.25rem));
+    padding-left: var(--container-px, 1.25rem);
+    padding-right: var(--container-px, 1.25rem);
   }
   .pricing-grid--swipeable > * {
-    flex: 0 0 85%;
-    max-width: 340px;
-    scroll-snap-align: center;
+    flex: 0 0 78%;
+    min-width: 280px;
+    max-width: 360px;
+    scroll-snap-align: start;
   }
+  /* Reduce price font on smaller screens so ₹95,000 fits */
+  .pricing-price { font-size: 2rem; }
   .stats-row { grid-template-columns: repeat(2, 1fr); }
   .ticket-grid { grid-template-columns: repeat(2, 1fr); }
   .sponsor-tiers { grid-template-columns: repeat(2, 1fr); }
@@ -3594,6 +3606,10 @@ body::after {
   .consult-pricing { grid-template-columns: 1fr; max-width: 400px; margin: 2rem auto 0; }
   .hero-wheel-wrap { width: 100vw; height: 100vw; --wheel-opacity-responsive: 0.5; }
   .eval-stages { padding-left: 2.5rem; }
+  /* Pricing price — compact on small screens so ₹95,000 never clips */
+  .pricing-price { font-size: 1.75rem; line-height: 1.1; }
+  .pricing-price span { font-size: 1rem !important; }
+  .pricing-card { padding: 2rem 1.5rem; overflow: hidden; }
   /* Remove expensive blur compositing on mobile cards */
   .card, .pricing-card, .jury-card,
   .card-glass, .routing-card, .step-card,
