@@ -546,27 +546,59 @@
     });
   }
 
-  // ===== CATEGORIES FILTERS =====
+  // ===== CATEGORIES FILTERS & DASHBOARD =====
+  window.navigateToCategoryFilter = function(filterName) {
+    window.location.hash = 'categories';
+    setTimeout(() => {
+      const page = document.getElementById('pageCategories');
+      if (!page) return;
+      
+      let targetSegCard = page.querySelector(`.segment-nav-card[data-segment="${filterName}"]`);
+      if (!targetSegCard || filterName === 'all') {
+        targetSegCard = page.querySelector(`.segment-nav-card[data-segment="practitioner"]`);
+      }
+      
+      if (targetSegCard) {
+        targetSegCard.click();
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 120);
+    return false;
+  };
+
   function setupCategoriesFilters() {
     const page = document.getElementById('pageCategories');
     if (!page) return;
-    const filterBtns = page.querySelectorAll('.filter-tab-btn');
-    const cards = page.querySelectorAll('.category-card');
-    
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', function() {
-        filterBtns.forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
+
+    // 1. Segment Sidebar Navigation Cards
+    const segmentNavCards = page.querySelectorAll('.segment-nav-card');
+    const segmentPanels = page.querySelectorAll('.segment-panel');
+
+    segmentNavCards.forEach(card => {
+      card.addEventListener('click', function() {
+        const targetSeg = this.getAttribute('data-segment');
         
-        const filter = this.getAttribute('data-filter');
-        cards.forEach(card => {
-          const discipline = card.getAttribute('data-discipline');
-          if (filter === 'all' || discipline === filter) {
-            card.style.display = 'block';
+        segmentNavCards.forEach(c => c.classList.remove('active'));
+        this.classList.add('active');
+
+        segmentPanels.forEach(panel => {
+          if (panel.getAttribute('data-segment-panel') === targetSeg) {
+            panel.classList.add('active');
           } else {
-            card.style.display = 'none';
+            panel.classList.remove('active');
           }
         });
+      });
+    });
+
+    // 2. Category Accordions (Expand / Collapse)
+    const accordionHeaders = page.querySelectorAll('.category-accordion-header');
+    accordionHeaders.forEach(header => {
+      header.addEventListener('click', function() {
+        const parentCard = this.closest('.category-accordion-card');
+        if (parentCard) {
+          parentCard.classList.toggle('open');
+        }
       });
     });
   }
