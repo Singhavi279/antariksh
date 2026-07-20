@@ -2143,6 +2143,8 @@ h1 sup, h2 sup, h3 sup, h4 sup, h5 sup, h6 sup, p sup, span sup, div sup, a sup,
   background: linear-gradient(135deg, transparent 60%, rgba(212,175,55,0.08));
   opacity: 0;
   transition: opacity 0.4s var(--ease);
+  /* Decorative overlay must not swallow taps on the card's button */
+  pointer-events: none;
 }
 
 .routing-card:hover {
@@ -3536,25 +3538,42 @@ body::after {
   .pricing-card--featured:hover { transform: translateY(-8px); }
 
   /* Nomination packages — horizontally swipeable on mobile/tablet */
+  /* Override the grid → flex for horizontal scroll */
   .pricing-grid--swipeable {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    overflow-y: visible !important;
+    /* flex-start so the first card (Sapphire) stays reachable at scroll 0;
+       inherited justify-content:center would push it off the left edge */
+    justify-content: flex-start !important;
     scroll-snap-type: x mandatory;
-    max-width: 100%;
-    padding-bottom: 0.75rem;
+    max-width: 100% !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    /* Left padding so first card (Sapphire) has breathing room */
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    padding-bottom: 1rem;
+    gap: 1rem !important;
     -webkit-overflow-scrolling: touch;
-    /* Pull out to full bleed for more swipe room */
-    margin-left: calc(-1 * var(--container-px, 1.25rem));
-    margin-right: calc(-1 * var(--container-px, 1.25rem));
-    padding-left: var(--container-px, 1.25rem);
-    padding-right: var(--container-px, 1.25rem);
+    scrollbar-width: none;
   }
+  .pricing-grid--swipeable::-webkit-scrollbar { display: none; }
+  /* Each card: fixed width so exactly one card shows at a time */
   .pricing-grid--swipeable > * {
-    flex: 0 0 78%;
-    min-width: 280px;
-    max-width: 360px;
+    flex: 0 0 calc(85vw - 2rem) !important;
+    max-width: 340px !important;
+    min-width: 240px !important;
+    width: calc(85vw - 2rem) !important;
+    /* start alignment — Sapphire snaps to left edge at scroll=0 */
     scroll-snap-align: start;
+    box-sizing: border-box;
+  }
+  /* Disable scale transform inside swipeable to avoid flex layout distortion */
+  .pricing-grid--swipeable .pricing-card--featured {
+    transform: none !important;
   }
   /* Reduce price font on smaller screens so ₹95,000 fits */
   .pricing-price { font-size: 2rem; }
@@ -3609,7 +3628,8 @@ body::after {
   /* Pricing price — compact on small screens so ₹95,000 never clips */
   .pricing-price { font-size: 1.75rem; line-height: 1.1; }
   .pricing-price span { font-size: 1rem !important; }
-  .pricing-card { padding: 2rem 1.5rem; overflow: hidden; }
+  /* Tighter card padding on mobile */
+  .pricing-card { padding: 1.75rem 1.25rem; }
   /* Remove expensive blur compositing on mobile cards */
   .card, .pricing-card, .jury-card,
   .card-glass, .routing-card, .step-card,

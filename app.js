@@ -551,6 +551,20 @@
     });
   }
 
+  // ===== SEGMENT FILTER BUTTONS (Awards page "View Categories" cards) =====
+  // Uses data-filter-segment attribute on <button> elements to avoid
+  // conflicts with the global anchor click interceptor.
+  document.addEventListener('click', function(e) {
+    const btn = e.target.closest('[data-filter-segment]');
+    if (!btn) return;
+    const filterName = btn.getAttribute('data-filter-segment');
+    if (window.navigateToCategoryFilter) {
+      window.navigateToCategoryFilter(filterName, null);
+    }
+  });
+
+
+
   // ===== NOMINATE NOW → CATEGORIES FLOW =====
   const TIER_LABELS = {
     sapphire: 'Sapphire Package',

@@ -1478,7 +1478,7 @@
                 </p>
               </div>
               <div>
-                <a href="#categories" onclick="return window.navigateToCategoryFilter('practitioner', event)" class="btn btn-primary" style="width: 100%; justify-content: center;">View Categories →</a>
+                <button type="button" class="btn btn-primary" data-filter-segment="practitioner" style="width: 100%; justify-content: center;">View Categories →</button>
               </div>
             </div>
 
@@ -1497,7 +1497,7 @@
                 </p>
               </div>
               <div>
-                <a href="#categories" onclick="return window.navigateToCategoryFilter('business', event)" class="btn btn-primary" style="width: 100%; justify-content: center;">View Categories →</a>
+                <button type="button" class="btn btn-primary" data-filter-segment="business" style="width: 100%; justify-content: center;">View Categories →</button>
               </div>
             </div>
 
@@ -1516,7 +1516,7 @@
                 </p>
               </div>
               <div>
-                <a href="#categories" onclick="return window.navigateToCategoryFilter('education', event)" class="btn btn-primary" style="width: 100%; justify-content: center;">View Categories →</a>
+                <button type="button" class="btn btn-primary" data-filter-segment="education" style="width: 100%; justify-content: center;">View Categories →</button>
               </div>
             </div>
 
@@ -1535,16 +1535,14 @@
                 </p>
               </div>
               <div>
-                <a href="#categories" onclick="return window.navigateToCategoryFilter('media', event)" class="btn btn-primary" style="width: 100%; justify-content: center;">View Categories →</a>
+                <button type="button" class="btn btn-primary" data-filter-segment="media" style="width: 100%; justify-content: center;">View Categories →</button>
               </div>
             </div>
           </div>
 
           <!-- View All Categories Button below all 4 segment cards -->
           <div style="text-align: center;" class="reveal">
-            <a href="#categories" onclick="return window.navigateToCategoryFilter('all', event)" class="btn btn-secondary btn-lg" style="border-radius: var(--radius-full); padding: 0.75rem 2rem;">
-              View All Categories →
-            </a>
+            <button type="button" class="btn btn-secondary btn-lg" data-filter-segment="all" style="border-radius: var(--radius-full); padding: 0.75rem 2rem;">View All Categories →</button>
           </div>
         </div>
       </div>
