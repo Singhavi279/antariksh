@@ -192,14 +192,14 @@
   const pageMeta = {
     home: {
       title: "Astro+ महासंगम | Conclave, Awards & Expo 2026 | NBT Astro",
-      desc: "India's premier forum for Vedic Sciences, Astrology & Conscious Living. Join 30+ Award Categories, Conclave, Consultation Zone, Expo & Gurukulam - September 2026, Delhi NCR."
+      desc: "India's premier forum for Vedic Sciences, Astrology & Conscious Living. Join 27 Award Categories, Conclave, Consultation Zone, Expo & Gurukulam - September 2026, Delhi NCR."
     },
     conclave: {
       title: "Conclave Sessions & Speakers | Astro+ महासंगम 2026 | NBT Astro",
       desc: "For the first time, India's best Astrologers, Vastu experts, Tarot readers, Numerologists and Palmists on one credible stage, panels, live sessions and keynotes on the questions that matter most."
     },
     awards: {
-      title: "30+ Vedic Science Awards & Categories | Astro+ महासंगम 2026 | NBT Astro",
+      title: "27 Vedic Science Awards & Categories | Astro+ महासंगम 2026 | NBT Astro",
       desc: "India's only transparent, jury-evaluated awards for practitioners of mystic sciences, audited and led by a globally recognised Knowledge and Process partner."
     },
     consultation: {
@@ -212,7 +212,7 @@
     },
     categories: {
       title: "All Award Categories | Astro+ महासंगम 2026 | NBT Astro",
-      desc: "Explore all 30 transparent, jury-evaluated award categories across 5+ mystic sciences."
+      desc: "Explore all 27 transparent, jury-evaluated award categories across 4 core segments."
     }
   };
 

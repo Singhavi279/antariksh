@@ -1083,7 +1083,7 @@ body.lite-mode .hero-wheel-breathe { animation: none; }
 }
 
 .nav-main-logo-img {
-  height: 40px;
+  height: 52px;
   width: auto;
   object-fit: contain;
   display: block;
@@ -1098,7 +1098,7 @@ body.lite-mode .hero-wheel-breathe { animation: none; }
 
 @media (max-width: 768px) {
   .nav-main-logo-img {
-    height: 32px;
+    height: 42px;
   }
 }
 
@@ -4552,4 +4552,39 @@ html, body {
   border-radius: var(--radius-full);
   font-weight: 700;
   box-shadow: 0 2px 8px rgba(212, 175, 55, 0.35);
+}
+
+/* ============================================================
+   PERFORMANCE & MOBILE UX OPTIMIZATIONS (LCP / FCP / REDUCED MOTION)
+   ============================================================ */
+
+/* Content visibility rendering optimization for off-screen pages */
+.page:not(.active) {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 1000px;
+}
+
+/* Reduced animation cost on mobile & low-bandwidth clients */
+@media (max-width: 768px) {
+  .nav-logo-plus-glow,
+  .hero-logo-plus-glow,
+  .gold-shimmer {
+    animation: none !important;
+  }
+
+  /* Optimize touch target height on mobile for all buttons */
+  .btn, button, .nav-link, .dock-item {
+    min-height: 44px;
+    touch-action: manipulation;
+  }
+}
+
+/* Honor accessibility & reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

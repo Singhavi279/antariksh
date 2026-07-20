@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Astro+ महासंगम | Conclave, Awards &amp; Expo 2026 | NBT Astro</title>
   <meta name="description"
-    content="India's premier forum for Vedic Sciences, Astrology &amp; Conscious Living. Join 30+ Award Categories, Conclave, Consultation Zone, Expo &amp; Gurukulam - September 2026, Delhi NCR. Presented by Times Internet.">
+    content="India's premier forum for Vedic Sciences, Astrology &amp; Conscious Living. Join 27 Award Categories, Conclave, Consultation Zone, Expo &amp; Gurukulam - September 2026, Delhi NCR. Presented by Times Internet.">
   <meta name="keywords"
     content="Astro+ महासंगम, Astrology, Vedic Sciences, NBT Astro, Times Internet, Conclave, Awards, Expo, Consultation Zone, Gurukulam, Delhi NCR, Jyotish, Vastu, Tarot, Palmistry">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
@@ -23,7 +23,7 @@
   <meta property="og:url" content="https://timeslanguages.in/astro-mahasangam/">
   <meta property="og:title" content="Astro+ महासंगम | Conclave, Awards &amp; Expo 2026 | NBT Astro">
   <meta property="og:description"
-    content="India's premier forum for Vedic Sciences, Astrology &amp; Conscious Living. Explore 30+ Award Categories, Conclave, Consultation Zone, Expo &amp; Gurukulam - September 2026, Delhi NCR.">
+    content="India's premier forum for Vedic Sciences, Astrology &amp; Conscious Living. Explore 27 Award Categories, Conclave, Consultation Zone, Expo &amp; Gurukulam - September 2026, Delhi NCR.">
   <meta property="og:image" content="https://timeslanguages.in/astro-mahasangam/assets/hero-bg.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -37,7 +37,7 @@
   <meta name="twitter:url" content="https://timeslanguages.in/astro-mahasangam/">
   <meta name="twitter:title" content="Astro+ महासंगम | Conclave, Awards &amp; Expo 2026 | NBT Astro">
   <meta name="twitter:description"
-    content="India's premier forum for Vedic Sciences, Astrology &amp; Conscious Living. Explore 30+ Award Categories, Conclave, Consultation Zone, Expo &amp; Gurukulam - September 2026, Delhi NCR.">
+    content="India's premier forum for Vedic Sciences, Astrology &amp; Conscious Living. Explore 27 Award Categories, Conclave, Consultation Zone, Expo &amp; Gurukulam - September 2026, Delhi NCR.">
   <meta name="twitter:image" content="https://timeslanguages.in/astro-mahasangam/assets/hero-bg.jpg">
   <meta name="twitter:image:alt" content="Astro+ Mahasangam 2026 Vedic Sciences Conclave &amp; Awards">
   <meta name="twitter:site" content="@NBTAstro">
@@ -52,7 +52,7 @@
         "@type": "Event",
         "@id": "https://timeslanguages.in/astro-mahasangam/#event",
         "name": "Astro+ महासंगम | Conclave, Awards & Expo 2026",
-        "description": "India's premier forum for Vedic Sciences, Astrology & Conscious Living. Featuring Conclave sessions, 30+ Award Categories, Consultation Zone, Expo, and Gurukulam.",
+        "description": "India's premier forum for Vedic Sciences, Astrology & Conscious Living. Featuring Conclave sessions, 27 Award Categories, Consultation Zone, Expo, and Gurukulam.",
         "startDate": "2026-09-15T09:00:00+05:30",
         "endDate": "2026-09-17T18:00:00+05:30",
         "eventStatus": "https://schema.org/EventScheduled",
@@ -171,7 +171,7 @@
             "name": "What is the Awards programme about?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "India's first jury-led recognition programme for the Vedic sciences, 30 categories, open to individuals and organisations. Paid nomination does not guarantee shortlisting or award."
+              "text": "India's first jury-led recognition programme for the Vedic sciences, 27 categories, open to individuals and organisations. Paid nomination does not guarantee shortlisting or award."
             }
           },
           {
@@ -214,6 +214,10 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Preload Critical LCP Assets -->
+  <link rel="preload" href="assets/main-logo.png" as="image" fetchpriority="high">
+  <link rel="preload" href="assets/mobile-astro.webp" as="image" media="(max-width: 767px)" fetchpriority="high">
+  <link rel="preload" href="assets/web-astro.webp" as="image" media="(min-width: 768px)" fetchpriority="high">
   <!-- Non-render-blocking font load: page renders in system fonts, custom fonts swap in -->
   <link rel="preload" as="style"
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap"
@@ -630,7 +634,7 @@
           <picture class="hero-bg-media">
             <source media="(max-width: 767px)" srcset="assets/mobile-astro.webp">
             <img src="assets/web-astro.webp" alt="Astro+ Mahasangam Cosmic Background" class="hero-bg-img" width="1920"
-              height="1080" loading="eager" decoding="async">
+              height="1080" loading="eager" fetchpriority="high" decoding="async">
           </picture>
           <div class="hero-bg-overlay"></div>
           <div class="hero-nebula"></div>
@@ -646,7 +650,7 @@
           <span class="hero-lockup-label">Presents</span>
           <h1 class="hero-title hero-main-logo-wrap">
             <img src="assets/main-logo.png" alt="Astro+ महासंगम Conclave, Awards & Expo 2026" class="hero-main-logo-img"
-              width="1442" height="975" loading="eager" decoding="async">
+              width="1442" height="975" loading="eager" fetchpriority="high" decoding="async">
             <span class="hero-logo-plus-glow" aria-hidden="true"></span>
           </h1>
           <div class="hero-lockup hero-lockup--initiative reveal" data-reveal="fade-up"
@@ -747,7 +751,7 @@
               <div class="stat-label">Veterans, Gurus, Experts &amp; Consultants</div>
             </div>
             <div class="stat-item">
-              <div class="stat-number" data-count="30">30</div>
+              <div class="stat-number" data-count="27">27</div>
               <div class="stat-label">Award Categories</div>
             </div>
             <div class="stat-item">
@@ -778,36 +782,6 @@
               style="font-family: var(--font-heading); color: var(--gold-light); font-size: 1.35rem; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.5rem;">
               Speakers &amp; Dignitaries</h3>
             <p style="color: var(--white-dim); font-size: 0.95rem; margin: 0; font-weight: 500;">To Be Announced</p>
-          </div>
-
-          <!-- Hidden for now: Uncomment when confirmed
-          <div class="chief-guests-container reveal">
-            <div class="chief-guest-card">
-              <div class="cg-badge">Chief Guest</div>
-              <div class="cg-avatar">GS</div>
-              <h3 class="cg-name">Shri Gajendra Singh Shekhawat</h3>
-              <p class="cg-title">The Union Minister of Culture and Tourism of India</p>
-              <div class="cg-deco">
-                <span></span>
-                <svg class="icon">
-                  <use href="#i-star" />
-                </svg>
-                <span></span>
-              </div>
-            </div>
-            <div class="chief-guest-card">
-              <div class="cg-badge">Chief Guest</div>
-              <div class="cg-avatar">RG</div>
-              <h3 class="cg-name">Smt. Rekha Gupta</h3>
-              <p class="cg-title">Chief Minister of Delhi</p>
-              <div class="cg-deco">
-                <span></span>
-                <svg class="icon">
-                  <use href="#i-star" />
-                </svg>
-                <span></span>
-              </div>
-            </div>
           </div>
 
           <div class="grid grid-4">
@@ -1347,7 +1321,7 @@
                 <span class="faq-icon">+</span>
               </button>
               <div class="faq-answer">
-                <p>India's first jury-led recognition programme for the Vedic sciences, 30 categories, open to
+                <p>India's first jury-led recognition programme for the Vedic sciences, 27 categories, open to
                   individuals and organisations. Paid nomination does not guarantee shortlisting or award.</p>
               </div>
             </div>
@@ -1771,7 +1745,7 @@
           <div class="page-meta">
             <span style="color: var(--gold-light); font-weight: 600; text-shadow: 0 0 8px rgba(212,175,55,0.35);">5+
               Mystic Sciences</span><span class="dot"></span>
-            <span style="color: var(--gold-light); font-weight: 600; text-shadow: 0 0 8px rgba(212,175,55,0.35);">30
+            <span style="color: var(--gold-light); font-weight: 600; text-shadow: 0 0 8px rgba(212,175,55,0.35);">27
               Award Categories</span>
           </div>
         </div>
@@ -2336,21 +2310,19 @@
               <div class="card-icon"><svg class="icon" aria-hidden="true">
                   <use href="#i-book" />
                 </svg></div>
-              <h4>Publishers & Spiritual Content</h4>
+              <h4>Publishers &amp; Spiritual Content</h4>
               <p>Books and devotional content for a deeply engaged readership.</p>
             </div>
             <div class="card reveal">
               <div class="card-icon"><svg class="icon" aria-hidden="true">
                   <use href="#i-pin" />
                 </svg></div>
-              <h4>Pilgrimage & Spiritual Tourism</h4>
+              <h4>Pilgrimage &amp; Spiritual Tourism</h4>
               <p>Tourism boards and retreat operators reaching motivated travellers.</p>
             </div>
           </div>
         </div>
       </div>
-
-
 
       <!-- Stall Booking -->
       <div class="section section--darker">
@@ -2452,7 +2424,7 @@
                       <div class="category-accordion-title-wrap">
                         <div class="category-check-icon"><svg class="icon" aria-hidden="true" style="width: 14px; height: 14px;"><use href="#i-star" /></svg></div>
                         <div class="category-heading-block">
-                          <h3 class="category-devanagari-title">उदीयमान ज्योतिष</h3>
+                          <h3 class="category-devanagari-title">उदयमान ज्योतिष</h3>
                           <p class="category-english-title">Excellence in Emerging Astrology Practice</p>
                         </div>
                       </div>
@@ -2521,7 +2493,7 @@
                       <div class="category-accordion-title-wrap">
                         <div class="category-check-icon"><svg class="icon" aria-hidden="true" style="width: 14px; height: 14px;"><use href="#i-cards" /></svg></div>
                         <div class="category-heading-block">
-                          <h3 class="category-devanagari-title">उदीयमान टैरो मार्गदर्शक</h3>
+                          <h3 class="category-devanagari-title">उदयमान टैरो मार्गदर्शक</h3>
                           <p class="category-english-title">Excellence in Emerging Tarot Reading</p>
                         </div>
                       </div>
@@ -2590,7 +2562,7 @@
                       <div class="category-accordion-title-wrap">
                         <div class="category-check-icon"><svg class="icon" aria-hidden="true" style="width: 14px; height: 14px;"><use href="#i-cards" /></svg></div>
                         <div class="category-heading-block">
-                          <h3 class="category-devanagari-title">उदीयमान न्यूमरोलॉजिस्ट</h3>
+                          <h3 class="category-devanagari-title">उदयमान न्यूमरोलॉजिस्ट</h3>
                           <p class="category-english-title">Excellence in Emerging Numerology Practice</p>
                         </div>
                       </div>
@@ -2613,7 +2585,7 @@
                       <div class="category-accordion-title-wrap">
                         <div class="category-check-icon"><svg class="icon" aria-hidden="true" style="width: 14px; height: 14px;"><use href="#i-cards" /></svg></div>
                         <div class="category-heading-block">
-                          <h3 class="category-devanagari-title">न्यूमरो रत्न</h3>
+                          <h3 class="category-devanagari-title">न्यूमरोलॉजी रत्न</h3>
                           <p class="category-english-title">Excellence in Numerology Practice</p>
                         </div>
                       </div>
@@ -2636,7 +2608,7 @@
                       <div class="category-accordion-title-wrap">
                         <div class="category-check-icon"><svg class="icon" aria-hidden="true" style="width: 14px; height: 14px;"><use href="#i-cards" /></svg></div>
                         <div class="category-heading-block">
-                          <h3 class="category-devanagari-title">न्यूमरो शिरोमणि</h3>
+                          <h3 class="category-devanagari-title">न्यूमरोलॉजी शिरोमणि</h3>
                           <p class="category-english-title">Excellence in Numerology Pioneering Contribution</p>
                         </div>
                       </div>
@@ -2659,7 +2631,7 @@
                       <div class="category-accordion-title-wrap">
                         <div class="category-check-icon"><svg class="icon" aria-hidden="true" style="width: 14px; height: 14px;"><use href="#i-compass" /></svg></div>
                         <div class="category-heading-block">
-                          <h3 class="category-devanagari-title">उदीयमान वास्तुविद</h3>
+                          <h3 class="category-devanagari-title">उदयमान वस्तुविद</h3>
                           <p class="category-english-title">Excellence in Emerging Vastu Consulting</p>
                         </div>
                       </div>
@@ -2728,7 +2700,7 @@
                       <div class="category-accordion-title-wrap">
                         <div class="category-check-icon"><svg class="icon" aria-hidden="true" style="width: 14px; height: 14px;"><use href="#i-lotus" /></svg></div>
                         <div class="category-heading-block">
-                          <h3 class="category-devanagari-title">उदीयमान हस्तरेखा एवं फेस रीडिंग एक्सपर्ट</h3>
+                          <h3 class="category-devanagari-title">उदयमान पाम एवं फेस रीडिंग विशेषज्ञ</h3>
                           <p class="category-english-title">Excellence in Emerging Face Reading &amp; Palmistry</p>
                         </div>
                       </div>
@@ -2751,7 +2723,7 @@
                       <div class="category-accordion-title-wrap">
                         <div class="category-check-icon"><svg class="icon" aria-hidden="true" style="width: 14px; height: 14px;"><use href="#i-lotus" /></svg></div>
                         <div class="category-heading-block">
-                          <h3 class="category-devanagari-title">फेस रीडिंग एवं हस्तरेखा रत्न</h3>
+                          <h3 class="category-devanagari-title">फेस एंड पाम रीडिंग रत्न</h3>
                           <p class="category-english-title">Excellence in Face Reading &amp; Palmistry</p>
                         </div>
                       </div>
@@ -2774,7 +2746,7 @@
                       <div class="category-accordion-title-wrap">
                         <div class="category-check-icon"><svg class="icon" aria-hidden="true" style="width: 14px; height: 14px;"><use href="#i-lotus" /></svg></div>
                         <div class="category-heading-block">
-                          <h3 class="category-devanagari-title">फेस रीडिंग एवं हस्तरेखा शिरोमणि</h3>
+                          <h3 class="category-devanagari-title">फेस एंड पाम रीडिंग शिरोमणि</h3>
                           <p class="category-english-title">Excellence in Face Reading &amp; Palmistry Pioneering Contribution</p>
                         </div>
                       </div>
@@ -2974,7 +2946,7 @@
                       <div class="category-accordion-title-wrap">
                         <div class="category-check-icon"><svg class="icon" aria-hidden="true" style="width: 14px; height: 14px;"><use href="#i-gem" /></svg></div>
                         <div class="category-heading-block">
-                          <h3 class="category-devanagari-title">उत्कृष्ट ज्योतिष समाधान बाजार</h3>
+                          <h3 class="category-devanagari-title">उत्कृष्ट ज्योतिष समाधान मार्केटप्लेस</h3>
                           <p class="category-english-title">Excellence in Astro Remedies Marketplace</p>
                         </div>
                       </div>
@@ -3013,7 +2985,7 @@
                       <div class="category-accordion-title-wrap">
                         <div class="category-check-icon"><svg class="icon" aria-hidden="true" style="width: 14px; height: 14px;"><use href="#i-cap" /></svg></div>
                         <div class="category-heading-block">
-                          <h3 class="category-devanagari-title">ज्योतिष विद्या शिरोमणि</h3>
+                          <h3 class="category-devanagari-title">ज्योतिष विद्या-विज्ञान शिरोमणि</h3>
                           <p class="category-english-title">Excellence in Astro Sciences Education &amp; Research</p>
                         </div>
                       </div>
@@ -3098,7 +3070,7 @@
                       <div class="category-accordion-title-wrap">
                         <div class="category-check-icon"><svg class="icon" aria-hidden="true" style="width: 14px; height: 14px;"><use href="#i-megaphone" /></svg></div>
                         <div class="category-heading-block">
-                          <h3 class="category-devanagari-title">ज्योतिष लोक संचार शिरोमणि</h3>
+                          <h3 class="category-devanagari-title">ज्योतिष लोक प्रभाव शिरोमणि</h3>
                           <p class="category-english-title">Excellence in Astrology Media &amp; Public Influence</p>
                         </div>
                       </div>
